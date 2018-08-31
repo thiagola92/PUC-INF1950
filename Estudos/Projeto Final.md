@@ -1,18 +1,21 @@
 # Projeto Final
 Nosso trabalho é basicamente divído em 3 partes:
-* Interagir com interface para o usuário
-* Garantir integridade, autenticidade e sigilo dos arquivos
-* Interagir com o serviço de armazenamento
+* Interagir com interface para o usuário (**interface**)
+* Garantir integridade, autenticidade e sigilo dos arquivos (**engine**)
+* Interagir com o serviço de armazenamento (**plugin**)
 
 Durante esse **README**, eu vou narrar as etapas considerando a situação:  
 * Usuário quer sempre os arquivos com ele sem estarem criptografados
 * Núvem vai sempre receber os arquivos criptografados
 
-Dentro do software irei tentar considerar outras opções se fizerem sentido, como:  
+Dentro da engine irei tentar considerar outras opções se fizerem sentido, como:  
 'usuário quer receber os arquivos criptografados'  
 'usuário quer deixar os arquivos não criptografados na núvem'
 
-# Recebendo os arquivos do usuário
+# Engine
+Toda parte do software responsável por garantir integridade, autenticidade e sigilo dos arquivos, além de interegir com a interface e os plugins.  
+
+Considere que você está recebendo os arquivos do usuário...
 
 ## Integridade
 Primeira coisa a ser feita é garantir *integridade* desses arquivos de agora em diante, para isso calculamos o **digest** deles e salvamos eles.  
@@ -66,3 +69,31 @@ Esse algoritmo vai gerar um valor pseudoaleatório que utilizaremos para produzi
 * Calcula o digest
 * Confere se o digest foi alterado
 * Envia para o usuário
+
+# Plugin
+Chamamos a parte do software que é responsável por interagir com o serviço de armazenamento de **plugin (plug-in)**.
+
+A engine garante integridade, autenticidade e sigilo mas tem que funcionar independete de qual for o plug-in que vai utilizar.  
+Para isso acontecer cada opção de plugin tem que ser acessado da mesma maneira, utlizando as mesmas chamadas.  
+
+Após a engine cuidar da segurança ela chamará um plugin escolhido para armazenar os dados, como todos plugins tem a mesma chamadas, o software não precisa tratar cada plugin diferente.  
+
+## Default
+O plugin default vai ser armazenamento local, na própria maquina.  
+Sendo ele o mais simples de todos, vamos primeiro tratar as interações básicas que plugins precisam ter.  
+
+Operações básicas com **pastas**:  
+* **Create folder**
+* **List folder**
+  * Você passa para o plugin a pasta que deseja saber o conteudo que tem dentro e o plugin retorna uma lista dizendo arquivos e pastas nela.  
+* **Delete folder**
+
+Operações básicas com **arquivos**:
+* **Create file**
+* **Read file**
+  * Você passa para o plugin o arquivo que você deseja ler e ele retorna o conteudo do arquivo.  
+* **Write file**
+  * Você passa para o plugin o arquivo em qual você quer escrever e ele escreve nesse arquivo.
+  * **Delete file**
+
+# Interface
