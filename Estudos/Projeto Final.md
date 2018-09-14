@@ -40,7 +40,8 @@ Criptografando com a **chave pública** do usuário, dessa maneira apenas quem t
 * Recebe arquivo do usuário  
 * Calcula digest  
 * Criptografa digest com chave privada == assinatura digital  
-* Criptografa o arquivo com chave secreta == arquivo cifrado  
+* Concatena o arquivo com a assinatura digital == arquivo assinado
+* Criptografa o arquivo assinado com chave secreta == arquivo cifrado  
 * Criptografa a chave secreta com a chave pública == envelope digital  
 * ?Bota na núvem **arquivo cifrado** + **assinatura digital** + **envelope digital**?  
 
@@ -65,9 +66,10 @@ Esse algoritmo vai gerar um valor pseudoaleatório que utilizaremos para produzi
 * Recebe a chave privada do usuário
 * Decripta a chave secreta com a chave privada
 * Decripta o arquivo com a chave secreta
-* Decripta o digest com a chave pública
-* Calcula o digest
-* Confere se o digest foi alterado
+* Divide o arquivo e assinatura digital (digest cifrado)
+* Decripta a assinatura digital com a chave pública == obtem digest
+* Calcula o digest do arquivo
+* Confere se o digest do arquivo é igual ao digest da assinatura digital
 * Envia para o usuário
 
 # Plugin
@@ -97,5 +99,11 @@ Operações básicas com **arquivos**:
   * **Delete file**
 
 # Interface
+A **interface** é a parte responsável por interagir com o usuário e fazer requesições a nossa engine. A idéia é podermos fazer a interface ser Android/Iphone/Computador... O que importa é conseguir passar os mesmos tipos de pedidos para a engine.  
 
-11:41
+A princípio a interface inicial é apenas o console, dessa maneira conseguimos testar a engine de forma correta.  
+
+# Softwares com a mesma idéia
+https://www.boxcryptor.com/en/  
+https://cryptomator.org/  
+
