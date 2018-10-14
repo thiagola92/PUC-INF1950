@@ -43,7 +43,7 @@ Criptografando com a **chave pública** do usuário, dessa maneira apenas quem t
 * Concatena o arquivo com a assinatura digital == arquivo assinado
 * Criptografa o arquivo assinado com chave secreta == arquivo cifrado  
 * Criptografa a chave secreta com a chave pública == envelope digital  
-* ?Bota na núvem **arquivo cifrado** + **assinatura digital** + **envelope digital**?  
+* Bota na núvem **arquivo cifrado** + **assinatura digital** + **envelope digital** == Container  
 
 # Enviando os arquivos para o usuário
 Antes de enviar os arquivos para o usuário, você precisa tirar toda a criptografia que foi botada neles.  
@@ -71,6 +71,15 @@ Esse algoritmo vai gerar um valor pseudoaleatório que utilizaremos para produzi
 * Calcula o digest do arquivo
 * Confere se o digest do arquivo é igual ao digest da assinatura digital
 * Envia para o usuário
+
+# Organização arquivos
+Os arquivos criptografados também teram nomes alterados, nomes código para não poderem ser identificados apenas olhando eles.  
+`fotoThiago` => `dejxnuqbsaaostrwelplzxcvmn`  
+
+Como iremos encontrar o arquivo que queremos dessa maneira?  
+Teremos um **arquivo de indice**, ou seja, um arquivo que possui que mapeia esses nomes códigos para o nome real.  
+O arquivo de indice também recebe o tratamento de criptografia, ou seja, também é um container (arquivo cifrado + assinatura digital + envelope digital)  
+
 
 # Plugin
 Chamamos a parte do software que é responsável por interagir com o serviço de armazenamento de **plugin (plug-in)**.
@@ -106,4 +115,3 @@ A princípio a interface inicial é apenas o console, dessa maneira conseguimos 
 # Softwares com a mesma idéia
 https://www.boxcryptor.com/en/  
 https://cryptomator.org/  
-

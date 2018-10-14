@@ -50,7 +50,7 @@ public class ListFilesExample {
 		Files filesRequest = drive.files();
 		List listRequest = filesRequest.list();
 		listRequest = listRequest.setPageSize(10);
-		listRequest = listRequest.setFields("nextPageToken, files(id, name)");
+		listRequest = listRequest.setFields("nextPageToken, files(id, name, size)");
 		FileList fileList = listRequest.execute();
 		
 		System.out.println(">> List of Files");
@@ -62,7 +62,7 @@ public class ListFilesExample {
 		} else {
 			System.out.println(">> Files:");
 			for(File file : files) 
-				System.out.printf("%s (%s)\n", file.getName(), file.getId());
+				System.out.printf("%s (%s) (%s)\n", file.getName(), file.getId(), file.getSize());
 		}
 		
 		System.out.println(">> Finishing");
@@ -71,7 +71,7 @@ public class ListFilesExample {
 	private static Credential getCredentials(NetHttpTransport HTTP_TRANSPORT) throws Exception {
 		
 		System.out.println(">> Loading Client Secrets");
-		InputStream in = ListFilesExample.class.getResourceAsStream("./credentials.json"); // Busca no mesmo local do UploadExample.class
+		InputStream in = ListFilesExample.class.getResourceAsStream("credentials.json"); // Busca no mesmo local do UploadExample.class
 		InputStreamReader inReader = new InputStreamReader(in);
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, inReader);
 

@@ -86,7 +86,7 @@ public class DownloadExample {
 	private static Credential getCredentials(NetHttpTransport HTTP_TRANSPORT) throws Exception {
 		
 		System.out.println(">> Loading Client Secrets");
-		InputStream in = DownloadExample.class.getResourceAsStream("./credentials.json"); // Busca no mesmo local do UploadExample.class
+		InputStream in = DownloadExample.class.getResourceAsStream("credentials.json"); // Busca no mesmo local do UploadExample.class
 		InputStreamReader inReader = new InputStreamReader(in);
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, inReader);
 

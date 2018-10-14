@@ -50,7 +50,7 @@ public class UploadExample {
 		System.out.println(">> Selecting File");
 		File fileMetadata = new File();
 		fileMetadata.setName("test");
-		java.io.File filePath = new java.io.File("./test"); // Busca na pasta UploadExample
+		java.io.File filePath = new java.io.File("test"); // Busca na pasta UploadExample
 		FileContent fileContent = new FileContent(null, filePath);
 		
 		System.out.println(">> Uploading File");
@@ -66,7 +66,7 @@ public class UploadExample {
 	private static Credential getCredentials(NetHttpTransport HTTP_TRANSPORT) throws Exception {
 		
 		System.out.println(">> Loading Client Secrets");
-		InputStream in = UploadExample.class.getResourceAsStream("./credentials.json"); // Busca no mesmo local do UploadExample.class
+		InputStream in = UploadExample.class.getResourceAsStream("credentials.json"); // Busca no mesmo local do UploadExample.class
 		InputStreamReader inReader = new InputStreamReader(in);
 		GoogleClientSecrets clientSecrets = GoogleClientSecrets.load(JSON_FACTORY, inReader);
 
