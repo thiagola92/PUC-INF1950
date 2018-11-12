@@ -37,13 +37,8 @@ Como que você protege essa chave secreta?
 Criptografando com a **chave pública** do usuário, dessa maneira apenas quem tem a chave privada consegue ler (apenas você).  
 
 ## Resumo
-* Recebe arquivo do usuário  
-* Calcula digest  
-* Criptografa digest com chave privada == assinatura digital  
-* Concatena o arquivo com a assinatura digital == arquivo assinado
-* Criptografa o arquivo assinado com chave secreta == arquivo cifrado  
-* Criptografa a chave secreta com a chave pública == envelope digital  
-* Bota na núvem **arquivo cifrado** + **assinatura digital** + **envelope digital** == Container  
+![](mensagemXdrive.jpg)  
+A idéia dessa imagem é mostrar a diferença entre troca de mensagens seguras entre duas pessoas e o que iremos fazer.  
 
 # Enviando os arquivos para o usuário
 Antes de enviar os arquivos para o usuário, você precisa tirar toda a criptografia que foi botada neles.  
@@ -62,23 +57,75 @@ Por exemplo, nos pedimos para o usuário por uma "frase secreta".
 Essa frase secreta, além de autenticar o usuário, vai ser usada como semente para um algoritmo pseudorandom.  
 Esse algoritmo vai gerar um valor pseudoaleatório que utilizaremos para produzir a chave privada que decripta a chave secreta.  
 
-## Resumo
-* Recebe a chave privada do usuário
-* Decripta a chave secreta com a chave privada
-* Decripta o arquivo com a chave secreta
-* Divide o arquivo e assinatura digital (digest cifrado)
-* Decripta a assinatura digital com a chave pública == obtem digest
-* Calcula o digest do arquivo
-* Confere se o digest do arquivo é igual ao digest da assinatura digital
-* Envia para o usuário
-
 # Organização arquivos
 Os arquivos criptografados também teram nomes alterados, nomes código para não poderem ser identificados apenas olhando eles.  
-`fotoThiago` => `dejxnuqbsaaostrwelplzxcvmn`  
+`fotoThiago` => `poiewqytrh`  
 
-Como iremos encontrar o arquivo que queremos dessa maneira?  
-Teremos um **arquivo de indice**, ou seja, um arquivo que possui que mapeia esses nomes códigos para o nome real.  
+**Como iremos encontrar o arquivo que queremos dessa maneira?**  
+Teremos um **arquivo de indice** dentro de cada pasta que mapeia esses nomes códigos para o nome real.  
+
+```
+asdzxcqwer agenda.xls
+bnmhjkyuik diario.txt
+dfgertcvbg ferias.jpg
+```
+
 O arquivo de indice também recebe o tratamento de criptografia, ou seja, também é um container (arquivo cifrado + assinatura digital + envelope digital)  
+
+
+#### Visão pelo Google Drive  
+* Google Drive
+  * \
+    * [Folder A]
+      * {File AA}
+      * {File AB}
+      * {File AC}
+      * ...
+    * [Folder B]
+    * [Folder C]
+    * ...
+    * {File A}
+    * {File B}
+    * {File C}
+    * ...
+    * [SecureFolderRoot]
+      * {SecureFolderRootIndex}
+      * [ABCD000000]
+        * {thnrgbefvg}
+        * {asdzxcqwer}
+        * {bnmhjkyuik}
+        * {dfgertcvbg}
+        * ...
+      * [HHYYXX0000]
+      * [TYUASDERTM]
+      * ...
+
+#### Visão pelo Aplicativo  
+* Google Drive
+  * \
+    * [Folder A]
+      * {File AA}
+      * {File AB}
+      * {File AC}
+      * ...
+    * [Folder B]
+    * [Folder C]
+    * ...
+    * {File A}
+    * {File B}
+    * {File C}
+    * ...
+    * [SecureFolderRoot]
+      * {SecureFolderRootIndex}
+      * [SecureFolder0000]
+        * {SecureIndex}
+        * {agenda.xls}
+        * {diario.txt}
+        * {ferias.jpg}
+        * ...
+      * [SecureFolder0001]
+      * [SecureFolder0002]
+      * ...
 
 
 # Plugin
