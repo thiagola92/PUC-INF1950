@@ -19,8 +19,10 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.Drive.Files;
 import com.google.api.services.drive.Drive.Files.Create;
+import com.google.api.services.drive.Drive.Files.Delete;
 import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.Drive.Files.List;
+import com.google.api.services.drive.Drive.Files.Update;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
@@ -170,7 +172,7 @@ public class GoogleDrivePlugin implements Plugin {
 		
 		String baseQuery = "trashed = false"
 						+ " and parents = '%s'"; // Should i use " and '%s' in parents" ?
-		String query = String.format(baseQuery, folderID, folderName);
+		String query = String.format(baseQuery, folderID);
 		
 		Files driveFiles = drive.files();
 		List listRequest = driveFiles.list();
@@ -179,10 +181,10 @@ public class GoogleDrivePlugin implements Plugin {
 		listRequest.setFields("files(id, name, parents)");
 
 		FileList fileList = listRequest.execute();
-		ArrayList<File> fileArray = (ArrayList<File>) fileList.getFiles();
+		ArrayList<File> fileMetadataList = (ArrayList<File>) fileList.getFiles();
 		ArrayList<String> folderList = new ArrayList<String>();
 
-		fileArray.forEach((File file) -> {
+		fileMetadataList.forEach((File file) -> {
 			folderList.add(file.getName());
 			System.out.println(">> file name: " + file.getName());
 		});
@@ -192,8 +194,21 @@ public class GoogleDrivePlugin implements Plugin {
 
 	@Override
 	public void deleteFolder(String folderPath) throws Exception {
-		// TODO Auto-generated method stub
+		Path path = Paths.get(folderPath);
+		String folderName = path.getFileName().toString();
 		
+		String parentID = getParentID(folderPath);
+		if(parentID == null)
+			parentID = getRootID();
+		
+		String folderID = getFolderID(parentID, folderName);
+		
+		File fileMetadata = new File();
+		fileMetadata.setTrashed(true);
+
+		Files driveFiles = drive.files();
+		Update updateRequest = driveFiles.update(folderID, fileMetadata);
+		updateRequest.execute();
 	}
 
 	@Override
