@@ -1,5 +1,3 @@
-import java.awt.Desktop;
-import java.io.File;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,7 +30,7 @@ public class DefaultPlugin implements Plugin {
 
 	@Override
 	public void deleteFolder(String folderPath) throws Exception {
-		if("".equals(folderPath)) // isso é para eu não deletar esse projeto
+		if("".equals(folderPath)) // isso é para eu não deletar esse projeto (de novo)
 			return;
 		
 		Path path = Paths.get(folderPath);
@@ -49,7 +47,8 @@ public class DefaultPlugin implements Plugin {
 				deleteFile(filePath.toString());
 		}
 
-		Files.delete(path); // deleta permanentemente, ou seja, n move para a lixeira
+		// Deleta Permanentemente
+		Files.delete(path); 
 	}
 
 	@Override
@@ -77,7 +76,8 @@ public class DefaultPlugin implements Plugin {
 		if(Files.isDirectory(path))
 			return;
 		
-		Files.delete(path); // deleta permanentemente, ou seja, n move para a lixeira
+		// Deleta Permanentemente
+		Files.delete(path);
 	}
 
 }

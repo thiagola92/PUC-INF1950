@@ -70,16 +70,7 @@ public class GoogleDrivePlugin implements Plugin {
 		return rootID;
 	}
 	
-	private String getFolderID(String parentID, String folderName) throws Exception {
-		if(parentID == null || folderName == null)
-			return null;
-		
-		String baseQuery = "mimeType = 'application/vnd.google-apps.folder'"
-						+ " and trashed = false"
-						+ " and parents = '%s'" // Should i use " and '%s' in parents" ?
-						+ " and name = '%s'";
-		String query = String.format(baseQuery, parentID, folderName);
-		
+	private String getFirstID(String query) throws Exception {
 		Files driveFiles = drive.files();
 		List listRequest = driveFiles.list();
 		
@@ -87,13 +78,41 @@ public class GoogleDrivePlugin implements Plugin {
 		listRequest.setFields("files(id, name, parents)");
 		
 		FileList fileList = listRequest.execute();
-		ArrayList<File> fileArray = (ArrayList<File>) fileList.getFiles();
-		File firstFile = fileArray.get(0);
-		String folderID = firstFile.getId();
+		ArrayList<File> filesArray = (ArrayList<File>) fileList.getFiles();
+		File firstFile = filesArray.get(0);
+		String ID = firstFile.getId();
+		
+		return ID;
+	}
+	
+	private String getFolderID(String parentID, String folderName) throws Exception {
+		if(parentID == null || folderName == null)
+			return null;
+		
+		String baseQuery = "mimeType = 'application/vnd.google-apps.folder'"
+						+ " and trashed = false"
+						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
+						+ " and name = '%s'";
+		String query = String.format(baseQuery, parentID, folderName);
+		String folderID = getFirstID(query);
 
 		System.out.println(">> folder ID: " + folderID);
-		
 		return folderID;
+	}
+	
+	private String getFileID(String parentID, String fileName) throws Exception {
+		if(parentID == null || fileName == null)
+			return null;
+		
+		String baseQuery = "mimeType != 'application/vnd.google-apps.folder'"
+						+ " and trashed = false"
+						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
+						+ " and name = '%s'";
+		String query = String.format(baseQuery, parentID, fileName);
+		String fileID = getFirstID(query);
+
+		System.out.println(">> file ID: " + fileID);
+		return fileID;
 	}
 	
 	private ArrayList<String> getParentsID(String filePath) throws Exception {
@@ -153,8 +172,7 @@ public class GoogleDrivePlugin implements Plugin {
 		Files driveFiles = drive.files();
 		Create createRequest = driveFiles.create(folderMetadata);
 		createRequest.setFields("id, name, parents");
-		
-		File driveFile = createRequest.execute();
+		createRequest.execute();
 	}
 
 	@Override
@@ -203,12 +221,18 @@ public class GoogleDrivePlugin implements Plugin {
 		
 		String folderID = getFolderID(parentID, folderName);
 		
+		// Movendo para lixeira
 		File fileMetadata = new File();
 		fileMetadata.setTrashed(true);
 
 		Files driveFiles = drive.files();
 		Update updateRequest = driveFiles.update(folderID, fileMetadata);
 		updateRequest.execute();
+		
+		// Deleta Permanentemente
+		//Files driveFiles = drive.files();
+		//Delete deleteRequest = driveFiles.delete(folderID);
+		//deleteRequest.execute();
 	}
 
 	@Override
@@ -231,7 +255,27 @@ public class GoogleDrivePlugin implements Plugin {
 
 	@Override
 	public void deleteFile(String filePath) throws Exception {
-		// TODO Auto-generated method stub
+		Path path = Paths.get(filePath);
+		String fileName = path.getFileName().toString();
+		
+		String parentID = getParentID(filePath);
+		if(parentID == null)
+			parentID = getRootID();
+		
+		String fileID = getFileID(parentID, fileName);
+		
+		// Movendo para lixeira
+		File fileMetadata = new File();
+		fileMetadata.setTrashed(true);
+
+		Files driveFiles = drive.files();
+		Update updateRequest = driveFiles.update(fileID, fileMetadata);
+		updateRequest.execute();
+		
+		// Deleta Permanentemente
+		//Files driveFiles = drive.files();
+		//Delete deleteRequest = driveFiles.delete(folderID);
+		//deleteRequest.execute();
 		
 	}
 
