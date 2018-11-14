@@ -12,6 +12,9 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow.Builder;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.AbstractInputStreamContent;
+import com.google.api.client.http.ByteArrayContent;
+import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -237,8 +240,27 @@ public class GoogleDrivePlugin implements Plugin {
 
 	@Override
 	public void createFile(String filePath, byte[] fileBytes) throws Exception {
-		// TODO Auto-generated method stub
+		Path path = Paths.get(filePath);
+		String fileName = path.getFileName().toString();
+		ArrayList<String> parent = new ArrayList<String>();
 		
+		String parentID = getParentID(filePath);
+		
+		if(parentID == null)
+			parent.add(getRootID());
+		else
+			parent.add(parentID);
+		
+		File fileMetadata = new File();
+		fileMetadata.setName(fileName);
+		fileMetadata.setParents(parent);
+		
+		Files driveFiles = drive.files();
+		ByteArrayContent fileContent = new ByteArrayContent(null, fileBytes);
+		
+		Create createRequest = driveFiles.create(fileMetadata, fileContent);
+		createRequest.setFields("id, name, parents");
+		createRequest.execute();
 	}
 
 	@Override

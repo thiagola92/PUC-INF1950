@@ -6,7 +6,7 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		System.out.println("Example");
 		googleDrive = new GoogleDrivePlugin();
-		googleDrive.deleteFolder("teste/asdf");
+		googleDrive.createFile("test/asdf", "coe".getBytes());
 	}
 
 }

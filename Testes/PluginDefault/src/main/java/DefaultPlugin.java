@@ -53,20 +53,24 @@ public class DefaultPlugin implements Plugin {
 
 	@Override
 	public void createFile(String filePath, byte[] fileBytes) throws Exception {
-		// TODO Auto-generated method stub
-		
+		Path path = Paths.get(filePath);
+		Files.createFile(path);
+		Files.write(path, fileBytes);
 	}
 
 	@Override
 	public byte[] readFile(String filePath) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Path path = Paths.get(filePath);
+		byte[] fileBytes = Files.readAllBytes(path);
+
+		return fileBytes;
 	}
 
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
-		// TODO Auto-generated method stub
-		
+		Path path = Paths.get(filePath);
+
+		Files.write(path, fileBytes);
 	}
 
 	@Override
