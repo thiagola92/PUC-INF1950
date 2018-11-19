@@ -1,3 +1,4 @@
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Path;
@@ -12,9 +13,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
 import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
 import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow.Builder;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
-import com.google.api.client.http.AbstractInputStreamContent;
 import com.google.api.client.http.ByteArrayContent;
-import com.google.api.client.http.FileContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -22,7 +21,6 @@ import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.Drive.Files;
 import com.google.api.services.drive.Drive.Files.Create;
-import com.google.api.services.drive.Drive.Files.Delete;
 import com.google.api.services.drive.Drive.Files.Get;
 import com.google.api.services.drive.Drive.Files.List;
 import com.google.api.services.drive.Drive.Files.Update;
@@ -245,11 +243,8 @@ public class GoogleDrivePlugin implements Plugin {
 		ArrayList<String> parent = new ArrayList<String>();
 		
 		String parentID = getParentID(filePath);
-		
 		if(parentID == null)
 			parent.add(getRootID());
-		else
-			parent.add(parentID);
 		
 		File fileMetadata = new File();
 		fileMetadata.setName(fileName);
@@ -265,14 +260,39 @@ public class GoogleDrivePlugin implements Plugin {
 
 	@Override
 	public byte[] readFile(String filePath) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Path path = Paths.get(filePath);
+		String fileName = path.getFileName().toString();
+		
+		String parentID = getParentID(filePath);
+		if(parentID == null)
+			parentID = getRootID();
+		
+		String fileID = getFileID(parentID, fileName);
+		Files driveFiles = drive.files();
+		ByteArrayOutputStream fileBytes =  new ByteArrayOutputStream(); 
+		
+		Get getRequest = driveFiles.get(fileID);
+		getRequest.executeMediaAndDownloadTo(fileBytes);
+		
+		return fileBytes.toByteArray();
 	}
 
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
-		// TODO Auto-generated method stub
+		Path path = Paths.get(filePath);
+		String fileName = path.getFileName().toString();
 		
+		String parentID = getParentID(filePath);
+		if(parentID == null)
+			parentID = getRootID();
+		
+		String fileID = getFileID(parentID, fileName);
+		
+		Files driveFiles = drive.files();
+		ByteArrayContent fileContent = new ByteArrayContent(null, fileBytes);
+		
+		Update updateRequest = driveFiles.update(fileID, null, fileContent);
+		updateRequest.execute();
 	}
 
 	@Override
