@@ -4,6 +4,8 @@ Nosso trabalho é basicamente divído em 3 partes:
 * Garantir integridade, autenticidade e sigilo dos arquivos (**engine**)
 * Interagir com o serviço de armazenamento (**plugin**)
 
+![Base do Projeto](BaseDoProjeto.jpg)  
+
 Durante esse **README**, eu vou narrar as etapas considerando a situação:  
 * Usuário quer sempre os arquivos com ele sem estarem criptografados
 * Núvem vai sempre receber os arquivos criptografados
@@ -152,7 +154,9 @@ Operações básicas com **arquivos**:
   * Você passa para o plugin o arquivo que você deseja ler e ele retorna o conteudo do arquivo.  
 * **Write file**
   * Você passa para o plugin o arquivo em qual você quer escrever e ele escreve nesse arquivo.
-  * **Delete file**
+* **Delete file**
+
+![Plugin](Plugin.jpg)  
 
 # Interface
 A **interface** é a parte responsável por interagir com o usuário e fazer requesições a nossa engine. A idéia é podermos fazer a interface ser Android/Iphone/Computador... O que importa é conseguir passar os mesmos tipos de pedidos para a engine.  
