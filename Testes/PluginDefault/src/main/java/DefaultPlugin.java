@@ -1,5 +1,7 @@
 import java.nio.file.DirectoryStream;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -10,7 +12,14 @@ public class DefaultPlugin implements Plugin {
 	public void createFolder(String folderPath) throws Exception {
 		Path path = Paths.get(folderPath);
 		
-		Files.createDirectory(path);
+		try {
+			Files.createDirectory(path);
+		} catch(FileAlreadyExistsException e) {
+			return;
+		} catch(NoSuchFileException e) {
+			createFolder(path.getParent().toString());
+			Files.createDirectory(path);
+		}
 	}
 
 	@Override
@@ -22,7 +31,6 @@ public class DefaultPlugin implements Plugin {
 		DirectoryStream<Path> filesStream = Files.newDirectoryStream(path);
 		filesStream.forEach((Path file) -> {
 			filesList.add(file.toString());
-			System.out.println(">> file name: " + file);
 		});
 		
 		return filesList;

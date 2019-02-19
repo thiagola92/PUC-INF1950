@@ -10,7 +10,7 @@ public class ListProvidersExample {
 		Provider[] providers = Security.getProviders();
 		for(int i = 0; i != providers.length; i++) {
 			System.out.println("Name: " + providers[i].getName() + "\t\t" + 
-								"Version: " + providers[i].getVersionStr() + "\n" + 
+								"Version: " + providers[i].getVersion() + "\n" + 
 								"Info: " + providers[i].getInfo() + "\n");
 		}
 		
