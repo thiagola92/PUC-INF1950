@@ -60,10 +60,10 @@ public class DefaultPlugin implements Plugin {
 	}
 
 	@Override
-	public void createFile(String filePath, byte[] fileBytes) throws Exception {
+	public void createFile(String filePath, byte[] fileBytes) throws Exception {		
 		Path path = Paths.get(filePath);
 		Files.createFile(path);
-		Files.write(path, fileBytes);
+		writeFile(filePath, fileBytes);
 	}
 
 	@Override
@@ -77,15 +77,16 @@ public class DefaultPlugin implements Plugin {
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
 		Path path = Paths.get(filePath);
-
-		Files.write(path, fileBytes);
+		
+		if(fileBytes != null)
+			Files.write(path, fileBytes);
 	}
 
 	@Override
 	public void deleteFile(String filePath) throws Exception {
 		Path path = Paths.get(filePath);
 		
-		if(Files.isDirectory(path))
+		if(Files.isDirectory(path) == true)
 			return;
 		
 		// Deleta Permanentemente
