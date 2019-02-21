@@ -6,7 +6,7 @@ public interface Plugin {
 	public ArrayList<String> listFolder(String folderPath) throws Exception;
 	public void deleteFolder(String folderPath) throws Exception;
 	
-	public void createFile(String filePath, byte[] fileBytes) throws Exception;
+	public void createFile(String filePath) throws Exception;
 	public byte[] readFile(String filePath) throws Exception;
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception;
 	public void deleteFile(String filePath) throws Exception;

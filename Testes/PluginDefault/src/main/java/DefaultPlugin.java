@@ -4,6 +4,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
 public class DefaultPlugin implements Plugin {
@@ -60,10 +61,9 @@ public class DefaultPlugin implements Plugin {
 	}
 
 	@Override
-	public void createFile(String filePath, byte[] fileBytes) throws Exception {		
+	public void createFile(String filePath) throws Exception {		
 		Path path = Paths.get(filePath);
 		Files.createFile(path);
-		writeFile(filePath, fileBytes);
 	}
 
 	@Override
@@ -77,9 +77,7 @@ public class DefaultPlugin implements Plugin {
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
 		Path path = Paths.get(filePath);
-		
-		if(fileBytes != null)
-			Files.write(path, fileBytes);
+		Files.write(path, fileBytes, StandardOpenOption.APPEND);
 	}
 
 	@Override

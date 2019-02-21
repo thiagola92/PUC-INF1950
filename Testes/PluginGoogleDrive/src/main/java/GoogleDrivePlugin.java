@@ -237,7 +237,7 @@ public class GoogleDrivePlugin implements Plugin {
 	}
 
 	@Override
-	public void createFile(String filePath, byte[] fileBytes) throws Exception {
+	public void createFile(String filePath) throws Exception {
 		Path path = Paths.get(filePath);
 		String fileName = path.getFileName().toString();
 		ArrayList<String> parent = new ArrayList<String>();
@@ -251,9 +251,8 @@ public class GoogleDrivePlugin implements Plugin {
 		fileMetadata.setParents(parent);
 		
 		Files driveFiles = drive.files();
-		ByteArrayContent fileContent = new ByteArrayContent(null, fileBytes);
 		
-		Create createRequest = driveFiles.create(fileMetadata, fileContent);
+		Create createRequest = driveFiles.create(fileMetadata);
 		createRequest.setFields("id, name, parents");
 		createRequest.execute();
 	}
