@@ -19,14 +19,8 @@ import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.Drive.Files;
-import com.google.api.services.drive.Drive.Files.Create;
-import com.google.api.services.drive.Drive.Files.Get;
-import com.google.api.services.drive.Drive.Files.List;
-import com.google.api.services.drive.Drive.Files.Update;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
-import com.google.api.services.drive.model.FileList;
 
 public class GoogleDrivePlugin implements Plugin {
 	
@@ -62,28 +56,22 @@ public class GoogleDrivePlugin implements Plugin {
 	}
 	
 	private String getRootID() throws Exception {
-		Files driveFiles = drive.files();
-		Get getRequest = driveFiles.get("root");
-		File rootMetadata = getRequest.execute();
-		String rootID = rootMetadata.getId();
-		System.out.println(">> root ID: " + rootID);
-
-		return rootID;
+		return drive.files()
+				.get("root")
+				.execute()
+				.getId();
 	}
 	
+	// One query give you a list, you want the first file/folder you see
 	private String getFirstID(String query) throws Exception {
-		Files driveFiles = drive.files();
-		List listRequest = driveFiles.list();
-		
-		listRequest.setQ(query);
-		listRequest.setFields("files(id, name, parents)");
-		
-		FileList fileList = listRequest.execute();
-		ArrayList<File> filesArray = (ArrayList<File>) fileList.getFiles();
-		File firstFile = filesArray.get(0);
-		String ID = firstFile.getId();
-		
-		return ID;
+		return drive.files()
+				.list()
+				.setQ(query)
+				.setFields("files(id, name, parents)")
+				.execute()
+				.getFiles()
+				.get(0)
+				.getId();
 	}
 	
 	private String getFolderID(String parentID, String folderName) throws Exception {
@@ -95,10 +83,8 @@ public class GoogleDrivePlugin implements Plugin {
 						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
 						+ " and name = '%s'";
 		String query = String.format(baseQuery, parentID, folderName);
-		String folderID = getFirstID(query);
-
-		System.out.println(">> folder ID: " + folderID);
-		return folderID;
+		
+		return getFirstID(query);
 	}
 	
 	private String getFileID(String parentID, String fileName) throws Exception {
@@ -110,13 +96,12 @@ public class GoogleDrivePlugin implements Plugin {
 						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
 						+ " and name = '%s'";
 		String query = String.format(baseQuery, parentID, fileName);
-		String fileID = getFirstID(query);
-
-		System.out.println(">> file ID: " + fileID);
-		return fileID;
+		
+		return getFirstID(query);
 	}
 	
-	private ArrayList<String> getParentsID(String filePath) throws Exception {
+	// Starting from root, you will navigate through the parent folders until the last parent
+	private String getParentID(String filePath) throws Exception {
 		Path parents = Paths.get(filePath).getParent();
 		
 		if(parents == null)
@@ -124,9 +109,8 @@ public class GoogleDrivePlugin implements Plugin {
 
 		ArrayList<String> parentsList = new ArrayList<String>();
 		
-		parents.forEach((Path folderName) -> {
+		parents.forEach(folderName -> {
 			parentsList.add(folderName.toString());
-			System.out.println(">> folder name: " + folderName);
 		});
 		
 		String lastParent = getRootID();
@@ -135,77 +119,63 @@ public class GoogleDrivePlugin implements Plugin {
 			String folderName = parentsList.get(i);
 			String folderID = getFolderID(lastParent, folderName);
 			
-			parentsList.set(i, folderID);
 			lastParent = folderID;
 		}
 		
-		return parentsList;
-	}
-	
-	private String getParentID(String filePath) throws Exception {
-		ArrayList<String> parentsList = getParentsID(filePath);
-		
-		if(parentsList == null)
-			return null;
-		
-		int lastIndex = parentsList.size() - 1;
-		return parentsList.get(lastIndex);
+		return lastParent;
 	}
 
 	@Override
 	public void createFolder(String folderPath) throws Exception {
-		Path path = Paths.get(folderPath);
-		String folderName = path.getFileName().toString();
-		ArrayList<String> parent = new ArrayList<String>();
-		
+		String folderName = Paths.get(folderPath).getFileName().toString();
 		String parentID = getParentID(folderPath);
+
+		ArrayList<String> parent = new ArrayList<String>();
 		
 		if(parentID == null)
 			parent.add(getRootID());
 		else
 			parent.add(parentID);
 		
-		File folderMetadata = new File();
-		folderMetadata.setName(folderName);
-		folderMetadata.setParents(parent);
-		folderMetadata.setMimeType("application/vnd.google-apps.folder");
+		File folderMetadata = new File()
+				.setName(folderName)
+				.setParents(parent)
+				.setMimeType("application/vnd.google-apps.folder");
 		
-		Files driveFiles = drive.files();
-		Create createRequest = driveFiles.create(folderMetadata);
-		createRequest.setFields("id, name, parents");
-		createRequest.execute();
+		drive.files()
+			.create(folderMetadata)
+			.setFields("id, name, parents")
+			.execute();
 	}
 
 	@Override
 	public ArrayList<String> listFolder(String folderPath) throws Exception {
-		Path path = Paths.get(folderPath);
-		String folderName = path.getFileName().toString();
-		
+		String folderName = Paths.get(folderPath).getFileName().toString();
 		String parentID = getParentID(folderPath);
+		
 		if(parentID == null)
 			parentID = getRootID();
 		
 		String folderID = parentID;
+		
 		if("".equals(folderName) == false)	// Se tiver nome então procurar pela ID, se não tiver então a ID dele é a do pai
 			folderID = getFolderID(parentID, folderName);
 		
 		String baseQuery = "trashed = false"
 						+ " and parents = '%s'"; // Should i use " and '%s' in parents" ?
 		String query = String.format(baseQuery, folderID);
-		
-		Files driveFiles = drive.files();
-		List listRequest = driveFiles.list();
-		
-		listRequest.setQ(query);
-		listRequest.setFields("files(id, name, parents)");
 
-		FileList fileList = listRequest.execute();
-		ArrayList<File> fileMetadataList = (ArrayList<File>) fileList.getFiles();
+		ArrayList<File> fileMetadataList = (ArrayList<File>) drive.files()
+				.list()
+				.setQ(query)
+				.setFields("files(id, name, parents)")
+				.execute()
+				.getFiles();
+		
 		ArrayList<String> folderList = new ArrayList<String>();
-
+		
 		fileMetadataList.forEach((File file) -> {
 			folderList.add(file.getName());
-			System.out.println(">> file name: " + file.getName());
 		});
 		
 		return folderList;
@@ -213,110 +183,105 @@ public class GoogleDrivePlugin implements Plugin {
 
 	@Override
 	public void deleteFolder(String folderPath) throws Exception {
-		Path path = Paths.get(folderPath);
-		String folderName = path.getFileName().toString();
-		
+		String folderName = Paths.get(folderPath).getFileName().toString();
 		String parentID = getParentID(folderPath);
+		
 		if(parentID == null)
 			parentID = getRootID();
 		
 		String folderID = getFolderID(parentID, folderName);
 		
 		// Movendo para lixeira
-		File fileMetadata = new File();
-		fileMetadata.setTrashed(true);
-
-		Files driveFiles = drive.files();
-		Update updateRequest = driveFiles.update(folderID, fileMetadata);
-		updateRequest.execute();
+		//File fileMetadata = new File();
+		//fileMetadata.setTrashed(true);
+		//
+		//Files driveFiles = drive.files();
+		//Update updateRequest = driveFiles.update(folderID, fileMetadata);
+		//updateRequest.execute();
 		
 		// Deleta Permanentemente
-		//Files driveFiles = drive.files();
-		//Delete deleteRequest = driveFiles.delete(folderID);
-		//deleteRequest.execute();
+		drive.files()
+			.delete(folderID)
+			.execute();
 	}
 
 	@Override
 	public void createFile(String filePath) throws Exception {
-		Path path = Paths.get(filePath);
-		String fileName = path.getFileName().toString();
+		String fileName = Paths.get(filePath).getFileName().toString();
 		ArrayList<String> parent = new ArrayList<String>();
-		
 		String parentID = getParentID(filePath);
+		
 		if(parentID == null)
 			parent.add(getRootID());
 		
-		File fileMetadata = new File();
-		fileMetadata.setName(fileName);
-		fileMetadata.setParents(parent);
+		File fileMetadata = new File()
+				.setName(fileName)
+				.setParents(parent);
 		
-		Files driveFiles = drive.files();
-		
-		Create createRequest = driveFiles.create(fileMetadata);
-		createRequest.setFields("id, name, parents");
-		createRequest.execute();
+		drive.files()
+			.create(fileMetadata)
+			.setFields("id, name, parents")
+			.execute();
 	}
 
 	@Override
 	public byte[] readFile(String filePath) throws Exception {
-		Path path = Paths.get(filePath);
-		String fileName = path.getFileName().toString();
-		
+		String fileName = Paths.get(filePath).getFileName().toString();
 		String parentID = getParentID(filePath);
+		
 		if(parentID == null)
 			parentID = getRootID();
-		
+
 		String fileID = getFileID(parentID, fileName);
-		Files driveFiles = drive.files();
+		
 		ByteArrayOutputStream fileBytes =  new ByteArrayOutputStream(); 
 		
-		Get getRequest = driveFiles.get(fileID);
-		getRequest.executeMediaAndDownloadTo(fileBytes);
+		drive.files()
+			.get(fileID)
+			.executeMediaAndDownloadTo(fileBytes);
 		
 		return fileBytes.toByteArray();
 	}
 
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
-		Path path = Paths.get(filePath);
-		String fileName = path.getFileName().toString();
-		
+		String fileName = Paths.get(filePath).getFileName().toString();
 		String parentID = getParentID(filePath);
+		
 		if(parentID == null)
 			parentID = getRootID();
 		
 		String fileID = getFileID(parentID, fileName);
 		
-		Files driveFiles = drive.files();
 		ByteArrayContent fileContent = new ByteArrayContent(null, fileBytes);
 		
-		Update updateRequest = driveFiles.update(fileID, null, fileContent);
-		updateRequest.execute();
+		drive.files()
+			.update(fileID, null, fileContent)
+			.execute();
 	}
 
 	@Override
 	public void deleteFile(String filePath) throws Exception {
-		Path path = Paths.get(filePath);
-		String fileName = path.getFileName().toString();
-		
+		String fileName = Paths.get(filePath).getFileName().toString();
 		String parentID = getParentID(filePath);
+		
 		if(parentID == null)
 			parentID = getRootID();
 		
 		String fileID = getFileID(parentID, fileName);
 		
 		// Movendo para lixeira
-		File fileMetadata = new File();
-		fileMetadata.setTrashed(true);
-
-		Files driveFiles = drive.files();
-		Update updateRequest = driveFiles.update(fileID, fileMetadata);
-		updateRequest.execute();
+		//File fileMetadata = new File();
+		//fileMetadata.setTrashed(true);
+		//
+		//Files driveFiles = drive.files();
+		//Update updateRequest = driveFiles.update(fileID, fileMetadata);
+		//updateRequest.execute();
 		
 		// Deleta Permanentemente
-		//Files driveFiles = drive.files();
-		//Delete deleteRequest = driveFiles.delete(folderID);
-		//deleteRequest.execute();
+		drive.files()
+			.delete(fileID)
+			.execute();
 		
 	}
 
