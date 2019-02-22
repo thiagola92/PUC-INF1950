@@ -27,7 +27,7 @@ public class Main {
 		googleDrivePlugin = new GoogleDrivePlugin();
 		
 //		testCreateFolder();
-//		testListFolder();
+		testListFolder();
 //		testDeleteFolder();
 //		testCreateFile();
 //		testReadFile();

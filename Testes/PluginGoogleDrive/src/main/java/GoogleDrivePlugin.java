@@ -1,7 +1,6 @@
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,21 +23,23 @@ import com.google.api.services.drive.model.File;
 
 public class GoogleDrivePlugin implements Plugin {
 	
-	private String CREDENTIAL_PATH = "credentials.json";
-	private String TOKEN_DIRECOTRY = "tokens";
+	private static String CREDENTIAL_PATH = "credentials.json";
+	private static String TOKEN_DIRECOTRY = "tokens";
 	
-	private final JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
-	private final java.util.List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
+	private final static JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	private final static java.util.List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 	
-	private NetHttpTransport HTTP_TRANSPORT;
+	private static NetHttpTransport HTTP_TRANSPORT;
 	private Drive drive;
+	private GoogleDriveUtility utility;
 	
 	public GoogleDrivePlugin() throws Exception {
 		HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		drive = new Drive(HTTP_TRANSPORT, JSON_FACTORY, getCredentials());
+		utility = new GoogleDriveUtility(drive);
 	}
-	
-	private Credential getCredentials() throws Exception {
+
+	private static Credential getCredentials() throws Exception {
 		InputStream credentialFile = GoogleDrivePlugin.class.getResourceAsStream(CREDENTIAL_PATH);
 		InputStreamReader credentialReader = new InputStreamReader(credentialFile);
 		GoogleClientSecrets googleClientSecrets = GoogleClientSecrets.load(JSON_FACTORY, credentialReader);
@@ -54,88 +55,24 @@ public class GoogleDrivePlugin implements Plugin {
 		
 		return credential;
 	}
-	
-	private String getRootID() throws Exception {
-		return drive.files()
-				.get("root")
-				.execute()
-				.getId();
-	}
-	
-	// One query give you a list, you want the first file/folder you see
-	private String getFirstID(String query) throws Exception {
-		return drive.files()
-				.list()
-				.setQ(query)
-				.setFields("files(id, name, parents)")
-				.execute()
-				.getFiles()
-				.get(0)
-				.getId();
-	}
-	
-	private String getFolderID(String parentID, String folderName) throws Exception {
-		if(parentID == null || folderName == null)
-			return null;
-		
-		String baseQuery = "mimeType = 'application/vnd.google-apps.folder'"
-						+ " and trashed = false"
-						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
-						+ " and name = '%s'";
-		String query = String.format(baseQuery, parentID, folderName);
-		
-		return getFirstID(query);
-	}
-	
-	private String getFileID(String parentID, String fileName) throws Exception {
-		if(parentID == null || fileName == null)
-			return null;
-		
-		String baseQuery = "mimeType != 'application/vnd.google-apps.folder'"
-						+ " and trashed = false"
-						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
-						+ " and name = '%s'";
-		String query = String.format(baseQuery, parentID, fileName);
-		
-		return getFirstID(query);
-	}
-	
-	// Starting from root, you will navigate through the parent folders until the last parent
-	private String getParentID(String filePath) throws Exception {
-		Path parents = Paths.get(filePath).getParent();
-		
-		if(parents == null)
-			return null;
-
-		ArrayList<String> parentsList = new ArrayList<String>();
-		
-		parents.forEach(folderName -> {
-			parentsList.add(folderName.toString());
-		});
-		
-		String lastParent = getRootID();
-		
-		for(int i = 0; i < parentsList.size(); i++) {
-			String folderName = parentsList.get(i);
-			String folderID = getFolderID(lastParent, folderName);
-			
-			lastParent = folderID;
-		}
-		
-		return lastParent;
-	}
 
 	@Override
 	public void createFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
-		String parentID = getParentID(folderPath);
-
-		ArrayList<String> parent = new ArrayList<String>();
+		String parentID;
 		
-		if(parentID == null)
-			parent.add(getRootID());
-		else
-			parent.add(parentID);
+		try {
+			parentID = utility.getParentID(folderPath);
+		} catch (java.lang.IndexOutOfBoundsException e) {
+			createFolder(Paths.get(folderPath).getParent().toString());
+			parentID = utility.getParentID(folderPath);
+		}
+		
+		if(utility.getFoldersNamed(parentID, folderName).size() > 0)
+			return;
+		
+		ArrayList<String> parent = new ArrayList<String>();
+		parent.add(parentID);
 		
 		File folderMetadata = new File()
 				.setName(folderName)
@@ -151,15 +88,15 @@ public class GoogleDrivePlugin implements Plugin {
 	@Override
 	public ArrayList<String> listFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
-		String parentID = getParentID(folderPath);
+		String parentID = utility.getParentID(folderPath);
 		
 		if(parentID == null)
-			parentID = getRootID();
+			parentID = utility.getRootID();
 		
 		String folderID = parentID;
 		
 		if("".equals(folderName) == false)	// Se tiver nome então procurar pela ID, se não tiver então a ID dele é a do pai
-			folderID = getFolderID(parentID, folderName);
+			folderID = utility.getFoldersNamed(parentID, folderName).get(0).getId();
 		
 		String baseQuery = "trashed = false"
 						+ " and parents = '%s'"; // Should i use " and '%s' in parents" ?
@@ -184,12 +121,12 @@ public class GoogleDrivePlugin implements Plugin {
 	@Override
 	public void deleteFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
-		String parentID = getParentID(folderPath);
+		String parentID = utility.getParentID(folderPath);
 		
 		if(parentID == null)
-			parentID = getRootID();
+			parentID = utility.getRootID();
 		
-		String folderID = getFolderID(parentID, folderName);
+		String folderID = utility.getFoldersNamed(parentID, folderName).get(0).getId();
 		
 		// Movendo para lixeira
 		//File fileMetadata = new File();
@@ -209,10 +146,10 @@ public class GoogleDrivePlugin implements Plugin {
 	public void createFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
 		ArrayList<String> parent = new ArrayList<String>();
-		String parentID = getParentID(filePath);
+		String parentID = utility.getParentID(filePath);
 		
 		if(parentID == null)
-			parent.add(getRootID());
+			parent.add(utility.getRootID());
 		
 		File fileMetadata = new File()
 				.setName(fileName)
@@ -227,12 +164,12 @@ public class GoogleDrivePlugin implements Plugin {
 	@Override
 	public byte[] readFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
-		String parentID = getParentID(filePath);
+		String parentID = utility.getParentID(filePath);
 		
 		if(parentID == null)
-			parentID = getRootID();
+			parentID = utility.getRootID();
 
-		String fileID = getFileID(parentID, fileName);
+		String fileID = utility.getFilesNamed(parentID, fileName).get(0).getId();
 		
 		ByteArrayOutputStream fileBytes =  new ByteArrayOutputStream(); 
 		
@@ -246,12 +183,12 @@ public class GoogleDrivePlugin implements Plugin {
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
-		String parentID = getParentID(filePath);
+		String parentID = utility.getParentID(filePath);
 		
 		if(parentID == null)
-			parentID = getRootID();
+			parentID = utility.getRootID();
 		
-		String fileID = getFileID(parentID, fileName);
+		String fileID = utility.getFilesNamed(parentID, fileName).get(0).getId();
 		
 		ByteArrayContent fileContent = new ByteArrayContent(null, fileBytes);
 		
@@ -263,12 +200,12 @@ public class GoogleDrivePlugin implements Plugin {
 	@Override
 	public void deleteFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
-		String parentID = getParentID(filePath);
+		String parentID = utility.getParentID(filePath);
 		
 		if(parentID == null)
-			parentID = getRootID();
+			parentID = utility.getRootID();
 		
-		String fileID = getFileID(parentID, fileName);
+		String fileID = utility.getFilesNamed(parentID, fileName).get(0).getId();
 		
 		// Movendo para lixeira
 		//File fileMetadata = new File();
