@@ -25,13 +25,6 @@ public class Main {
 	// ou seja, criar folder1 antes de criar folder2
 	public static void main(String[] args) throws Exception {
 		googleDrivePlugin = new GoogleDrivePlugin();
-		googleDrivePlugin.createFolder("testFolder");
-		googleDrivePlugin.listFolder("");
-		googleDrivePlugin.deleteFolder("testFolder");
-		googleDrivePlugin.createFile("testFile");
-		googleDrivePlugin.writeFile("testFile", "test".getBytes());
-		System.out.println(new String(googleDrivePlugin.readFile("testFile")));
-		googleDrivePlugin.deleteFile("testFile");
 		
 //		testCreateFolder();
 //		testListFolder();
