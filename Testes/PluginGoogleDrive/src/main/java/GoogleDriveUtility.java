@@ -23,7 +23,7 @@ public class GoogleDriveUtility {
 				.getId();
 	}
 
-	// One query give you a list of files and folders
+	// One query gives you a list of files and folders
 	public List<File> getFiles(String query) throws Exception {
 		return drive.files()
 				.list()
@@ -33,6 +33,7 @@ public class GoogleDriveUtility {
 				.getFiles();
 	}
 
+	// Inside one folder can exist many folders with the same name
 	public List<File> getFoldersNamed(String parentID, String folderName) throws Exception {
 		if(parentID == null || folderName == null)
 			return null;
@@ -45,7 +46,8 @@ public class GoogleDriveUtility {
 		
 		return getFiles(query);
 	}
-	
+
+	// Inside one folder can exist many files with the same name
 	public List<File> getFilesNamed(String parentID, String fileName) throws Exception {
 		if(parentID == null || fileName == null)
 			return null;
@@ -76,7 +78,7 @@ public class GoogleDriveUtility {
 		
 		for(int i = 0; i < parentsList.size(); i++) {
 			String folderName = parentsList.get(i);
-			String folderID = getFoldersNamed(lastParent, folderName).get(0).getId(); // if size > 1 throw error?
+			String folderID = getFoldersNamed(lastParent, folderName).get(0).getId();
 			
 			lastParent = folderID;
 		}

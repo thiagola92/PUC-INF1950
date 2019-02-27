@@ -14,6 +14,7 @@ public class Main {
 		NOT_A_DIRECTORY,
 		FILE_ALREADY_EXISTS,
 		WRONG_CONTENT,
+		INDEX_OUT_OF_BOUNDS,
 	};
 	
 	public static GoogleDrivePlugin googleDrivePlugin;
@@ -54,21 +55,16 @@ public class Main {
 		assert(tryDeleteFolder("testFolder") == Error.NO_ERROR);
 	}
 	
-	public static void testListFolder() {
-		assert(tryListFolder("") == Error.NO_ERROR);
-		assert(tryListFolder(".") == Error.NO_ERROR);
-		assert(tryListFolder("/") == Error.NO_ERROR);
-		assert(tryListFolder("..") == Error.NO_ERROR);
-		
+	public static void testListFolder() {		
 		// Error when listing null
 		assert(tryListFolder(null) == Error.NULL_POINTER);
 		
 		// Error when listing folder that doesn't exist
-		assert(tryListFolder("fileNotCreated") == Error.NO_SUCH_FILE);
+		assert(tryListFolder("fileNotCreated") != Error.NO_ERROR);
 		
 		// Error when listing folder that is a file
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
-		assert(tryListFolder("testFile") == Error.NOT_A_DIRECTORY);
+		assert(tryListFolder("testFile") != Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
 	}
 	
@@ -198,6 +194,8 @@ public class Main {
 			return Error.NO_SUCH_FILE;
 		} catch(NotDirectoryException e) {
 			return Error.NOT_A_DIRECTORY;
+		} catch(IndexOutOfBoundsException e) {
+			return Error.INDEX_OUT_OF_BOUNDS;
 		} catch(Exception e) {
 			System.out.println(e);
 			return Error.EXCEPTION;

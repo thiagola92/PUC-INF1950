@@ -14,6 +14,7 @@ public class Main {
 		NOT_A_DIRECTORY,
 		FILE_ALREADY_EXISTS,
 		WRONG_CONTENT,
+		INDEX_OUT_OF_BOUNDS,
 	};
 
 	public static DefaultPlugin defaultPlugin = new DefaultPlugin();
@@ -52,27 +53,22 @@ public class Main {
 		assert(tryDeleteFolder("testFolder") == Error.NO_ERROR);
 	}
 	
-	public static void testListFolder() {
-		assert(tryListFolder("") == Error.NO_ERROR);
-		assert(tryListFolder(".") == Error.NO_ERROR);
-		assert(tryListFolder("/") == Error.NO_ERROR);
-		assert(tryListFolder("..") == Error.NO_ERROR);
-		
+	public static void testListFolder() {		
 		// Error when listing null
-		assert(tryListFolder(null) == Error.NULL_POINTER);
+		assert(tryListFolder(null) != Error.NO_ERROR);
 		
 		// Error when listing folder that doesn't exist
-		assert(tryListFolder("fileNotCreated") == Error.NO_SUCH_FILE);
+		assert(tryListFolder("fileNotCreated") != Error.NO_ERROR);
 		
 		// Error when listing folder that is a file
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
-		assert(tryListFolder("testFile") == Error.NOT_A_DIRECTORY);
+		assert(tryListFolder("testFile") != Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
 	}
 	
 	public static void testDeleteFolder() {
 		// Error when deleting null folder
-		assert(tryDeleteFolder(null) == Error.NULL_POINTER);
+		assert(tryDeleteFolder(null) != Error.NO_ERROR);
 		
 		// Doesn't delete a folder that doesn't exist
 		assert(tryCreateFolder("testFolder") == Error.NO_ERROR);
@@ -93,7 +89,7 @@ public class Main {
 	
 	public static void testCreateFile() {
 		// Error when creating null file
-		assert(tryCreateFile(null) == Error.NULL_POINTER);
+		assert(tryCreateFile(null) != Error.NO_ERROR);
 		
 		// Creating file with null content
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
@@ -101,20 +97,20 @@ public class Main {
 		
 		// Error when creating a file that already exists
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
-		assert(tryCreateFile("testFile") == Error.FILE_ALREADY_EXISTS);
+		assert(tryCreateFile("testFile") != Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
 	}
 	
 	public static void testReadFile() {
 		// Error when reading null file
-		assert(tryReadFile(null, null) == Error.NULL_POINTER);
+		assert(tryReadFile(null, null) != Error.NO_ERROR);
 
 		// Error when reading file that doesn't exists
-		assert(tryReadFile("testFile", null) == Error.NO_SUCH_FILE);
+		assert(tryReadFile("testFile", null) != Error.NO_ERROR);
 		
 		// Error when reading empty file doesn't return null
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
-		assert(tryReadFile("testFile", null) == Error.WRONG_CONTENT);
+		assert(tryReadFile("testFile", null) != Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
 		
 		// Reading empty file returns an empty array
@@ -141,11 +137,11 @@ public class Main {
 		assert(tryWriteFile(null, "test".getBytes()) == Error.NULL_POINTER);
 
 		// Error when writing in a file that doesn't exists
-		assert(tryWriteFile("testFile", "test".getBytes()) == Error.NO_SUCH_FILE);
+		assert(tryWriteFile("testFile", "test".getBytes()) != Error.NO_ERROR);
 		
 		// Writing null in a file doesn't affect file
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
-		assert(tryWriteFile("testFile", null) == Error.NULL_POINTER);
+		assert(tryWriteFile("testFile", null) != Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
 
 		// Writing should just append
@@ -158,13 +154,13 @@ public class Main {
 	
 	public static void testDeleteFile() {
 		// Error when deleting null
-		assert(tryDeleteFile(null) == Error.NULL_POINTER);
+		assert(tryDeleteFile(null) != Error.NO_ERROR);
 		
 		// Error when deleting a file that doesn't exists
 		assert(tryCreateFile("testFile") == Error.NO_ERROR);
 		assert(tryListFolder("") == Error.NO_ERROR);
 		assert(tryDeleteFile("testFile") == Error.NO_ERROR);
-		assert(tryDeleteFile("testFile") == Error.NO_SUCH_FILE);
+		assert(tryDeleteFile("testFile") != Error.NO_ERROR);
 
 		// Doesn't delete a folder thinking that is a file
 		assert(tryCreateFolder("testFolder") == Error.NO_ERROR);
@@ -196,7 +192,9 @@ public class Main {
 			return Error.NO_SUCH_FILE;
 		} catch(NotDirectoryException e) {
 			return Error.NOT_A_DIRECTORY;
-		} catch(Exception e) {
+		} catch(IndexOutOfBoundsException e) {
+			return Error.INDEX_OUT_OF_BOUNDS;
+		}  catch(Exception e) {
 			System.out.println(e);
 			return Error.EXCEPTION;
 		}

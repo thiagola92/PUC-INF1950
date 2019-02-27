@@ -95,7 +95,8 @@ public class GoogleDrivePlugin implements Plugin {
 		
 		String folderID = parentID;
 		
-		if("".equals(folderName) == false)	// Se tiver nome então procurar pela ID, se não tiver então a ID dele é a do pai
+		// Se a pasta tiver nome, pegar a id da pasta
+		if(folderName.isEmpty() == false)
 			folderID = utility.getFoldersNamed(parentID, folderName).get(0).getId();
 		
 		String baseQuery = "trashed = false"
