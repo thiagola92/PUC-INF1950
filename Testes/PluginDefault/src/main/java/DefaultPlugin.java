@@ -15,8 +15,6 @@ public class DefaultPlugin implements Plugin {
 		
 		try {
 			Files.createDirectory(path);
-		} catch(FileAlreadyExistsException e) {
-			return;
 		} catch(NoSuchFileException e) {
 			createFolder(path.getParent().toString());
 			Files.createDirectory(path);
