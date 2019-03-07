@@ -98,7 +98,10 @@ public class PluginGoogleDrive implements Plugin {
 		ArrayList<String> folderList = new ArrayList<String>();
 		
 		fileMetadataList.forEach((File file) -> {
-			folderList.add(file.getName());
+			if(file.getMimeType().equals("application/vnd.google-apps.folder"))
+				folderList.add("Folder: " + file.getName());
+			else
+				folderList.add("File: " + file.getName());
 		});
 		
 		return folderList;

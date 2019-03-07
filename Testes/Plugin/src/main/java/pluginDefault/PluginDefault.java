@@ -31,7 +31,10 @@ public class PluginDefault implements Plugin {
 		
 		DirectoryStream<Path> filesStream = Files.newDirectoryStream(path);
 		filesStream.forEach((Path file) -> {
-			filesList.add(file.toString());
+			if(Files.isDirectory(file))
+				filesList.add("Folder: " + file.toString());
+			else
+				filesList.add("File: " + file.toString());
 		});
 		
 		return filesList;

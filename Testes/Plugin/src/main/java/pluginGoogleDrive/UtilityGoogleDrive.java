@@ -30,7 +30,7 @@ public class UtilityGoogleDrive {
 		return drive.files()
 				.list()
 				.setQ(query)
-				.setFields("files(id, name, parents)")
+				.setFields("files(id, name, parents, mimeType)")
 				.execute()
 				.getFiles();
 	}
