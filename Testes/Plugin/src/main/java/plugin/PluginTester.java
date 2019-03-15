@@ -48,7 +48,12 @@ public class PluginTester {
 	public PluginError tryListFolder(String folder) {
 		try {
 			ArrayList<String[]> files = plugin.listFolder(folder);
-			System.out.println(files);
+			
+			System.out.println("[");
+			for(int i=0; i < files.size(); i++)
+				System.out.format("    %s, %s\n", files.get(i)[0], files.get(i)[1]);
+			System.out.println("]");
+			
 		} catch(NullPointerException e) {
 			return PluginError.NULL_POINTER;
 		} catch(NoSuchFileException e) {

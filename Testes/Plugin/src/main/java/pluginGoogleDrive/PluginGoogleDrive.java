@@ -97,17 +97,28 @@ public class PluginGoogleDrive implements Plugin {
 		ArrayList<File> fileMetadataList = (ArrayList<File>) utility.getEverything(folderID);
 		ArrayList<String[]> filesList = new ArrayList<String[]>();
 		
-		fileMetadataList.forEach((File file) -> {
+		for(int i = 0; i < fileMetadataList.size(); i++) {
 			String[] filesInfo = new String[2];
-			filesInfo[1] = file.getName();
+			filesInfo[0] = fileMetadataList.get(i).getName();
 			
-			if(file.getMimeType().equals("application/vnd.google-apps.folder"))
-				filesInfo[2] = "folder";
+			if(fileMetadataList.get(i).getMimeType().equals("application/vnd.google-apps.folder"))
+				filesInfo[1] = "folder";
 			else
-				filesInfo[2] = "file";
+				filesInfo[1] = "file";
 			
 			filesList.add(filesInfo);
-		});
+		}
+//		fileMetadataList.forEach((File file) -> {
+//			String[] filesInfo = new String[2];
+//			filesInfo[1] = file.getName();
+//			
+//			if(file.getMimeType().equals("application/vnd.google-apps.folder"))
+//				filesInfo[2] = "folder";
+//			else
+//				filesInfo[2] = "file";
+//			
+//			filesList.add(filesInfo);
+//		});
 		
 		return filesList;
 	}

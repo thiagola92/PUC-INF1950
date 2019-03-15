@@ -33,12 +33,12 @@ public class PluginDefault implements Plugin {
 		
 		filesStream.forEach((Path file) -> {
 			String[] filesInfo = new String[2];
-			filesInfo[1] = file.toString();
+			filesInfo[0] = file.toString();
 			
 			if(Files.isDirectory(file))
-				filesInfo[2] = "folder";
+				filesInfo[1] = "folder";
 			else
-				filesInfo[2] = "file";
+				filesInfo[1] = "file";
 			
 			filesList.add(filesInfo);
 		});
