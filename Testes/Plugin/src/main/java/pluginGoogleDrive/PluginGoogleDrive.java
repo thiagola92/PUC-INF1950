@@ -85,7 +85,7 @@ public class PluginGoogleDrive implements Plugin {
 	}
 
 	@Override
-	public ArrayList<String> listFolder(String folderPath) throws Exception {
+	public ArrayList<String[]> listFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
 		String parentID = utility.getParentID(folderPath);
 		String folderID = parentID;
@@ -95,16 +95,21 @@ public class PluginGoogleDrive implements Plugin {
 			folderID = utility.getFoldersNamed(parentID, folderName).get(0).getId();
 
 		ArrayList<File> fileMetadataList = (ArrayList<File>) utility.getEverything(folderID);
-		ArrayList<String> folderList = new ArrayList<String>();
+		ArrayList<String[]> filesList = new ArrayList<String[]>();
 		
 		fileMetadataList.forEach((File file) -> {
+			String[] filesInfo = new String[2];
+			filesInfo[1] = file.getName();
+			
 			if(file.getMimeType().equals("application/vnd.google-apps.folder"))
-				folderList.add("Folder: " + file.getName());
+				filesInfo[2] = "folder";
 			else
-				folderList.add("File: " + file.getName());
+				filesInfo[2] = "file";
+			
+			filesList.add(filesInfo);
 		});
 		
-		return folderList;
+		return filesList;
 	}
 
 	@Override

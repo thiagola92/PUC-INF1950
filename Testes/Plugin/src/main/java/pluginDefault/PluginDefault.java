@@ -24,17 +24,23 @@ public class PluginDefault implements Plugin {
 	}
 
 	@Override
-	public ArrayList<String> listFolder(String folderPath) throws Exception {
-		ArrayList<String> filesList = new ArrayList<String>();
+	public ArrayList<String[]> listFolder(String folderPath) throws Exception {
+		ArrayList<String[]> filesList = new ArrayList<String[]>();
 		
 		Path path = Paths.get(folderPath);
 		
 		DirectoryStream<Path> filesStream = Files.newDirectoryStream(path);
+		
 		filesStream.forEach((Path file) -> {
+			String[] filesInfo = new String[2];
+			filesInfo[1] = file.toString();
+			
 			if(Files.isDirectory(file))
-				filesList.add("Folder: " + file.toString());
+				filesInfo[2] = "folder";
 			else
-				filesList.add("File: " + file.toString());
+				filesInfo[2] = "file";
+			
+			filesList.add(filesInfo);
 		});
 		
 		return filesList;

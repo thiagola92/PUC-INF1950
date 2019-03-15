@@ -47,7 +47,7 @@ public class PluginTester {
 	
 	public PluginError tryListFolder(String folder) {
 		try {
-			ArrayList<String> files = plugin.listFolder(folder);
+			ArrayList<String[]> files = plugin.listFolder(folder);
 			System.out.println(files);
 		} catch(NullPointerException e) {
 			return PluginError.NULL_POINTER;
