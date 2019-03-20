@@ -1,4 +1,4 @@
-package plugin;
+package plugin.test;
 
 public enum PluginError {
 	

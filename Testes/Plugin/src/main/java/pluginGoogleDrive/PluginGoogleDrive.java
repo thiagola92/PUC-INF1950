@@ -25,9 +25,9 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.File;
 
-import plugin.Plugin;
+import plugin.PluginInterface;
 
-public class PluginGoogleDrive implements Plugin {
+public class PluginGoogleDrive implements PluginInterface {
 	
 	private static String CREDENTIAL_PATH = "credentials.json";
 	private static String TOKEN_DIRECOTRY = "tokens";
@@ -37,12 +37,12 @@ public class PluginGoogleDrive implements Plugin {
 	
 	private static NetHttpTransport HTTP_TRANSPORT;
 	private Drive drive;
-	private UtilityGoogleDrive utility;
+	private Utility utility;
 	
 	public PluginGoogleDrive() throws Exception {
 		HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
 		drive = new Drive(HTTP_TRANSPORT, JSON_FACTORY, getCredentials());
-		utility = new UtilityGoogleDrive(drive);
+		utility = new Utility(drive);
 	}
 
 	private static Credential getCredentials() throws Exception {

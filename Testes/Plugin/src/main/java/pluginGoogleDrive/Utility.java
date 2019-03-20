@@ -8,11 +8,11 @@ import java.util.List;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
-public class UtilityGoogleDrive {
+public class Utility {
 	
 	private Drive drive;
 	
-	public UtilityGoogleDrive(Drive drive) {
+	public Utility(Drive drive) {
 		this.drive = drive;
 	}
 	

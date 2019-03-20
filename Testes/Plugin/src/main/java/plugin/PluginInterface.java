@@ -2,7 +2,7 @@ package plugin;
 
 import java.util.ArrayList;
 
-public interface Plugin {
+public interface PluginInterface {
 	
 	public void createFolder(String folderPath) throws Exception;
 	public ArrayList<String[]> listFolder(String folderPath) throws Exception;

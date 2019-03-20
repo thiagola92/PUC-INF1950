@@ -1,4 +1,4 @@
-package plugin;
+package plugin.test;
 
 import java.io.IOException;
 import java.nio.file.DirectoryNotEmptyException;
@@ -10,20 +10,14 @@ import java.util.Arrays;
 
 import com.google.api.client.http.HttpResponseException;
 
-import pluginDefault.*;
-import pluginGoogleDrive.*;
+import plugin.PluginManager;
 
 public class PluginTester {
 	
-	Plugin plugin;
+	PluginManager plugin;
 	
 	public PluginTester(String pluginName) throws Exception {
-		if(pluginName.toLowerCase().equals("default"))
-			plugin = new PluginDefault();
-		else if(pluginName.toLowerCase().equals("googledrive"))
-			plugin = new PluginGoogleDrive();
-		else
-			throw new Exception("The plugin \"" + pluginName + "\" is not on the list");
+		plugin = new PluginManager(pluginName);
 	}
 	
 	public PluginError tryCreateFolder(String folder) {		
