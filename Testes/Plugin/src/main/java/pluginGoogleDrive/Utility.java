@@ -1,102 +1,54 @@
 package pluginGoogleDrive;
 
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Collections;
 
+import com.google.api.client.auth.oauth2.Credential;
+import com.google.api.client.extensions.java6.auth.oauth2.AuthorizationCodeInstalledApp;
+import com.google.api.client.extensions.jetty.auth.oauth2.LocalServerReceiver;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
+import com.google.api.client.googleapis.auth.oauth2.GoogleClientSecrets;
+import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow.Builder;
+import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.JsonFactory;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.FileDataStoreFactory;
 import com.google.api.services.drive.Drive;
-import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.DriveScopes;
 
 public class Utility {
 	
-	private Drive drive;
+	private static String CREDENTIAL_PATH = "credentials.json";
+	private static String TOKEN_DIRECTORY = "tokens";
 	
-	public Utility(Drive drive) {
-		this.drive = drive;
-	}
+	private final static java.util.List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 	
-	// Every file and folder have an ID
-	// The root folder ID is "root"
-	public String getRootID() throws Exception {
-		return drive.files()
-				.get("root")
-				.execute()
-				.getId();
+	private final static JsonFactory JSON_FACTORY = JacksonFactory.getDefaultInstance();
+	private static NetHttpTransport HTTP_TRANSPORT;
+
+	public static Drive getDrive() throws Exception {
+		HTTP_TRANSPORT = GoogleNetHttpTransport.newTrustedTransport();
+		
+		return new Drive(HTTP_TRANSPORT, JSON_FACTORY, getCredentials());
 	}
 
-	// One query gives you a list of files and folders
-	public List<File> doQuery(String query) throws Exception {
-		return drive.files()
-				.list()
-				.setQ(query)
-				.setFields("files(id, name, parents, mimeType)")
-				.execute()
-				.getFiles();
-	}
-	
-	public List<File> getEverything(String folderID) throws Exception {
-		if(folderID == null)
-			return null;
+	private static Credential getCredentials() throws Exception {
+		InputStream credentialFile = PluginGoogleDrive.class.getResourceAsStream(CREDENTIAL_PATH);
+		InputStreamReader credentialReader = new InputStreamReader(credentialFile);
+		GoogleClientSecrets googleClientSecrets = GoogleClientSecrets.load(JSON_FACTORY, credentialReader);
 		
-		String query = "trashed = false"
-						+ " and parents = '%s'"; // Should i use " and '%s' in parents" ?
-		query = String.format(query, folderID);
+		java.io.File tokenDirectory = new java.io.File(TOKEN_DIRECTORY);
+		FileDataStoreFactory dataStore = new FileDataStoreFactory(tokenDirectory);
+		Builder builder = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, googleClientSecrets, SCOPES);
+		GoogleAuthorizationCodeFlow flow = builder.setDataStoreFactory(dataStore).setAccessType("offline").build();
 		
-		return doQuery(query);
-	}
-
-	// Inside one folder can exist many folders with the same name
-	public List<File> getFoldersNamed(String parentID, String folderName) throws Exception {
-		if(parentID == null || folderName == null)
-			return null;
+		LocalServerReceiver receiver = new LocalServerReceiver();
+		AuthorizationCodeInstalledApp authorizationApp = new AuthorizationCodeInstalledApp(flow, receiver);
+		Credential credential = authorizationApp.authorize("user");
 		
-		String query = "mimeType = 'application/vnd.google-apps.folder'"
-						+ " and trashed = false"
-						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
-						+ " and name = '%s'";
-		query = String.format(query, parentID, folderName);
-		
-		return doQuery(query);
-	}
-
-	// Inside one folder can exist many files with the same name
-	public List<File> getFilesNamed(String parentID, String fileName) throws Exception {
-		if(parentID == null || fileName == null)
-			return null;
-		
-		String query = "mimeType != 'application/vnd.google-apps.folder'"
-						+ " and trashed = false"
-						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
-						+ " and name = '%s'";
-		query = String.format(query, parentID, fileName);
-		
-		return doQuery(query);
+		return credential;
 	}
 	
-	// Starting from root, you will navigate through the parent folders until the last parent
-	public String getParentID(String filePath) throws Exception {
-		Path parents = Paths.get(filePath).getParent();
-		
-		if(parents == null)
-			return getRootID();
-
-		ArrayList<String> parentsList = new ArrayList<String>();
-		
-		parents.forEach(folderName -> {
-			parentsList.add(folderName.toString());
-		});
-		
-		String lastParent = getRootID();
-		
-		for(int i = 0; i < parentsList.size(); i++) {
-			String folderName = parentsList.get(i);
-			String folderID = getFoldersNamed(lastParent, folderName).get(0).getId();
-			
-			lastParent = folderID;
-		}
-		
-		return lastParent;
-	}
-
 }

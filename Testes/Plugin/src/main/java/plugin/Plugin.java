@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import pluginDefault.PluginDefault;
 import pluginGoogleDrive.PluginGoogleDrive;
 
-public class PluginManager {
+public class Plugin implements PluginInterface {
 	
-	PluginInterface plugin;
+	private PluginInterface plugin;
 	
-	public PluginManager(String pluginName) throws Exception {
+	public Plugin(String pluginName) throws Exception {
 		if(pluginName == null)
 			plugin = new PluginDefault();
 		else if(pluginName.toLowerCase().equals("googledrive"))

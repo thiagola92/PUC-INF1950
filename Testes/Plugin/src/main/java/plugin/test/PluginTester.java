@@ -10,17 +10,17 @@ import java.util.Arrays;
 
 import com.google.api.client.http.HttpResponseException;
 
-import plugin.PluginManager;
+import plugin.Plugin;
 
 public class PluginTester {
 	
-	PluginManager plugin;
+	Plugin plugin;
 	
 	public PluginTester(String pluginName) throws Exception {
-		plugin = new PluginManager(pluginName);
+		plugin = new Plugin(pluginName);
 	}
 	
-	public PluginError tryCreateFolder(String folder) {		
+	public PluginError tryCreateFolder(String folder) {
 		try {
 			plugin.createFolder(folder);
 		} catch(NullPointerException e) {
