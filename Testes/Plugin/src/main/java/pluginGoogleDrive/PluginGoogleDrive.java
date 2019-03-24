@@ -10,9 +10,9 @@ import com.google.api.client.http.ByteArrayContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
-import plugin.PluginInterface;
+import plugin.Plugin;
 
-public class PluginGoogleDrive implements PluginInterface {
+public class PluginGoogleDrive implements Plugin {
 	
 	private Drive drive;
 	private Query query;

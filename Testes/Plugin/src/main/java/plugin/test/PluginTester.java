@@ -10,6 +10,7 @@ import java.util.Arrays;
 
 import com.google.api.client.http.HttpResponseException;
 
+import plugin.PluginsList;
 import plugin.Plugin;
 
 public class PluginTester {
@@ -17,10 +18,10 @@ public class PluginTester {
 	Plugin plugin;
 	
 	public PluginTester(String pluginName) throws Exception {
-		plugin = new Plugin(pluginName);
+		plugin = PluginsList.getPlugin(pluginName);
 	}
 	
-	public PluginError tryCreateFolder(String folder) {
+	public PluginError createFolder(String folder) {
 		try {
 			plugin.createFolder(folder);
 		} catch(NullPointerException e) {
@@ -39,7 +40,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR;
 	}
 	
-	public PluginError tryListFolder(String folder) {
+	public PluginError listFolder(String folder) {
 		try {
 			ArrayList<String[]> files = plugin.listFolder(folder);
 			
@@ -64,7 +65,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR;
 	}
 	
-	public PluginError tryDeleteFolder(String folder) {		
+	public PluginError deleteFolder(String folder) {		
 		try {
 			plugin.deleteFolder(folder);
 		} catch(NullPointerException e) {
@@ -83,7 +84,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR;
 	}
 	
-	public PluginError tryCreateFile(String path) {		
+	public PluginError createFile(String path) {		
 		try {
 			plugin.createFile(path);
 		} catch(NullPointerException e) {
@@ -104,7 +105,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR; 
 	}
 	
-	public PluginError tryReadFile(String path, byte[] contentExpected) {
+	public PluginError readFile(String path, byte[] contentExpected) {
 		try {
 			if(Arrays.equals(plugin.readFile(path), contentExpected) == false)
 				return PluginError.WRONG_CONTENT;
@@ -126,7 +127,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR;
 	}
 	
-	public PluginError tryWriteFile(String path, byte[] content) {
+	public PluginError writeFile(String path, byte[] content) {
 		try {
 			plugin.writeFile(path, content);
 		} catch(NullPointerException e) {
@@ -145,7 +146,7 @@ public class PluginTester {
 		return PluginError.NO_ERROR;
 	}
 	
-	public PluginError tryDeleteFile(String path) {		
+	public PluginError deleteFile(String path) {		
 		try {
 			plugin.deleteFile(path);
 		} catch(NullPointerException e) {

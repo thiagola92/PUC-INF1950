@@ -8,9 +8,9 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-import plugin.PluginInterface;
+import plugin.Plugin;
 
-public class PluginDefault implements PluginInterface {
+public class PluginDefault implements Plugin {
 	
 	public PluginDefault() {
 		
