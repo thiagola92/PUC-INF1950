@@ -1,10 +1,12 @@
+import plugin.Plugin;
+import pluginGoogleDrive.PluginGoogleDrive;
+
 public class Main {
 	
-	public static GoogleDrivePlugin googleDrivePlugin;
+	public static Plugin plugin;
 
 	public static void main(String[] args) throws Exception {
-		googleDrivePlugin = new GoogleDrivePlugin();
-
+		plugin = new PluginGoogleDrive();
 	}
 
 }

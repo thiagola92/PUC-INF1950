@@ -1,9 +1,11 @@
+package plugin;
+
 import java.util.ArrayList;
 
 public interface Plugin {
 	
 	public void createFolder(String folderPath) throws Exception;
-	public ArrayList<String> listFolder(String folderPath) throws Exception;
+	public ArrayList<String[]> listFolder(String folderPath) throws Exception;
 	public void deleteFolder(String folderPath) throws Exception;
 	
 	public void createFile(String filePath) throws Exception;

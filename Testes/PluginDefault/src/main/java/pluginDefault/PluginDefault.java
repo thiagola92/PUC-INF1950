@@ -1,5 +1,6 @@
+package pluginDefault;
+
 import java.nio.file.DirectoryStream;
-import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -7,52 +8,53 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 
-public class DefaultPlugin implements Plugin {
+import plugin.Plugin;
+
+public class PluginDefault implements Plugin {
+	
+	public PluginDefault() {
+		
+	}
 
 	@Override
 	public void createFolder(String folderPath) throws Exception {
 		Path path = Paths.get(folderPath);
 		
-		try {
-			Files.createDirectory(path);
-		} catch(NoSuchFileException e) {
-			createFolder(path.getParent().toString());
-			Files.createDirectory(path);
-		}
+		Files.createDirectory(path);
 	}
 
 	@Override
-	public ArrayList<String> listFolder(String folderPath) throws Exception {
-		ArrayList<String> filesList = new ArrayList<String>();
+	public ArrayList<String[]> listFolder(String folderPath) throws Exception {
+		ArrayList<String[]> filesList = new ArrayList<String[]>();
 		
 		Path path = Paths.get(folderPath);
 		
 		DirectoryStream<Path> filesStream = Files.newDirectoryStream(path);
+		
 		filesStream.forEach((Path file) -> {
-			filesList.add(file.toString());
+			String[] filesInfo = new String[2];
+			filesInfo[0] = file.toString();
+			
+			if(Files.isDirectory(file))
+				filesInfo[1] = "folder";
+			else
+				filesInfo[1] = "file";
+			
+			filesList.add(filesInfo);
 		});
 		
 		return filesList;
 	}
 
 	@Override
-	public void deleteFolder(String folderPath) throws Exception {
+	public void deleteFolder(String folderPath) throws Exception {		
 		if("".equals(folderPath)) // isso é para eu não deletar esse projeto (de novo)
 			return;
 		
 		Path path = Paths.get(folderPath);
-		if(Files.isDirectory(path) == false)
-			return;
 		
-		ArrayList<String> filesList = listFolder(folderPath);
-		for(String file : filesList) {
-			Path filePath = Paths.get(file);
-			
-			if(Files.isDirectory(filePath))
-				deleteFolder(filePath.toString());
-			else
-				deleteFile(filePath.toString());
-		}
+		if(Files.isDirectory(path) == false)
+			throw new NoSuchFileException("NoSuchFileException");
 
 		// Deleta Permanentemente
 		Files.delete(path); 
@@ -75,7 +77,7 @@ public class DefaultPlugin implements Plugin {
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
 		Path path = Paths.get(filePath);
-		Files.write(path, fileBytes, StandardOpenOption.APPEND);
+		Files.write(path, fileBytes, StandardOpenOption.TRUNCATE_EXISTING);
 	}
 
 	@Override

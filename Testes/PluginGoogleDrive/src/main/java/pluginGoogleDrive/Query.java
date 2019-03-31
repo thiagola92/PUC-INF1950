@@ -1,3 +1,5 @@
+package pluginGoogleDrive;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -6,12 +8,22 @@ import java.util.List;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 
-public class GoogleDriveUtility {
+public class Query {
 	
 	private Drive drive;
 	
-	public GoogleDriveUtility(Drive drive) {
+	public Query(Drive drive) {
 		this.drive = drive;
+	}
+
+	// One query gives you a list of files and folders
+	public List<File> doQuery(String query) throws Exception {
+		return drive.files()
+				.list()
+				.setQ(query)
+				.setFields("files(id, name, parents, mimeType)")
+				.execute()
+				.getFiles();
 	}
 	
 	// Every file and folder have an ID
@@ -22,15 +34,16 @@ public class GoogleDriveUtility {
 				.execute()
 				.getId();
 	}
-
-	// One query gives you a list of files and folders
-	public List<File> getFiles(String query) throws Exception {
-		return drive.files()
-				.list()
-				.setQ(query)
-				.setFields("files(id, name, parents)")
-				.execute()
-				.getFiles();
+	
+	public List<File> getEverything(String folderID) throws Exception {
+		if(folderID == null)
+			return null;
+		
+		String query = "trashed = false"
+						+ " and parents = '%s'"; // Should i use " and '%s' in parents" ?
+		query = String.format(query, folderID);
+		
+		return doQuery(query);
 	}
 
 	// Inside one folder can exist many folders with the same name
@@ -38,13 +51,13 @@ public class GoogleDriveUtility {
 		if(parentID == null || folderName == null)
 			return null;
 		
-		String baseQuery = "mimeType = 'application/vnd.google-apps.folder'"
+		String query = "mimeType = 'application/vnd.google-apps.folder'"
 						+ " and trashed = false"
 						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
 						+ " and name = '%s'";
-		String query = String.format(baseQuery, parentID, folderName);
+		query = String.format(query, parentID, folderName);
 		
-		return getFiles(query);
+		return doQuery(query);
 	}
 
 	// Inside one folder can exist many files with the same name
@@ -52,13 +65,13 @@ public class GoogleDriveUtility {
 		if(parentID == null || fileName == null)
 			return null;
 		
-		String baseQuery = "mimeType != 'application/vnd.google-apps.folder'"
+		String query = "mimeType != 'application/vnd.google-apps.folder'"
 						+ " and trashed = false"
 						+ " and parents = '%s'" // Should i use " and '%s' instead parents" ?
 						+ " and name = '%s'";
-		String query = String.format(baseQuery, parentID, fileName);
+		query = String.format(query, parentID, fileName);
 		
-		return getFiles(query);
+		return doQuery(query);
 	}
 	
 	// Starting from root, you will navigate through the parent folders until the last parent
