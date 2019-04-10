@@ -22,7 +22,7 @@ public class Main {
 		keyGen.initialize(1024);
 		KeyPair key = keyGen.generateKeyPair();
 		
-		MySignature mySignature = MySignature.getInstance("MD5WithRSA");
+		MySignature mySignature = MySignature.getInstance("MD5withRSA");
 		mySignature.initSign(key.getPrivate());
 		mySignature.update(plainText);
 		
