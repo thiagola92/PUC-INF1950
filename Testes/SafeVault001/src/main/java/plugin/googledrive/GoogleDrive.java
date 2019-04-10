@@ -22,6 +22,11 @@ public class GoogleDrive implements Plugin {
 		query = new Query(drive);
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 * @throws FileAlreadyExistsException Directory already exists
+	 */
 	@Override
 	public void createFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
@@ -44,6 +49,11 @@ public class GoogleDrive implements Plugin {
 			.execute();
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException Folder doesn't exists
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 */
 	@Override
 	public ArrayList<String[]> listFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
@@ -72,6 +82,12 @@ public class GoogleDrive implements Plugin {
 		return filesList;
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException Folder doesn't exists
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 * @throws DirectoryNotEmptyException Directory is not empty
+	 */
 	@Override
 	public void deleteFolder(String folderPath) throws Exception {
 		String folderName = Paths.get(folderPath).getFileName().toString();
@@ -95,6 +111,11 @@ public class GoogleDrive implements Plugin {
 			.execute();
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 * @throws FileAlreadyExistsException File already exists
+	 */
 	@Override
 	public void createFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
@@ -116,6 +137,12 @@ public class GoogleDrive implements Plugin {
 			.execute();
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException File doesn't exists
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 * @throws HttpResponseException File is empty
+	 */
 	@Override
 	public byte[] readFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
@@ -131,6 +158,11 @@ public class GoogleDrive implements Plugin {
 		return fileBytes.toByteArray();
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException File doesn't exists
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 */
 	@Override
 	public void writeFile(String filePath, byte[] fileBytes) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();
@@ -144,6 +176,11 @@ public class GoogleDrive implements Plugin {
 			.execute();
 	}
 
+	/**
+	 * @throws NullPointerException First parameter is null
+	 * @throws IndexOutOfBoundsException File doesn't exists
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 */
 	@Override
 	public void deleteFile(String filePath) throws Exception {
 		String fileName = Paths.get(filePath).getFileName().toString();

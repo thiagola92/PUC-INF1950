@@ -74,7 +74,10 @@ public class Query {
 		return doQuery(query);
 	}
 	
-	// Starting from root, you will navigate through the parent folders until the last parent
+	/**
+	 * Starting from root, you will navigate through the parent folders until the last parent
+	 * @throws IndexOutOfBoundsException One or more directories from path doesn't exists
+	 */
 	public String getParentID(String filePath) throws Exception {
 		Path parents = Paths.get(filePath).getParent();
 		

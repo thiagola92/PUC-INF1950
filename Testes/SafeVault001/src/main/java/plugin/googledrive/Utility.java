@@ -21,7 +21,7 @@ import com.google.api.services.drive.DriveScopes;
 public class Utility {
 	
 	private static String CREDENTIAL_PATH = "credentials.json";
-	private static String TOKEN_DIRECTORY = "tokens";
+	private static String TOKEN_DIRECTORY = "tokens/googledrive/";
 	
 	private final static java.util.List<String> SCOPES = Collections.singletonList(DriveScopes.DRIVE);
 	
@@ -39,7 +39,9 @@ public class Utility {
 		InputStreamReader credentialReader = new InputStreamReader(credentialFile);
 		GoogleClientSecrets googleClientSecrets = GoogleClientSecrets.load(JSON_FACTORY, credentialReader);
 		
-		java.io.File tokenDirectory = new java.io.File(TOKEN_DIRECTORY);
+		String tokenFolder = TOKEN_DIRECTORY + (int)(Math.random() * 10000); //temporary solution
+		
+		java.io.File tokenDirectory = new java.io.File(tokenFolder);
 		FileDataStoreFactory dataStore = new FileDataStoreFactory(tokenDirectory);
 		Builder builder = new GoogleAuthorizationCodeFlow.Builder(HTTP_TRANSPORT, JSON_FACTORY, googleClientSecrets, SCOPES);
 		GoogleAuthorizationCodeFlow flow = builder.setDataStoreFactory(dataStore).setAccessType("offline").build();
