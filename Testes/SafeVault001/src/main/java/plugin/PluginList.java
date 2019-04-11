@@ -6,7 +6,7 @@ import plugin.googledrive.GoogleDrive;
 public class PluginList {
 	
 	public static Plugin createPlugin(String name) throws Exception {
-		if(name == null)
+		if(name == null || name.toLowerCase().equals("default"))
 			return new Default();
 		else if(name.toLowerCase().equals("googledrive"))
 			return new GoogleDrive();

@@ -33,8 +33,6 @@ public class DriverPanel extends JPanel {
 		constraints.weighty = 1;
 		constraints.fill = GridBagConstraints.BOTH;
 		this.add(treeScrollPane, constraints);
-		
-		treeComboBox.addActionListener(treeScrollPane);
 	}
 }
 

@@ -21,13 +21,11 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("Creating Default Driver");
 		
 		try {
 			View.engine.driverList.addDrive("Local", "Default");
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			System.out.println(e1);
 		}
 		
 //		JFileChooser fileChooser = new JFileChooser();

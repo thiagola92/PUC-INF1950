@@ -2,6 +2,6 @@ package engine;
 
 public interface EngineListener {
 
-	public void engineUpdated();
+	public void engineUpdated(EngineAction action);
 	
 }
