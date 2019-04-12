@@ -25,7 +25,7 @@ public class Main {
 		MySignature mySignature = MySignature.getInstance("MD5withRSA");
 		mySignature.initSign(key.getPrivate());
 		mySignature.update(plainText);
-		
+
 		byte[] signature = mySignature.sign();
 		System.out.print("\nSignature: ");
 		for(int i = 0; i != signature.length; i++)

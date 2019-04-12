@@ -10,22 +10,22 @@ public class MySignature {
 	private MessageDigest messageDigest;
 	private Cipher cipher;
 	
-	protected MySignature(String algorithms) throws Exception {
-		String[] algorithm = algorithms.split("with");
+	protected MySignature(String algorithm) throws Exception {
+		String[] algorithms = algorithm.split("with");
 		
-		if(algorithm.length != 2) {
+		if(algorithms.length != 2) {
 			System.err.print("\nYou need to inform the algorithm from Digest and Asymetric Key Cypher, example: \"MD5WithRSA\"");
 			System.err.print("\nThis way you use MD5 and RSA algorithm");
 			System.exit(1);
 		}
 		
-		System.out.print("\nAlgorithm 0: " + algorithm[0]);
-		System.out.print("\nAlgorithm 1: " + algorithm[1]);
+		System.out.print("\nAlgorithm 0: " + algorithms[0]);
+		System.out.print("\nAlgorithm 1: " + algorithms[1]);
 		
-		messageDigest = MessageDigest.getInstance(algorithm[0]);
+		messageDigest = MessageDigest.getInstance(algorithms[0]);
+		cipher = Cipher.getInstance(algorithms[1] + "/ECB/PKCS1Padding");
+		
 		System.out.print("\nProvider: " + messageDigest.getProvider().getInfo());
-		
-		cipher = Cipher.getInstance(algorithm[1] + "/ECB/PKCS1Padding");
 	}
 	
 	public static MySignature getInstance(String algorithm) throws Exception {
@@ -46,11 +46,15 @@ public class MySignature {
 		messageDigest.update(data);
 	}
 
-	public boolean verify(byte[] cipherSignature) throws Exception {
+	public boolean verify(byte[] signature) throws Exception {
 		byte[] digest = messageDigest.digest();
-		byte[] signature = cipher.doFinal(cipherSignature);
+		byte[] signatureDigest = cipher.doFinal(signature);
+
+		System.out.print("\nDigest obtained from Signature: ");
+		for(int i = 0; i != digest.length; i++)
+			System.out.print(String.format("%02X", digest[i]));
 		
-		if(Arrays.equals(signature, digest))
+		if(Arrays.equals(signatureDigest, digest))
 			return true;
 		
 		return false;
