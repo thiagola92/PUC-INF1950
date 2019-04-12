@@ -1,4 +1,4 @@
-package view.frame.panel.driverpanel.treecombobox;
+package view.frame.panel.drivepanel.treecombobox;
 
 import javax.swing.JComboBox;
 

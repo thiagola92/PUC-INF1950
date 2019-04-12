@@ -7,14 +7,14 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 
 import view.frame.panel.buttonspanel.ButtonsPanel;
-import view.frame.panel.driverpanel.DriverPanel;
+import view.frame.panel.drivepanel.DrivePanel;
 
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
 	
-	public DriverPanel firstDriverPanel = new DriverPanel();
-	public DriverPanel secondDriverPanel = new DriverPanel();
-	public ButtonsPanel buttonsPanel = new ButtonsPanel(firstDriverPanel, secondDriverPanel);
+	public DrivePanel firstDrivePanel = new DrivePanel();
+	public DrivePanel secondDrivePanel = new DrivePanel();
+	public ButtonsPanel buttonsPanel = new ButtonsPanel(firstDrivePanel, secondDrivePanel);
 	
 	public Panel() {		
 		this.setLayout(new GridBagLayout());
@@ -28,7 +28,7 @@ public class Panel extends JPanel {
 		constraints.insets = new Insets(10, 10, 10, 0);
 		constraints.fill = GridBagConstraints.BOTH;
 		
-		this.add(firstDriverPanel, constraints);
+		this.add(firstDrivePanel, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = this.getComponentCount();
@@ -42,6 +42,6 @@ public class Panel extends JPanel {
 		constraints.insets = new Insets(10, 0, 10, 10);
 		constraints.fill = GridBagConstraints.BOTH;
 		
-		this.add(secondDriverPanel, constraints);
+		this.add(secondDrivePanel, constraints);
 	}
 }

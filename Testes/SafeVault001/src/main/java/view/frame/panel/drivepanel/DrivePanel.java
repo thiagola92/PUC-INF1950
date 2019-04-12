@@ -1,20 +1,20 @@
-package view.frame.panel.driverpanel;
+package view.frame.panel.drivepanel;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import view.frame.panel.driverpanel.treecombobox.TreeComboBox;
-import view.frame.panel.driverpanel.treescrollpane.TreeScrollPane;
+import view.frame.panel.drivepanel.treecombobox.TreeComboBox;
+import view.frame.panel.drivepanel.treescrollpane.TreeScrollPane;
 
 @SuppressWarnings("serial")
-public class DriverPanel extends JPanel {
+public class DrivePanel extends JPanel {
 	
 	public TreeComboBox treeComboBox = new TreeComboBox();
 	public TreeScrollPane treeScrollPane = new TreeScrollPane();
 	
-	public DriverPanel() {
+	public DrivePanel() {
 		this.setLayout(new GridBagLayout());
 		
 		GridBagConstraints constraints;

@@ -9,15 +9,15 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import view.frame.panel.driverpanel.DriverPanel;
+import view.frame.panel.drivepanel.DrivePanel;
 
 @SuppressWarnings("serial")
 public class ButtonsPanel extends JPanel {
 	
-	DriverPanel firstDriverPanel;
-	DriverPanel secondDriverPanel;
+	DrivePanel firstDriverPanel;
+	DrivePanel secondDriverPanel;
 	
-	public ButtonsPanel(DriverPanel firstDriverPanel, DriverPanel secondDriverPanel) {
+	public ButtonsPanel(DrivePanel firstDriverPanel, DrivePanel secondDriverPanel) {
 		this.firstDriverPanel = firstDriverPanel;
 		this.secondDriverPanel = secondDriverPanel;
 		
