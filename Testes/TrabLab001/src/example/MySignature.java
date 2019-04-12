@@ -11,7 +11,7 @@ public class MySignature {
 	private Cipher cipher;
 	
 	protected MySignature(String algorithm) throws Exception {
-		String[] algorithms = algorithm.split("with");
+		String[] algorithms = algorithm.toLowerCase().split("with");
 		
 		if(algorithms.length != 2) {
 			System.err.print("\nYou need to inform the algorithm from Digest and Asymetric Key Cypher, example: \"MD5WithRSA\"");
