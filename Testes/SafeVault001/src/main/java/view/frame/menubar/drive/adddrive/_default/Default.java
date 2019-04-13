@@ -1,4 +1,4 @@
-package view.frame.menubar.driver.adddriver._default;
+package view.frame.menubar.drive.adddrive._default;
 
 import javax.swing.JMenuItem;
 

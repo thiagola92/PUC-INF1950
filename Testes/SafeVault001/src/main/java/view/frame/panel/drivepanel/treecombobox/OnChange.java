@@ -22,16 +22,15 @@ public class OnChange implements ActionListener {
 		
 		return View.frame.panel.secondDrivePanel;
 	}
-	
-	private Drive getDrive() {
-		return (Drive)treeComboBox.getSelectedItem();
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Tree tree = getDrivePanel().treeScrollPane.tree;
-		tree.resetRoot();
-		tree.add(getDrive(), "");
+		Drive drive = (Drive)treeComboBox.getSelectedItem();
+		
+		tree.setDrive(drive);
+		tree.createRoot("");
+		tree.updateRoot("");
 	}
 
 }

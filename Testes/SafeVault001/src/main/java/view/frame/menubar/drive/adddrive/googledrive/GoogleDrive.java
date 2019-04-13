@@ -1,4 +1,4 @@
-package view.frame.menubar.driver.adddriver.googledrive;
+package view.frame.menubar.drive.adddrive.googledrive;
 
 import javax.swing.JMenuItem;
 

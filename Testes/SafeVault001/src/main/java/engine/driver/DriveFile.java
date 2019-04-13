@@ -1,21 +1,29 @@
 package engine.driver;
 
+import java.nio.file.Paths;
+
 public class DriveFile {
-	
-	private String name;
+
+	private String path;
 	private String type;
+	private String name;
 	
-	public DriveFile(String name, String type) {
-		this.name = name;
+	public DriveFile(String path, String type) {
+		this.path = path;
 		this.type = type;
+		this.name = Paths.get(path).getFileName().toString();
 	}
 	
-	public String getName() {
-		return name;
+	public String getPath() {
+		return path;
 	}
 	
 	public String getType() {
 		return type;
+	}
+	
+	public String getName() {
+		return name;
 	}
 	
 	public String toString() {

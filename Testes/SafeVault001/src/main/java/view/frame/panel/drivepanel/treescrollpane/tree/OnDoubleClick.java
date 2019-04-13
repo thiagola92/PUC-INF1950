@@ -13,11 +13,11 @@ public class OnDoubleClick implements MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		if(e.getClickCount() == 1)
+		if(e.getClickCount() <= 1)
 			return;
-
-		System.out.println(tree.getSelectionPath().getLastPathComponent());
 		
+		String path = tree.getSelectionPath().getLastPathComponent().toString();
+		tree.updateRoot(path);
 	}
 
 	@Override
