@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import engine.driver.DriveFile;
+import engine.drive.file.File;
 
 @SuppressWarnings("serial")
 public class CellRenderer extends DefaultTreeCellRenderer {
@@ -17,7 +17,7 @@ public class CellRenderer extends DefaultTreeCellRenderer {
         super.getTreeCellRendererComponent(tree, value, sel, expanded, leaf, row, hasFocus);
 
         DefaultMutableTreeNode node = (DefaultMutableTreeNode) value;
-        DriveFile driveFile = (DriveFile) node.getUserObject();
+        File driveFile = (File) node.getUserObject();
         
         if(driveFile.getType().equals("folder"))
         	this.setIcon(UIManager.getIcon("Tree.openIcon"));

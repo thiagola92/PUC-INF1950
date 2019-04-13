@@ -1,11 +1,10 @@
 package engine;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import engine.driver.Drive;
-import engine.driver.DriveFile;
-import engine.driver.DriveList;
+import engine.drive.Drive;
+import engine.drive.DriveList;
+import engine.drive.file.File;
 
 public class Engine extends EngineUpdatable {
 	
@@ -14,21 +13,26 @@ public class Engine extends EngineUpdatable {
 	public Engine() {
 	}
 	
-	public ArrayList<DriveFile> listFolder(Drive drive, String path) throws Exception {
-		ArrayList<DriveFile> driveFiles = new ArrayList<DriveFile>();
+	public ArrayList<File> listFolder(Drive drive, File folder) throws Exception {
+		ArrayList<File> driveFiles = new ArrayList<File>();
 		
-		drive.getPlugin().listFolder(path).forEach(file -> {
+		drive.getPlugin().listFolder(folder.getPath()).forEach(file -> {
 			String filePath;
 			
-			if(path.isEmpty())
+			if(folder.getPath().isEmpty())
 				filePath = file[0];
 			else
-				filePath = path + File.separator + file[0];
+				filePath = folder.getPath() + java.io.File.separator + file[0];
 			
-			driveFiles.add(new DriveFile(filePath, file[1]));
+			driveFiles.add(new File(filePath, file[1]));
 		});
 		
 		return driveFiles;
+	}
+	
+	public void delete(Drive drive, File file) throws Exception {
+		if(file.getType().equals("file"))
+			drive.getPlugin().deleteFile(file.getPath());
 	}
 	
 }

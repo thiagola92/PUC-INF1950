@@ -3,7 +3,8 @@ package view.frame.panel.drivepanel.treecombobox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import engine.driver.Drive;
+import engine.drive.Drive;
+import engine.drive.file.File;
 import view.View;
 import view.frame.panel.drivepanel.DrivePanel;
 import view.frame.panel.drivepanel.treescrollpane.tree.Tree;
@@ -29,8 +30,7 @@ public class OnChange implements ActionListener {
 		Drive drive = (Drive)treeComboBox.getSelectedItem();
 		
 		tree.setDrive(drive);
-		tree.createRoot("");
-		tree.updateRoot("");
+		tree.newRoot(new File("", "folder"));
 	}
 
 }

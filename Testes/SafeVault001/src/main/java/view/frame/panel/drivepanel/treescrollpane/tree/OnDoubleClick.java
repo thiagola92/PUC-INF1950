@@ -3,6 +3,10 @@ package view.frame.panel.drivepanel.treescrollpane.tree;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import javax.swing.tree.DefaultMutableTreeNode;
+
+import engine.drive.file.File;
+
 public class OnDoubleClick implements MouseListener {
 	
 	private Tree tree; 
@@ -16,8 +20,9 @@ public class OnDoubleClick implements MouseListener {
 		if(e.getClickCount() <= 1)
 			return;
 		
-		String path = tree.getSelectionPath().getLastPathComponent().toString();
-		tree.updateRoot(path);
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
+		File file = (File)node.getUserObject();
+		tree.newRoot(file);
 	}
 
 	@Override
