@@ -21,9 +21,9 @@ public abstract class EngineUpdatable {
 		engineListenerList.remove(engineListener);
 	}
 	
-	public void updateEngineListeners(EngineAction action) {
+	public void updateEngineListeners() {
 		engineListenerList.forEach(listener -> {
-			listener.engineUpdated(action);
+			listener.engineUpdated();
 		});
 	}
 }

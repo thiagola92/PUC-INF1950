@@ -7,8 +7,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.google.api.client.http.HttpResponseException;
 
+import engine.Engine;
 import engine.drive.file.File;
-import view.View;
 
 public class OnClick implements ActionListener {
 	
@@ -27,7 +27,7 @@ public class OnClick implements ActionListener {
 			DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)copy.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 			File toFile = (File) toNode.getUserObject();
 
-			View.engine.copy(fromFile, toFile);
+			Engine.copy(fromFile, toFile);
 			
 			copy.fromDrivePanel().treeScrollPane.tree.updateRoot();
 			copy.toDrivePanel().treeScrollPane.tree.updateRoot();

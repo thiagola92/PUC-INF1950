@@ -3,8 +3,8 @@ package view.frame.panel.drivepanel.treescrollpane.tree;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import engine.Engine;
 import engine.drive.file.File;
-import view.View;
 
 @SuppressWarnings("serial")
 public class Tree extends JTree {
@@ -38,12 +38,12 @@ public class Tree extends JTree {
 		try {
 			File folder = (File) root.getUserObject();
 			
-			View.engine.listFolder(folder).forEach(file -> {
+			Engine.listFolder(folder).forEach(file -> {
 				DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file);
 				
 				root.add(fileNode);
 			});
-		} catch (Exception e) {
+		} catch(Exception e) {
 			System.out.format("Tree: %s\n", e);
 		}
 	}

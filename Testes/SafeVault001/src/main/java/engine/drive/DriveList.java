@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import engine.Engine;
-import engine.EngineAction;
 
 public class DriveList {
 	
@@ -20,14 +19,6 @@ public class DriveList {
 		return driveList.stream();
 	}
 	
-	public Drive getDrive(String driveName) {
-		return driveList
-				.stream()
-				.filter(drive -> drive.getName().equals(driveName))
-				.findFirst()
-				.orElse(null);
-	}
-	
 	public boolean isNameUsed(String driveName) {
 		return driveList
 				.stream()
@@ -40,13 +31,13 @@ public class DriveList {
 		
 		driveList.add(new Drive(driveName, pluginName));
 		
-		engine.updateEngineListeners(EngineAction.ADD_DRIVE);
+		engine.updateEngineListeners();
 	}
 	
 	public void removeDrive(String driveName) {
 		driveList.removeIf((drive) -> drive.getName().equals(driveName));
 		
-		engine.updateEngineListeners(EngineAction.REMOVE_DRIVE);
+		engine.updateEngineListeners();
 	}
 	
 }
