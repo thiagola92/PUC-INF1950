@@ -5,7 +5,6 @@ import java.awt.event.ActionListener;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import engine.drive.Drive;
 import engine.drive.file.File;
 import view.View;
 
@@ -19,12 +18,11 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Drive drive = (Drive)delete.fromDrivePanel().treeComboBox.getSelectedItem();
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-		File file = (File)node.getUserObject();
-
 		try {
-			View.engine.delete(drive, file);
+			DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+			File file = (File) node.getUserObject();
+
+			View.engine.delete(file);
 			
 			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (Exception e1) {

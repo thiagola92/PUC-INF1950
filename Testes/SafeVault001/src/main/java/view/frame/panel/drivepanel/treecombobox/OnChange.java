@@ -28,9 +28,10 @@ public class OnChange implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Tree tree = getDrivePanel().treeScrollPane.tree;
 		Drive drive = (Drive)treeComboBox.getSelectedItem();
+		File file = new File(drive, "", "folder");
 		
-		tree.setDrive(drive);
-		tree.newRoot(new File("", "folder"));
+		file.setName("/");
+		tree.newRoot(file);
 	}
 
 }

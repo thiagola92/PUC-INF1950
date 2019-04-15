@@ -12,8 +12,8 @@ public class TreeScrollPane extends JScrollPane {
 	public Tree tree;
 	
 	public TreeScrollPane() {
-		File driveFile = new File("", "folder");
-		tree = new Tree(new DefaultMutableTreeNode(driveFile));
+		File file = new File(null, "", "folder");
+		tree = new Tree(new DefaultMutableTreeNode(file));
 		
 		this.setViewportView(tree);
 	}
