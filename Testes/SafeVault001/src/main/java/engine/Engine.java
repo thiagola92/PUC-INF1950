@@ -16,6 +16,7 @@ public class Engine extends EngineUpdatable {
 	public Engine() {
 	}
 	
+	// Eu preciso fazer esses métodos estáticos?
 	public static ArrayList<File> listFolder(File folder) throws Exception {
 		if(folder.getType().equals("folder"))
 			return List.listFolder(folder);
@@ -43,11 +44,13 @@ public class Engine extends EngineUpdatable {
 			Move.moveFolder(file, toFolder);
 	}
 	
-	public static void delete(File file) throws Exception {
+	public static void delete(File file, boolean recursive) throws Exception {
 		if(file.getType().equals("file"))
 			Delete.deleteFile(file);
-		else if(file.getType().equals("folder"))
+		else if(file.getType().equals("folder") && recursive == false)
 			Delete.deleteFolder(file);
+		else if(file.getType().equals("folder") && recursive == true)
+			Delete.deleteFolderRecursive(file);
 	}
 	
 }

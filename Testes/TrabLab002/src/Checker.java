@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Checker {
 	
@@ -26,9 +25,9 @@ public class Checker {
 	public void setDigestType(String type) throws Exception {
 		messageDigest = MessageDigest.getInstance(type);
 		
-		System.out.println("Tipo do digest: " + type);
-		System.out.println("Provider: " + messageDigest.getProvider());
-		System.out.println("//////////////////////////////////");
+//		System.out.println("Tipo do digest: " + type);
+//		System.out.println("Provider: " + messageDigest.getProvider());
+//		System.out.println("//////////////////////////////////");
 	}
 	
 	public void setFilePath(String path) throws Exception {
@@ -39,23 +38,23 @@ public class Checker {
 			filesInformationFromList.add(lineInformation.split(" "));
 		});
 		
-		System.out.println("Arquivo com as informações dos digests: " + path);
-		System.out.println("Caminho com do arquivo: " + informationPath.toAbsolutePath());
-		System.out.println("\nCada linha do arquivo como Array: ");
-		filesInformationFromList.forEach(lineInformation -> {
-			System.out.println(Arrays.toString(lineInformation));
-		});
-		System.out.println("//////////////////////////////////");
+//		System.out.println("Arquivo com as informações dos digests: " + path);
+//		System.out.println("Caminho com do arquivo: " + informationPath.toAbsolutePath());
+//		System.out.println("\nCada linha do arquivo como Array: ");
+//		filesInformationFromList.forEach(lineInformation -> {
+//			System.out.println(Arrays.toString(lineInformation));
+//		});
+//		System.out.println("//////////////////////////////////");
 	}
 	
 	public void setFilesList(ArrayList<String> fileList) {
 		this.filesPath = fileList;
 		
-		System.out.println("Arquivos passados como argumentos: ");
-		fileList.forEach(fileName -> {
-			System.out.println(fileName);
-		});
-		System.out.println("//////////////////////////////////");
+//		System.out.println("Arquivos passados como argumentos: ");
+//		fileList.forEach(fileName -> {
+//			System.out.println(fileName);
+//		});
+//		System.out.println("//////////////////////////////////");
 	}
 	
 	private String convertByteToString(byte[] fileDigest) {

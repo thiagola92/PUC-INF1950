@@ -1,5 +1,8 @@
 package engine.drive.file.action;
 
+import java.util.ArrayList;
+
+import engine.Engine;
 import engine.drive.file.File;
 
 public class Delete {
@@ -10,8 +13,15 @@ public class Delete {
 	
 	public static void deleteFolder(File folder) throws Exception {
 		folder.getDrive().getPlugin().deleteFolder(folder.getPath());
+	}
+	
+	public static void deleteFolderRecursive(File folder) throws Exception {
+		ArrayList<File> files = Engine.listFolder(folder);
 		
-		// Delete each file from the folder
+		for(File file : files)
+			Engine.delete(file, true);
+		
+		folder.getDrive().getPlugin().deleteFolder(folder.getPath());
 	}
 
 }

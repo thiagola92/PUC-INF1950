@@ -22,7 +22,7 @@ public class OnClick implements ActionListener {
 			DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 			File file = (File) node.getUserObject();
 
-			Engine.delete(file);
+			Engine.delete(file, false);
 			
 			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (Exception e1) {
