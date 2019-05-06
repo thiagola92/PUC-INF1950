@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import engine.drive.DriveList;
 import engine.drive.file.File;
 import engine.drive.file.action.Copy;
+import engine.drive.file.action.Create;
 import engine.drive.file.action.Delete;
 import engine.drive.file.action.List;
 import engine.drive.file.action.Move;
@@ -16,7 +17,11 @@ public class Engine extends EngineUpdatable {
 	public Engine() {
 	}
 	
-	// Eu preciso fazer esses métodos estáticos?
+	public static void createFolder(File folder) throws Exception {
+		if(folder.getType().equals("folder"))
+			Create.createFolder(folder);
+	}
+	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
 		if(folder.getType().equals("folder"))
 			return List.listFolder(folder);

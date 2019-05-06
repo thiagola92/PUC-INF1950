@@ -29,7 +29,6 @@ public class OnClick implements ActionListener {
 
 			Engine.copy(fromFile, toFile);
 			
-			copy.fromDrivePanel().treeScrollPane.tree.updateRoot();
 			copy.toDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (HttpResponseException e1) {
 			System.out.println("- Empty file?");

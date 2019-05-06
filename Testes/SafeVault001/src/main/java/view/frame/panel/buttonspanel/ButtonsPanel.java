@@ -9,7 +9,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import view.frame.panel.buttonspanel.copy.Copy;
-import view.frame.panel.buttonspanel.delete.Delete;
 import view.frame.panel.buttonspanel.move.Move;
 import view.frame.panel.drivepanel.DrivePanel;
 
@@ -22,9 +21,6 @@ public class ButtonsPanel extends JPanel {
 	public Move moveFromLeftToRight;
 	public Move moveFromRightToLeft;
 	
-	public Delete deleteFromLeft;
-	public Delete deleteFromRight;
-	
 	public ButtonsPanel(DrivePanel firstDrivePanel, DrivePanel secondDrivePanel) {		
 		this.setLayout(new GridBagLayout());
 		
@@ -34,9 +30,6 @@ public class ButtonsPanel extends JPanel {
 		copyFromLeftToRight = new Copy(">", firstDrivePanel, secondDrivePanel);
 		copyFromRightToLeft = new Copy("<", secondDrivePanel, firstDrivePanel);
 		
-		deleteFromLeft = new Delete(">", secondDrivePanel);
-		deleteFromRight = new Delete("<", firstDrivePanel);
-		
 		addComponent(new JLabel("move"));
 		addComponent(moveFromLeftToRight);
 		addComponent(moveFromRightToLeft);
@@ -44,10 +37,6 @@ public class ButtonsPanel extends JPanel {
 		addComponent(new JLabel("copy"));
 		addComponent(copyFromLeftToRight);
 		addComponent(copyFromRightToLeft);
-		
-		addComponent(new JLabel("delete"));
-		addComponent(deleteFromLeft);
-		addComponent(deleteFromRight);
 	}
 	
 	private void addComponent(Component component) {

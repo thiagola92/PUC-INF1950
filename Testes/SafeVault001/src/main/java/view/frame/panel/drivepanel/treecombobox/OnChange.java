@@ -18,10 +18,10 @@ public class OnChange implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.firstDrivePanel.treeComboBox == treeComboBox)
-			return View.frame.panel.firstDrivePanel;
+		if(View.frame.panel.normalDrivePanel.treeComboBox == treeComboBox)
+			return View.frame.panel.normalDrivePanel;
 		
-		return View.frame.panel.secondDrivePanel;
+		return View.frame.panel.safeDrivePanel;
 	}
 
 	@Override
