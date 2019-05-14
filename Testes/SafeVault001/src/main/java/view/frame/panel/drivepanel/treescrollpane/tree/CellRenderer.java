@@ -7,7 +7,7 @@ import javax.swing.UIManager;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeCellRenderer;
 
-import engine.drive.file.File;
+import engine.file.File;
 
 @SuppressWarnings("serial")
 public class CellRenderer extends DefaultTreeCellRenderer {

@@ -12,9 +12,9 @@ import view.frame.panel.drivepanel.DrivePanel;
 @SuppressWarnings("serial")
 public class Panel extends JPanel {
 	
-	public DrivePanel normalDrivePanel = new DrivePanel();
-	public DrivePanel safeDrivePanel = new DrivePanel();
-	public ButtonsPanel buttonsPanel = new ButtonsPanel(normalDrivePanel, safeDrivePanel);
+	public DrivePanel firstDrivePanel = new DrivePanel();
+	public DrivePanel secondDrivePanel = new DrivePanel();
+	public ButtonsPanel buttonsPanel = new ButtonsPanel(firstDrivePanel, secondDrivePanel);
 	
 	public Panel() {		
 		this.setLayout(new GridBagLayout());
@@ -28,7 +28,7 @@ public class Panel extends JPanel {
 		constraints.insets = new Insets(10, 10, 10, 0);
 		constraints.fill = GridBagConstraints.BOTH;
 		
-		this.add(normalDrivePanel, constraints);
+		this.add(firstDrivePanel, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = this.getComponentCount();
@@ -42,6 +42,6 @@ public class Panel extends JPanel {
 		constraints.insets = new Insets(10, 0, 10, 10);
 		constraints.fill = GridBagConstraints.BOTH;
 		
-		this.add(safeDrivePanel, constraints);
+		this.add(secondDrivePanel, constraints);
 	}
 }

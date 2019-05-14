@@ -3,7 +3,7 @@ package view.frame.panel.drivepanel.treescrollpane;
 import javax.swing.JScrollPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
-import engine.drive.file.File;
+import engine.file.File;
 import view.frame.panel.drivepanel.treescrollpane.tree.Tree;
 
 @SuppressWarnings("serial")

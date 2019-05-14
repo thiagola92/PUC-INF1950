@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import engine.drive.Drive;
-import engine.drive.file.File;
+import engine.file.File;
 import view.View;
 import view.frame.panel.drivepanel.DrivePanel;
 import view.frame.panel.drivepanel.treescrollpane.tree.Tree;
@@ -18,10 +18,10 @@ public class OnChange implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.normalDrivePanel.treeComboBox == treeComboBox)
-			return View.frame.panel.normalDrivePanel;
+		if(View.frame.panel.firstDrivePanel.treeComboBox == treeComboBox)
+			return View.frame.panel.firstDrivePanel;
 		
-		return View.frame.panel.safeDrivePanel;
+		return View.frame.panel.secondDrivePanel;
 	}
 
 	@Override

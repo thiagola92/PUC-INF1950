@@ -3,12 +3,12 @@ package engine;
 import java.util.ArrayList;
 
 import engine.drive.DriveList;
-import engine.drive.file.File;
-import engine.drive.file.action.Copy;
-import engine.drive.file.action.Create;
-import engine.drive.file.action.Delete;
-import engine.drive.file.action.List;
-import engine.drive.file.action.Move;
+import engine.file.File;
+import engine.file.action.Copy;
+import engine.file.action.Create;
+import engine.file.action.Delete;
+import engine.file.action.List;
+import engine.file.action.Move;
 
 public class Engine extends EngineUpdatable {
 	
@@ -17,9 +17,9 @@ public class Engine extends EngineUpdatable {
 	public Engine() {
 	}
 	
-	public static void createFolder(File folder) throws Exception {
+	public static void createFolder(File folder, String newFolderName) throws Exception {
 		if(folder.getType().equals("folder"))
-			Create.createFolder(folder);
+			Create.createFolder(folder, newFolderName);
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
