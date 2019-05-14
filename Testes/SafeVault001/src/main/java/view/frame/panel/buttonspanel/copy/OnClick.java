@@ -20,21 +20,21 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)copy.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File fromFile = (File) fromNode.getUserObject();
-	
-			DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)copy.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File toFile = (File) toNode.getUserObject();
+		
+		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)copy.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File fromFile = (File) fromNode.getUserObject();
 
+		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)copy.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File toFile = (File) toNode.getUserObject();
+		
+		try {
 			Engine.copy(fromFile, toFile);
-			
 			copy.toDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (HttpResponseException e1) {
 			System.out.println("- Empty file?");
 			System.out.println(e1);
 		} catch (Exception e1) {
-			System.out.format("Copy OnClick: %s\n", e1);
+			e1.printStackTrace();
 		}
 	}
 

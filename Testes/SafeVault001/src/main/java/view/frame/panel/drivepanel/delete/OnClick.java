@@ -9,6 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.Engine;
 import engine.file.File;
+import view.View;
 
 public class OnClick implements ActionListener {
 	
@@ -20,31 +21,29 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File file = (File) node.getUserObject();
+		
 		try {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File file = (File) node.getUserObject();
-
 			Engine.delete(file, false);
 			
 			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (DirectoryNotEmptyException e1) {
-			deleteRecursive();
+			deleteRecursive(file);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
 	
-	private void deleteRecursive() {
+	private void deleteRecursive(File file) {
 		String message = "Esta pasta possui arquivos dentro, deseja deletar tudo dentro?";
-		int answer = JOptionPane.showOptionDialog(delete, message, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.NO_OPTION);
+		int answer = JOptionPane.showOptionDialog(View.frame, message, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.NO_OPTION);
 		
 		if(answer == JOptionPane.NO_OPTION)
 			return;
 		
 		try {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File file = (File) node.getUserObject();
-
 			Engine.delete(file, true);
 			
 			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();

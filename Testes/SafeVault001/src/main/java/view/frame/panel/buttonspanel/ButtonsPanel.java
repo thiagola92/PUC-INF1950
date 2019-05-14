@@ -24,11 +24,11 @@ public class ButtonsPanel extends JPanel {
 	public ButtonsPanel(DrivePanel firstDrivePanel, DrivePanel secondDrivePanel) {		
 		this.setLayout(new GridBagLayout());
 		
-		moveFromLeftToRight = new Move(">", firstDrivePanel, secondDrivePanel);
-		moveFromRightToLeft = new Move("<", secondDrivePanel, firstDrivePanel);
+		moveFromLeftToRight = new Move("right", firstDrivePanel, secondDrivePanel);
+		moveFromRightToLeft = new Move("left", secondDrivePanel, firstDrivePanel);
 		
-		copyFromLeftToRight = new Copy(">", firstDrivePanel, secondDrivePanel);
-		copyFromRightToLeft = new Copy("<", secondDrivePanel, firstDrivePanel);
+		copyFromLeftToRight = new Copy("right", firstDrivePanel, secondDrivePanel);
+		copyFromRightToLeft = new Copy("left", secondDrivePanel, firstDrivePanel);
 		
 		addComponent(new JLabel("move"));
 		addComponent(moveFromLeftToRight);

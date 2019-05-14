@@ -20,13 +20,14 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		try {
-			DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)move.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File fromFile = (File) fromNode.getUserObject();
-	
-			DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)move.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File toFile = (File) toNode.getUserObject();
 
+		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)move.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File fromFile = (File) fromNode.getUserObject();
+
+		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)move.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File toFile = (File) toNode.getUserObject();
+		
+		try {
 			Engine.move(fromFile, toFile);
 			
 			move.fromDrivePanel().treeScrollPane.tree.updateRoot();
@@ -35,7 +36,7 @@ public class OnClick implements ActionListener {
 			System.out.println("- Empty file?");
 			System.out.println(e1);
 		} catch (Exception e1) {
-			System.out.format("Move OnClick: %s\n", e1);
+			e1.printStackTrace();
 		}
 	}
 

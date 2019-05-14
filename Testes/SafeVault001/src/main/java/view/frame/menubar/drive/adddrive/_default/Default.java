@@ -8,6 +8,6 @@ public class Default extends JMenuItem {
 	public Default() {
 		this.setText("Local");
 		
-		this.addActionListener(new OnClick(this));
+		this.addActionListener(new OnClick());
 	}
 }

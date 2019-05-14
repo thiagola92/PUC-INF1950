@@ -19,13 +19,16 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)newFolder.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		File folder = (File) node.getUserObject();
+		
+		String newFolderName = JOptionPane.showInputDialog("Folder name:");
+		
+		if(newFolderName == null)
+			return;
+		
 		try {
-			DefaultMutableTreeNode node = (DefaultMutableTreeNode)newFolder.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
-			File folder = (File) node.getUserObject();
-			
-			String newFolderName = JOptionPane.showInputDialog("Folder name:");
-			System.out.println(newFolderName);
-
 			Engine.createFolder(folder, newFolderName);
 			
 			newFolder.toDrivePanel().treeScrollPane.tree.updateRoot();

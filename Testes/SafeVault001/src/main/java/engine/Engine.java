@@ -39,7 +39,7 @@ public class Engine extends EngineUpdatable {
 			Copy.copyFolder(file, toFolder);
 	}
 	
-	public static void move(File file, File toFolder) throws Exception {
+	public static void move(File file, File toFolder) throws Exception {		
 		if(toFolder.getType().equals("file"))
 			return;
 		
