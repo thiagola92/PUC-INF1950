@@ -17,7 +17,6 @@ public class Utility {
 			if(name.equals(".SafeVault"))
 				return true;
 		}
-
 		
 		return false;
 	}

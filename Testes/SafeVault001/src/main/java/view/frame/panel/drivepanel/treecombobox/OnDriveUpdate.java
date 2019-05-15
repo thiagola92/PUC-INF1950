@@ -1,9 +1,10 @@
 package view.frame.panel.drivepanel.treecombobox;
 
-import engine.EngineListener;
-import view.View;
+import engine.Engine;
+import engine.update.UpdateListener;
+import engine.update.UpdateOptions;
 
-public class OnDriveUpdate implements EngineListener {
+public class OnDriveUpdate implements UpdateListener {
 	
 	private TreeComboBox treeCombobox;
 	
@@ -12,10 +13,12 @@ public class OnDriveUpdate implements EngineListener {
 	}
 
 	@Override
-	public void engineUpdated() {
-		treeCombobox.removeAllItems();
+	public void engineUpdated(UpdateOptions engineUpdate) {
+		if(engineUpdate != UpdateOptions.DRIVE_UPDATE)
+			return;
 		
-		View.engine.driverList.getDrives().forEach(driver -> treeCombobox.addItem(driver));
+		treeCombobox.removeAllItems();
+		Engine.driverList.getDrives().forEach(driver -> treeCombobox.addItem(driver));
 	}
 
 }

@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import engine.Engine;
+import engine.update.UpdateOptions;
 
 public class DriveList {
 	
-	private Engine engine;
-	
 	private ArrayList<Drive> driveList = new ArrayList<Drive>();
 	
-	public DriveList(Engine engine) {
-		this.engine = engine;
+	public DriveList() {
 	}
 	
 	public Stream<Drive> getDrives() {
@@ -31,13 +29,13 @@ public class DriveList {
 		
 		driveList.add(new Drive(driveName, pluginName));
 		
-		engine.updateEngineListeners();
+		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}
 	
 	public void removeDrive(String driveName) {
 		driveList.removeIf((drive) -> drive.getName().equals(driveName));
 		
-		engine.updateEngineListeners();
+		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}
 	
 }

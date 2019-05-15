@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import view.View;
+import engine.Engine;
 
 public class OnClick implements ActionListener {
 
@@ -18,7 +18,7 @@ public class OnClick implements ActionListener {
 			return;
 		
 		try {
-			View.engine.driverList.addDrive(driveName, "Default");
+			Engine.driverList.addDrive(driveName, "Default");
 		} catch (Exception e1) {
 			System.out.println(e1);
 		}

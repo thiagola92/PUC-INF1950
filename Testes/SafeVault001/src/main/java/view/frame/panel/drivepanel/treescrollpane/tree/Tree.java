@@ -17,6 +17,8 @@ public class Tree extends JTree {
 		this.root = root;
 		this.addMouseListener(new OnDoubleClick(this));
 		this.setCellRenderer(new CellRenderer());
+		
+		Engine.update.addUpdateListener(new OnDriveUpdate(this));
 	}
 	
 	public void updateRoot() {

@@ -30,8 +30,6 @@ public class OnClick implements ActionListener {
 		
 		try {
 			Engine.createFolder(folder, newFolderName);
-			
-			newFolder.toDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

@@ -27,8 +27,6 @@ public class OnClick implements ActionListener {
 		
 		try {
 			Engine.delete(file, false);
-			
-			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (DirectoryNotEmptyException e1) {
 			deleteRecursive(file);
 		} catch (Exception e1) {

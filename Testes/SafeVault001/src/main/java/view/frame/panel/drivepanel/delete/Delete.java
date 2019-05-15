@@ -1,8 +1,6 @@
 package view.frame.panel.drivepanel.delete;
 
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
