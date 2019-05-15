@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import engine.drive.DriveList;
 import engine.file.File;
+import engine.file.Utility;
 import engine.file.action.Copy;
 import engine.file.action.Create;
 import engine.file.action.Delete;
@@ -18,8 +19,13 @@ public class Engine {
 	public static Update update = new Update();
 	
 	public static void createFolder(File folder, String newFolderName) throws Exception {
-		if(folder.getType().equals("folder"))
+		if(folder.getType().equals("folder") == false)
+			return;
+		
+		if(Utility.isInsideSafeVault(folder) == false)
 			Create.createFolder(folder, newFolderName);
+		else
+			Create.createSecurityFolder(folder, newFolderName);
 		
 		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}

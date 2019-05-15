@@ -1,5 +1,8 @@
 package view.frame.panel.drivepanel.treescrollpane.tree;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -29,8 +32,11 @@ public class Tree extends JTree {
 		if(folder.getType().equals("file"))
 			return;
 		
+		folder = new File(folder.getDrive(), folder.getPath(), folder.getType());
+		
 		root.setUserObject(folder);
 		root.removeAllChildren();
+		addReturnNode();
 		openRoot();
 		
 		this.updateUI();
@@ -48,6 +54,20 @@ public class Tree extends JTree {
 		} catch(Exception e) {
 			System.out.format("Tree: %s\n", e);
 		}
+	}
+	
+	public void addReturnNode() {
+		File folder = (File) root.getUserObject();
+		Path returnPath = Paths.get(folder.getPath()).getParent();
+		
+		if(returnPath == null)
+			returnPath = Paths.get("");
+		
+		File returnFolder = new File(folder.getDrive(), returnPath.toString(), "folder");
+		DefaultMutableTreeNode returnNode = new DefaultMutableTreeNode(returnFolder);
+
+		returnFolder.setName("..");
+		root.add(returnNode);
 	}
 
 }

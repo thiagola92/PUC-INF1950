@@ -166,3 +166,8 @@ A princípio a interface inicial é apenas o console, dessa maneira conseguimos 
 # Softwares com a mesma idéia
 https://www.boxcryptor.com/en/  
 https://cryptomator.org/  
+
+# Algoritmos
+AES - Cifra simétrica  
+RSA - Cifra assimétrica  
+SHA256withRSA ou SHA1withRSA - Assinatura (prioridade para primeira)  

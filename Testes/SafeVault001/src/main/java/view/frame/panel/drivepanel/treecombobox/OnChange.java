@@ -30,7 +30,6 @@ public class OnChange implements ActionListener {
 		Drive drive = (Drive)treeComboBox.getSelectedItem();
 		File file = new File(drive, "", "folder");
 		
-		file.setName("/");
 		tree.newRoot(file);
 	}
 
