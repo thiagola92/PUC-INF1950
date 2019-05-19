@@ -22,15 +22,15 @@ public class Engine {
 		if(folder.getType().equals("folder") == false)
 			return;
 		
-		if(Utility.isInsideSafeVault(folder) == false)
-			Create.createFolder(folder, newFolderName);
-		else
-			Create.createSecurityFolder(folder, newFolderName);
+		Create.createFolder(folder, newFolderName);
 		
 		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
+		System.out.println(Utility.isInsideSafeVault(folder));
+		System.out.println(Utility.getSafeVaultPath(folder));
+		
 		if(folder.getType().equals("folder"))
 			return List.listFolder(folder);
 		

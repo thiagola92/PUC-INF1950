@@ -11,11 +11,6 @@ import javax.crypto.KeyGenerator;
 
 public class Decrypt {
 	
-	/*
-	 * Por que a gente cifra a semente em vez da chave?
-	 * Quais os benificios de recuperar a chave dessa maneira?
-	 * Se não for bom usar, utilizar EncodedKeySpec + SecretKeyFactory?
-	 */
 	public static Key getSecretKey(byte[] encryptedSeed, PrivateKey privateKey) throws Exception {
 		Cipher cipher = Cipher.getInstance("RSA");
 		cipher.init(Cipher.DECRYPT_MODE, privateKey);
