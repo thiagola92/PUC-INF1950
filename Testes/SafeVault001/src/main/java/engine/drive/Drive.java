@@ -7,10 +7,18 @@ public class Drive {
 
 	private String name;
 	private Plugin plugin;
+	private String path;
 	
 	public Drive(String driveName, String pluginName) throws Exception {
 		this.name = driveName;
 		this.plugin = PluginList.createPlugin(pluginName);
+		this.path = "";
+	}
+	
+	public Drive(String driveName, String path, String pluginName) throws Exception {
+		this.name = driveName;
+		this.plugin = PluginList.createPlugin(pluginName);
+		this.path = path;
 	}
 	
 	public String getName() {
@@ -23,6 +31,14 @@ public class Drive {
 	
 	public Plugin getPlugin() {
 		return plugin;
+	}
+	
+	public String getPath() {
+		return path;
+	}
+	
+	public void setPath(String path) {
+		this.path = path;
 	}
 	
 	public String toString() {

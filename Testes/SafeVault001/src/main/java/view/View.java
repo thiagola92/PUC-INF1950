@@ -3,13 +3,13 @@ package view;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 
-import engine.cryptography.Decrypt;
-import engine.cryptography.Encrypt;
+import engine.file.cryptography.Decrypt;
+import engine.file.cryptography.Encrypt;
 import view.frame.Frame;
 
 public class View {
 	
-	public static Frame frame;// = new Frame();
+	public static Frame frame = new Frame();
 
 	public static void main(String[] args) {
 		try {			

@@ -52,7 +52,7 @@ public class Tree extends JTree {
 				root.add(fileNode);
 			});
 		} catch(Exception e) {
-			System.out.format("Tree: %s\n", e);
+			e.printStackTrace();
 		}
 	}
 	

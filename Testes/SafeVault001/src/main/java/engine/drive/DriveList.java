@@ -32,6 +32,15 @@ public class DriveList {
 		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}
 	
+	public void addDrive(String driveName, String path, String pluginName) throws Exception {
+		if(isNameUsed(driveName))
+			throw new Exception("Drive name in use");
+		
+		driveList.add(new Drive(driveName, path, pluginName));
+		
+		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+	}
+	
 	public void removeDrive(String driveName) {
 		driveList.removeIf((drive) -> drive.getName().equals(driveName));
 		
