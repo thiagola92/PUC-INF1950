@@ -69,7 +69,7 @@ public class Decrypt {
 		
 		byte[] content = getDecryptedContent(encryptedContent, key);
 		if(isSignatureOK(content, signature, publicKey))
-			return null;
+			return content;
 		
 		return null;
 	}

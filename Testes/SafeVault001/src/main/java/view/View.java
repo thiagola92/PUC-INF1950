@@ -9,7 +9,7 @@ import view.frame.Frame;
 
 public class View {
 	
-	public static Frame frame = new Frame();
+	public static Frame frame;// = new Frame();
 
 	public static void main(String[] args) {
 		try {			
@@ -18,6 +18,8 @@ public class View {
 			
 			byte[] encryptedFile = Encrypt.getEncryptedFile("asdf".getBytes(), keyPair.getPrivate(), keyPair.getPublic());
 			byte[] file = Decrypt.getDecryptedFile(encryptedFile, keyPair.getPrivate(), keyPair.getPublic());
+			
+			System.out.println(new String(file));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
