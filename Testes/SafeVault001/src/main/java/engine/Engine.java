@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import engine.drive.DriveList;
 import engine.file.File;
-import engine.file.Utility;
 import engine.file.action.Copy;
 import engine.file.action.Create;
 import engine.file.action.Delete;
@@ -28,13 +27,10 @@ public class Engine {
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
-		System.out.println(Utility.isInsideSafeVault(folder));
-		System.out.println(Utility.getSafeVaultPath(folder));
+		if(folder.getType().equals("folder") == false)
+			return null;
 		
-		if(folder.getType().equals("folder"))
-			return List.listFolder(folder);
-		
-		return null;
+		return List.listFolder(folder);
 	}
 	
 	public static void copy(File file, File toFolder) throws Exception {
