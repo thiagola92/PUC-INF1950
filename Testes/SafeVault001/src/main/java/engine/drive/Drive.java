@@ -6,19 +6,21 @@ import plugin.PluginList;
 public class Drive {
 
 	private String name;
+	private String pluginName;
 	private Plugin plugin;
-	private String path;
+	private String startPath;
 	
 	public Drive(String driveName, String pluginName) throws Exception {
 		this.name = driveName;
+		this.pluginName = pluginName;
 		this.plugin = PluginList.createPlugin(pluginName);
-		this.path = "";
+		this.startPath = "";
 	}
 	
-	public Drive(String driveName, String path, String pluginName) throws Exception {
+	public Drive(String driveName, String startPath, String pluginName) throws Exception {
 		this.name = driveName;
 		this.plugin = PluginList.createPlugin(pluginName);
-		this.path = path;
+		this.startPath = startPath;
 	}
 	
 	public String getName() {
@@ -29,16 +31,20 @@ public class Drive {
 		this.name = name;
 	}
 	
+	public String getPluginName() {
+		return pluginName;
+	}
+	
 	public Plugin getPlugin() {
 		return plugin;
 	}
 	
 	public String getPath() {
-		return path;
+		return startPath;
 	}
 	
 	public void setPath(String path) {
-		this.path = path;
+		this.startPath = path;
 	}
 	
 	public String toString() {

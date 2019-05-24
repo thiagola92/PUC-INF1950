@@ -63,20 +63,20 @@ public class Encrypt {
 		byte[] signature = getSignature(content, privateKey);
 		byte[] encryptedContent = getEncryptedContent(content, key);
 
-		System.out.println(encryptedSeed.length);
-		for(int i = 0; i < encryptedSeed.length; i++)
-			System.out.format("%X", encryptedSeed[i]);
-		System.out.println();
-
-		System.out.println(signature.length);
-		for(int i = 0; i < signature.length; i++)
-			System.out.format("%X", signature[i]);
-		System.out.println();
-
-		System.out.println(encryptedContent.length);
-		for(int i = 0; i < encryptedContent.length; i++)
-			System.out.format("%X", encryptedContent[i]);
-		System.out.println();
+//		System.out.println(encryptedSeed.length);
+//		for(int i = 0; i < encryptedSeed.length; i++)
+//			System.out.format("%X", encryptedSeed[i]);
+//		System.out.println();
+//
+//		System.out.println(signature.length);
+//		for(int i = 0; i < signature.length; i++)
+//			System.out.format("%X", signature[i]);
+//		System.out.println();
+//
+//		System.out.println(encryptedContent.length);
+//		for(int i = 0; i < encryptedContent.length; i++)
+//			System.out.format("%X", encryptedContent[i]);
+//		System.out.println();
 		
 		return Bytes.concat(encryptedSeed, signature, encryptedContent);
 	}

@@ -49,20 +49,20 @@ public class Decrypt {
 		byte[] signature = Arrays.copyOfRange(container, 256, 512);
 		byte[] encryptedContent = Arrays.copyOfRange(container, 512, container.length);
 
-		System.out.println(encryptedSeed.length);
-		for(int i = 0; i < encryptedSeed.length; i++)
-			System.out.format("%X", encryptedSeed[i]);
-		System.out.println();
-
-		System.out.println(signature.length);
-		for(int i = 0; i < signature.length; i++)
-			System.out.format("%X", signature[i]);
-		System.out.println();
-
-		System.out.println(encryptedContent.length);
-		for(int i = 0; i < encryptedContent.length; i++)
-			System.out.format("%X", encryptedContent[i]);
-		System.out.println();
+//		System.out.println(encryptedSeed.length);
+//		for(int i = 0; i < encryptedSeed.length; i++)
+//			System.out.format("%X", encryptedSeed[i]);
+//		System.out.println();
+//
+//		System.out.println(signature.length);
+//		for(int i = 0; i < signature.length; i++)
+//			System.out.format("%X", signature[i]);
+//		System.out.println();
+//
+//		System.out.println(encryptedContent.length);
+//		for(int i = 0; i < encryptedContent.length; i++)
+//			System.out.format("%X", encryptedContent[i]);
+//		System.out.println();
 		
 		byte[] seed = getDecryptedSeed(encryptedSeed, privateKey);
 		Key key = getSecretKey(seed);

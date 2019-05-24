@@ -17,17 +17,17 @@ public class OnClick implements ActionListener {
 		if(driveName == null)
 			return;
 		
-		String path = null;
+		String startPath = null;
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if(fileChooser.showOpenDialog(View.frame.menuBar.drive.addDrive._default) == JFileChooser.APPROVE_OPTION)
-			path = fileChooser.getSelectedFile().getPath();
+			startPath = fileChooser.getSelectedFile().getPath();
 		
 		try {
-			if(path == null)
+			if(startPath == null)
 				Engine.driverList.addDrive(driveName, "Default");
 			else
-				Engine.driverList.addDrive(driveName, path, "Default");
+				Engine.driverList.addDrive(driveName, startPath, "Default");
 		} catch (Exception e1) {
 			System.out.println(e1);
 		}
