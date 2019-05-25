@@ -3,7 +3,7 @@ package view.frame.panel.drivepanel.treecombobox;
 import javax.swing.JComboBox;
 
 import engine.Engine;
-import engine.drive.Drive;
+import engine.file.drive.Drive;
 
 @SuppressWarnings({ "serial" })
 public class TreeComboBox extends JComboBox<Drive>{

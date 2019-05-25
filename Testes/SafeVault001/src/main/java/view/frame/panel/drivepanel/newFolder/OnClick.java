@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.Engine;
 import engine.file.File;
+import engine.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
@@ -30,6 +31,8 @@ public class OnClick implements ActionListener {
 		
 		try {
 			Engine.createFolder(folder, newFolderName);
+			
+			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

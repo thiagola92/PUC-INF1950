@@ -9,6 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.Engine;
 import engine.file.File;
+import engine.update.UpdateOptions;
 import view.View;
 
 public class OnClick implements ActionListener {
@@ -27,8 +28,12 @@ public class OnClick implements ActionListener {
 		
 		try {
 			Engine.delete(file, false);
+			
+			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (DirectoryNotEmptyException e1) {
 			deleteRecursive(file);
+			
+			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

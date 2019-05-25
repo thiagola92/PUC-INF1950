@@ -1,8 +1,5 @@
 package engine.file;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 public class Utility {
 	
 	// "src" + "main" = "src/main"
@@ -14,24 +11,14 @@ public class Utility {
 			return parentPath + java.io.File.separator + childName;
 	}
 	
-	public static boolean isInsideSafeVault(File file) {		
-		if(file.getPath().startsWith(".SafeVault"))
-			return true;
+	public static byte[] createContainer(byte[] encryptedSeed, byte[] signature, byte[] encryptedContent) {
+		byte[] container = new byte[encryptedSeed.length + signature.length + encryptedContent.length];
 		
-		if(file.getPath().contains("/.SafeVault"))
-			return true;
+		System.arraycopy(encryptedSeed, 0, container, 0, encryptedSeed.length);
+		System.arraycopy(signature, 0, container, encryptedSeed.length, signature.length);
+		System.arraycopy(encryptedContent, 0, container, encryptedSeed.length + signature.length, encryptedContent.length);
 		
-		return false;
-	}
-	
-	public static String getSafeVaultPath(File file) {
-		Pattern pattern = Pattern.compile("(.*" + java.io.File.separator + java.io.File.separator + "?\\.SafeVault).*");
-		Matcher matcher = pattern.matcher(file.getPath());
-		
-		if(matcher.find())
-			return matcher.group();
-		
-		return null;
+		return container;
 	}
 
 }

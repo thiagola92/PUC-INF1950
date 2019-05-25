@@ -2,15 +2,14 @@ package engine;
 
 import java.util.ArrayList;
 
-import engine.drive.DriveList;
 import engine.file.File;
 import engine.file.action.Copy;
 import engine.file.action.Create;
 import engine.file.action.Delete;
 import engine.file.action.List;
 import engine.file.action.Move;
+import engine.file.drive.DriveList;
 import engine.update.Update;
-import engine.update.UpdateOptions;
 
 public class Engine {
 	
@@ -22,8 +21,6 @@ public class Engine {
 			return;
 		
 		Create.createFolder(folder, newFolderName);
-		
-		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
@@ -41,8 +38,6 @@ public class Engine {
 			Copy.copyFile(file, toFolder);
 		else if(file.getType().equals("folder")) 
 			Copy.copyFolder(file, toFolder);
-		
-		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}
 	
 	public static void move(File file, File toFolder) throws Exception {		
@@ -53,8 +48,6 @@ public class Engine {
 			Move.moveFile(file, toFolder);
 		else if(file.getType().equals("folder"))
 			Move.moveFolder(file, toFolder);
-		
-		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}
 	
 	public static void delete(File file, boolean recursive) throws Exception {
@@ -64,8 +57,6 @@ public class Engine {
 			Delete.deleteFolder(file);
 		else if(file.getType().equals("folder") && recursive == true)
 			Delete.deleteFolderRecursive(file);
-		
-		update.updateListeners(UpdateOptions.FILE_UPDATE);
 	}
 	
 }

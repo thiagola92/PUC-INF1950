@@ -1,4 +1,4 @@
-package engine.drive;
+package engine.file.drive;
 
 import plugin.Plugin;
 import plugin.PluginList;
@@ -7,20 +7,16 @@ public class Drive {
 
 	private String name;
 	private String pluginName;
-	private Plugin plugin;
 	private String startPath;
+	
+	private Plugin plugin;
 	
 	public Drive(String driveName, String pluginName) throws Exception {
 		this.name = driveName;
 		this.pluginName = pluginName;
-		this.plugin = PluginList.createPlugin(pluginName);
 		this.startPath = "";
-	}
-	
-	public Drive(String driveName, String startPath, String pluginName) throws Exception {
-		this.name = driveName;
+		
 		this.plugin = PluginList.createPlugin(pluginName);
-		this.startPath = startPath;
 	}
 	
 	public String getName() {
@@ -35,16 +31,16 @@ public class Drive {
 		return pluginName;
 	}
 	
-	public Plugin getPlugin() {
-		return plugin;
-	}
-	
-	public String getPath() {
+	public String getStartPath() {
 		return startPath;
 	}
 	
-	public void setPath(String path) {
-		this.startPath = path;
+	public void setStartPath(String startPath) {
+		this.startPath = startPath;
+	}
+	
+	public Plugin getPlugin() {
+		return plugin;
 	}
 	
 	public String toString() {

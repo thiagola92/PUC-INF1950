@@ -1,10 +1,10 @@
-package engine.file.index;
+package engine.file.vault.index;
 
 import java.util.ArrayList;
 
 import engine.file.File;
 import engine.file.action.List;
-import engine.file.cryptography.Decrypt;
+import engine.file.vault.cryptography.Decrypt;
 
 public class Index {
 
@@ -16,9 +16,7 @@ public class Index {
 //		folder.getDrive().getPlugin().writeFile(filePath, fileBytes);
 	}
 	
-	public static boolean existIndex(File folder) throws Exception {
-		ArrayList<File> files = List.listFolder(folder);
-		
+	public static boolean existIndex(ArrayList<File> files) throws Exception {		
 		for(int i = 0; i < files.size(); i++)
 			if(files.get(i).getName().equals("index"))
 				return true;

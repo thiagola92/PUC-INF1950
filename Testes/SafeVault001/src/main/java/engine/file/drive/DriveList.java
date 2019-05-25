@@ -1,11 +1,13 @@
-package engine.drive;
+package engine.file.drive;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import engine.Engine;
+import engine.file.drive.exception.NameAlreadyUsedException;
 import engine.update.UpdateOptions;
 
+// DriveList é classe da Engine ou View?
 public class DriveList {
 	
 	private ArrayList<Drive> driveList = new ArrayList<Drive>();
@@ -23,20 +25,11 @@ public class DriveList {
 				.anyMatch((drive) -> drive.getName().equals(driveName));
 	}
 	
-	public void addDrive(String driveName, String pluginName) throws Exception {
-		if(isNameUsed(driveName))
-			throw new Exception("Drive name in use");
+	public void addDrive(Drive drive) throws Exception {
+		if(isNameUsed(drive.getName()))
+			throw new NameAlreadyUsedException();
 		
-		driveList.add(new Drive(driveName, pluginName));
-		
-		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
-	}
-	
-	public void addDrive(String driveName, String path, String pluginName) throws Exception {
-		if(isNameUsed(driveName))
-			throw new Exception("Drive name in use");
-		
-		driveList.add(new Drive(driveName, path, pluginName));
+		driveList.add(drive);
 		
 		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}

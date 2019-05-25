@@ -7,6 +7,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import engine.Engine;
+import engine.file.drive.Drive;
+import engine.file.drive.exception.NameAlreadyUsedException;
 import view.View;
 
 public class OnClick implements ActionListener {
@@ -17,19 +19,22 @@ public class OnClick implements ActionListener {
 		if(driveName == null)
 			return;
 		
-		String startPath = null;
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		if(fileChooser.showOpenDialog(View.frame.menuBar.drive.addDrive._default) == JFileChooser.APPROVE_OPTION)
-			startPath = fileChooser.getSelectedFile().getPath();
+		if(fileChooser.showOpenDialog(View.frame.menuBar.drive.addDrive._default) != JFileChooser.APPROVE_OPTION)
+			return;
+
+		String startPath = fileChooser.getSelectedFile().getPath();
 		
 		try {
-			if(startPath == null)
-				Engine.driverList.addDrive(driveName, "Default");
-			else
-				Engine.driverList.addDrive(driveName, startPath, "Default");
+			Drive drive = new Drive(driveName, "Default");
+			drive.setStartPath(startPath);
+			
+			Engine.driverList.addDrive(drive);
+		} catch (NameAlreadyUsedException e1) {
+			JOptionPane.showMessageDialog(View.frame, "Nome já está em uso");
 		} catch (Exception e1) {
-			System.out.println(e1);
+			e1.printStackTrace();
 		}
 		
 	}
