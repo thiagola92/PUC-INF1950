@@ -1,16 +1,14 @@
-package view.frame.panel.drivepanel.newFolder;
+package view.frame.panel.drivepanel.toppanel.newFolder;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import view.frame.panel.drivepanel.DrivePanel;
-
 @SuppressWarnings("serial")
 public class NewFolder extends JButton {
 	
-	public NewFolder(DrivePanel toDrivePanel) {		
+	public NewFolder() {		
 		createIcon();
 		
 		this.addActionListener(new OnClick(this));

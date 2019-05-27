@@ -5,18 +5,14 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import view.frame.panel.drivepanel.delete.Delete;
-import view.frame.panel.drivepanel.newFolder.NewFolder;
-import view.frame.panel.drivepanel.treecombobox.TreeComboBox;
+import view.frame.panel.drivepanel.toppanel.TopPanel;
 import view.frame.panel.drivepanel.treescrollpane.TreeScrollPane;
 
 @SuppressWarnings("serial")
 public class DrivePanel extends JPanel {
 	
-	public TreeComboBox treeComboBox = new TreeComboBox();
+	public TopPanel topPanel = new TopPanel();
 	public TreeScrollPane treeScrollPane = new TreeScrollPane();
-	public Delete delete = new Delete(this);
-	public NewFolder newFolder = new NewFolder(this);
 	
 	public DrivePanel() {
 		this.setLayout(new GridBagLayout());
@@ -27,20 +23,9 @@ public class DrivePanel extends JPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.weightx = 1;
+		constraints.fill = GridBagConstraints.BOTH;
 		constraints.anchor = GridBagConstraints.LINE_START;
-		this.add(treeComboBox, constraints);
-		
-		constraints = new GridBagConstraints();
-		constraints.gridx = 1;
-		constraints.gridy = 0;
-		constraints.anchor = GridBagConstraints.LINE_END;
-		this.add(newFolder, constraints);
-		
-		constraints = new GridBagConstraints();
-		constraints.gridx = 2;
-		constraints.gridy = 0;
-		constraints.anchor = GridBagConstraints.LINE_END;
-		this.add(delete, constraints);
+		this.add(topPanel, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;

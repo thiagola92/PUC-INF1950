@@ -1,4 +1,4 @@
-package view.frame.panel.drivepanel.delete;
+package view.frame.panel.drivepanel.toppanel.delete;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +22,7 @@ public class OnClick implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.firstDrivePanel.delete == delete)
+		if(View.frame.panel.firstDrivePanel.topPanel.delete == delete)
 			return View.frame.panel.firstDrivePanel;
 		
 		return View.frame.panel.secondDrivePanel;

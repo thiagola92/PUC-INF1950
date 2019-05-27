@@ -1,4 +1,4 @@
-package view.frame.panel.drivepanel.treecombobox;
+package view.frame.panel.drivepanel.toppanel.treecombobox;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,7 +18,7 @@ public class OnChange implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.firstDrivePanel.treeComboBox == treeComboBox)
+		if(View.frame.panel.firstDrivePanel.topPanel.treeComboBox == treeComboBox)
 			return View.frame.panel.firstDrivePanel;
 		
 		return View.frame.panel.secondDrivePanel;
@@ -26,7 +26,7 @@ public class OnChange implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {	
-		if(getDrivePanel().treeComboBox.getItemCount() == 0)
+		if(getDrivePanel().topPanel.treeComboBox.getItemCount() == 0)
 			return;
 		
 		Tree tree = getDrivePanel().treeScrollPane.tree;

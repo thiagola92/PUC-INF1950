@@ -1,17 +1,16 @@
-package view.frame.panel.drivepanel.delete;
+package view.frame.panel.drivepanel.toppanel.delete;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import view.frame.panel.drivepanel.DrivePanel;
-import view.frame.panel.drivepanel.delete.OnClick;
+import view.frame.panel.drivepanel.toppanel.delete.OnClick;
 
 @SuppressWarnings("serial")
 public class Delete extends JButton {
 	
-	public Delete(DrivePanel fromDrivePanel) {		
+	public Delete() {		
 		createIcon();
 		
 		this.addActionListener(new OnClick(this));
