@@ -9,6 +9,8 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import engine.Engine;
 import engine.file.File;
 import engine.update.UpdateOptions;
+import view.View;
+import view.frame.panel.drivepanel.DrivePanel;
 
 public class OnClick implements ActionListener {
 	
@@ -17,11 +19,18 @@ public class OnClick implements ActionListener {
 	public OnClick(NewFolder newFolder) {
 		this.newFolder = newFolder;
 	}
+	
+	private DrivePanel getDrivePanel() {
+		if(View.frame.panel.firstDrivePanel.newFolder == newFolder)
+			return View.frame.panel.firstDrivePanel;
+		
+		return View.frame.panel.secondDrivePanel;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)newFolder.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File folder = (File) node.getUserObject();
 		
 		String newFolderName = JOptionPane.showInputDialog("Folder name:");

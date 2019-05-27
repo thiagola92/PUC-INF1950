@@ -1,4 +1,4 @@
-package view.frame.panel.buttonspanel;
+package view.frame.panel.middlepanel;
 
 import java.awt.Component;
 import java.awt.GridBagConstraints;
@@ -8,12 +8,12 @@ import java.awt.Insets;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import view.frame.panel.buttonspanel.copy.Copy;
-import view.frame.panel.buttonspanel.move.Move;
 import view.frame.panel.drivepanel.DrivePanel;
+import view.frame.panel.middlepanel.copy.Copy;
+import view.frame.panel.middlepanel.move.Move;
 
 @SuppressWarnings("serial")
-public class ButtonsPanel extends JPanel {
+public class MiddlePanel extends JPanel {
 	
 	public Copy copyFromLeftToRight;
 	public Copy copyFromRightToLeft;
@@ -21,7 +21,7 @@ public class ButtonsPanel extends JPanel {
 	public Move moveFromLeftToRight;
 	public Move moveFromRightToLeft;
 	
-	public ButtonsPanel(DrivePanel firstDrivePanel, DrivePanel secondDrivePanel) {		
+	public MiddlePanel(DrivePanel firstDrivePanel, DrivePanel secondDrivePanel) {		
 		this.setLayout(new GridBagLayout());
 		
 		moveFromLeftToRight = new Move("right", firstDrivePanel, secondDrivePanel);

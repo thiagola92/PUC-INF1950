@@ -1,20 +1,19 @@
-package view.frame.panel.buttonspanel.move;
+package view.frame.panel.middlepanel.copy;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import view.frame.panel.buttonspanel.move.OnClick;
 import view.frame.panel.drivepanel.DrivePanel;
 
 @SuppressWarnings("serial")
-public class Move extends JButton {
+public class Copy extends JButton {
 	
 	private DrivePanel fromDrivePanel;
 	private DrivePanel toDrivePanel;
 	
-	public Move(String direction, DrivePanel fromDrivePanel, DrivePanel toDrivePanel) {
+	public Copy(String direction, DrivePanel fromDrivePanel, DrivePanel toDrivePanel) {
 		this.fromDrivePanel = fromDrivePanel;
 		this.toDrivePanel = toDrivePanel;
 		
@@ -32,7 +31,7 @@ public class Move extends JButton {
 	}
 	
 	private void createIcon(String direction) {
-		String path = "angle-" + direction + ".png";
+		String path = "angle-double-" + direction + ".png";
 	    URL imgURL = getClass().getResource(path);
 	    
 	    if (imgURL != null) {
@@ -44,5 +43,5 @@ public class Move extends JButton {
 	    		this.setText("<<");
 	    }
 	}
-	
+
 }

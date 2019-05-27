@@ -11,18 +11,10 @@ import view.frame.panel.drivepanel.delete.OnClick;
 @SuppressWarnings("serial")
 public class Delete extends JButton {
 	
-	private DrivePanel fromDrivePanel;
-	
-	public Delete(DrivePanel fromDrivePanel) {
-		this.fromDrivePanel = fromDrivePanel;
-		
+	public Delete(DrivePanel fromDrivePanel) {		
 		createIcon();
 		
 		this.addActionListener(new OnClick(this));
-	}
-	
-	public DrivePanel fromDrivePanel() {
-		return fromDrivePanel;
 	}
 	
 	private void createIcon() {

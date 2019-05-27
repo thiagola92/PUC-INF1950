@@ -11,6 +11,7 @@ import engine.Engine;
 import engine.file.File;
 import engine.update.UpdateOptions;
 import view.View;
+import view.frame.panel.drivepanel.DrivePanel;
 
 public class OnClick implements ActionListener {
 	
@@ -19,11 +20,18 @@ public class OnClick implements ActionListener {
 	public OnClick(Delete delete) {
 		this.delete = delete;
 	}
+	
+	private DrivePanel getDrivePanel() {
+		if(View.frame.panel.firstDrivePanel.delete == delete)
+			return View.frame.panel.firstDrivePanel;
+		
+		return View.frame.panel.secondDrivePanel;
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)delete.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 		
 		try {
@@ -49,7 +57,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.delete(file, true);
 			
-			delete.fromDrivePanel().treeScrollPane.tree.updateRoot();
+			getDrivePanel().treeScrollPane.tree.updateRoot();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

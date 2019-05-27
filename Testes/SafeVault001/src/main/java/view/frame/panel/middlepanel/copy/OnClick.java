@@ -1,4 +1,4 @@
-package view.frame.panel.buttonspanel.move;
+package view.frame.panel.middlepanel.copy;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,23 +13,23 @@ import engine.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	private Move move;
+	private Copy copy;
 	
-	public OnClick(Move move) {
-		this.move = move;
+	public OnClick(Copy copy) {
+		this.copy = copy;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)move.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		
+		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)copy.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File fromFile = (File) fromNode.getUserObject();
 
-		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)move.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)copy.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File toFile = (File) toNode.getUserObject();
 		
 		try {
-			Engine.move(fromFile, toFile);
+			Engine.copy(fromFile, toFile);
 			
 			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (HttpResponseException e1) {

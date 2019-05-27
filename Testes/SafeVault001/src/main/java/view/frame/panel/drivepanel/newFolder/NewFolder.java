@@ -10,18 +10,10 @@ import view.frame.panel.drivepanel.DrivePanel;
 @SuppressWarnings("serial")
 public class NewFolder extends JButton {
 	
-	private DrivePanel toDrivePanel;
-	
-	public NewFolder(DrivePanel toDrivePanel) {
-		this.toDrivePanel = toDrivePanel;
-		
+	public NewFolder(DrivePanel toDrivePanel) {		
 		createIcon();
 		
 		this.addActionListener(new OnClick(this));
-	}
-	
-	public DrivePanel toDrivePanel() {
-		return toDrivePanel;
 	}
 	
 	private void createIcon() {
