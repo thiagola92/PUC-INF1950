@@ -1,7 +1,11 @@
 package engine.file.drive;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
+
 import plugin.Plugin;
 import plugin.PluginList;
+import view.View;
 
 public class Drive {
 
@@ -10,6 +14,8 @@ public class Drive {
 	private String startPath;
 	
 	private Plugin plugin;
+	private PublicKey publicKey;
+	private PrivateKey privateKey;
 	
 	public Drive(String driveName, String pluginName) throws Exception {
 		this.name = driveName;
@@ -17,6 +23,8 @@ public class Drive {
 		this.startPath = "";
 		
 		this.plugin = PluginList.createPlugin(pluginName);
+		this.publicKey = View.publicKey; // temporario, trocar para null depois
+		this.privateKey = View.privateKey; // temporario, trocar para null depois
 	}
 	
 	public String getName() {
@@ -41,6 +49,22 @@ public class Drive {
 	
 	public Plugin getPlugin() {
 		return plugin;
+	}
+	
+	public PublicKey getPublicKey() {
+		return publicKey;
+	}
+	
+	public void setPublicKey(PublicKey publicKey) {
+		this.publicKey = publicKey;
+	}
+	
+	public PrivateKey getPrivateKey() {
+		return privateKey;
+	}
+	
+	public void setPrivateKey(PrivateKey privateKey) {
+		this.privateKey = privateKey;
 	}
 	
 	public String toString() {

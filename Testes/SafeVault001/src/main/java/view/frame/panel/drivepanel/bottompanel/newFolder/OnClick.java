@@ -1,4 +1,4 @@
-package view.frame.panel.drivepanel.toppanel.newFolder;
+package view.frame.panel.drivepanel.bottompanel.newFolder;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,7 +21,7 @@ public class OnClick implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.firstDrivePanel.topPanel.newFolder == newFolder)
+		if(View.frame.panel.firstDrivePanel.bottomPanel.newFolder == newFolder)
 			return View.frame.panel.firstDrivePanel;
 		
 		return View.frame.panel.secondDrivePanel;

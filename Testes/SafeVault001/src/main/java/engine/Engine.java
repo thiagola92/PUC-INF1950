@@ -3,8 +3,10 @@ package engine;
 import java.util.ArrayList;
 
 import engine.file.File;
+import engine.file.action.Cipher;
 import engine.file.action.Copy;
 import engine.file.action.Create;
+import engine.file.action.Decipher;
 import engine.file.action.Delete;
 import engine.file.action.List;
 import engine.file.action.Move;
@@ -57,6 +59,22 @@ public class Engine {
 			Delete.deleteFolder(file);
 		else if(file.getType().equals("folder") && recursive == true)
 			Delete.deleteFolderRecursive(file);
+	}
+	
+	public static void cipher(File file) throws Exception {
+		if(file.getType().equals("folder"))
+			return;
+		
+		if(file.getType().equals("file"))
+			Cipher.cipherFile(file);
+	}
+	
+	public static void decipher(File file) throws Exception {
+		if(file.getType().equals("folder"))
+			return;
+		
+		if(file.getType().equals("file"))
+			Decipher.decipherFile(file);
 	}
 	
 }

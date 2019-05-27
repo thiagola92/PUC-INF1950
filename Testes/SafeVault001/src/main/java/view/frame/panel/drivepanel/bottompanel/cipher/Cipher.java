@@ -1,4 +1,4 @@
-package view.frame.panel.drivepanel.toppanel.newFolder;
+package view.frame.panel.drivepanel.bottompanel.cipher;
 
 import java.net.URL;
 
@@ -6,22 +6,22 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
-public class NewFolder extends JButton {
+public class Cipher extends JButton {
 	
-	public NewFolder() {		
+	public Cipher() {		
 		createIcon();
 		
 		this.addActionListener(new OnClick(this));
 	}
 	
 	private void createIcon() {
-		String path = "folder-plus.png";
+		String path = "lock.png";
 	    URL imgURL = getClass().getResource(path);
 	    
 	    if (imgURL != null) {
-			this.setIcon(new ImageIcon(imgURL, "Criar pasta"));
+			this.setIcon(new ImageIcon(imgURL, "Cifrar arquivo"));
 	    } else {
-			this.setText("+");
+			this.setText("C");
 	    }
 	}
 

@@ -1,11 +1,11 @@
-package view.frame.panel.drivepanel.toppanel.delete;
+package view.frame.panel.drivepanel.bottompanel.delete;
 
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-import view.frame.panel.drivepanel.toppanel.delete.OnClick;
+import view.frame.panel.drivepanel.bottompanel.delete.OnClick;
 
 @SuppressWarnings("serial")
 public class Delete extends JButton {

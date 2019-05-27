@@ -1,4 +1,4 @@
-package view.frame.panel.drivepanel.toppanel.delete;
+package view.frame.panel.drivepanel.bottompanel.delete;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,7 +22,7 @@ public class OnClick implements ActionListener {
 	}
 	
 	private DrivePanel getDrivePanel() {
-		if(View.frame.panel.firstDrivePanel.topPanel.delete == delete)
+		if(View.frame.panel.firstDrivePanel.bottomPanel.delete == delete)
 			return View.frame.panel.firstDrivePanel;
 		
 		return View.frame.panel.secondDrivePanel;
@@ -30,7 +30,6 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 		
