@@ -6,11 +6,11 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 
-import view.frame.Frame;
+import view.driveframe.DriveFrame;
 
 public class View {
 	
-	public static Frame frame = new Frame();
+	public static DriveFrame driveFrame = new DriveFrame();
 	
 	public static PublicKey publicKey;
 	public static PrivateKey privateKey;

@@ -15,7 +15,10 @@ public class File {
 		this.drive = drive;
 		this.path = path;
 		this.type = type;
-		this.name = Paths.get(path).getFileName().toString();
+		this.name = "";
+		
+		if(Paths.get(path).getFileName() != null)
+			this.name = Paths.get(path).getFileName().toString();
 	}
 	
 	public void setName(String name) {
