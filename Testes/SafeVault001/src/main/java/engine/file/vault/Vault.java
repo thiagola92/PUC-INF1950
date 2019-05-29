@@ -9,24 +9,27 @@ public class Vault {
 	
 	public static String vaultName = "SafeVault";
 	
-	public static boolean isInsideSafeVault(File file) {		
+	public static boolean isInsideVault(File file) {		
 		if(file.getPath().startsWith("." + vaultName))
 			return true;
 		
-		if(file.getPath().contains("/.SafeVault"))
+		if(file.getPath().contains("/." + vaultName))
 			return true;
 		
 		return false;
 	}
 	
-	public static String getSafeVaultPath(File file) {
+	public static File getVault(File file) {
 		Pattern pattern = Pattern.compile("(.*" + java.io.File.separator + java.io.File.separator + "?\\." + vaultName + ").*");
 		Matcher matcher = pattern.matcher(file.getPath());
 		
-		if(matcher.find())
-			return matcher.group();
+		if(matcher.find() == false)
+			return null;
 		
-		return null;
+		String vaultPath = matcher.group();
+		File vault = new File(file.getDrive(), vaultPath, "folder");
+		
+		return vault;
 	}
 
 }

@@ -11,6 +11,7 @@ import engine.file.action.Delete;
 import engine.file.action.List;
 import engine.file.action.Move;
 import engine.file.drive.DriveList;
+import engine.file.vault.Vault;
 import engine.update.Update;
 
 public class Engine {
@@ -28,6 +29,9 @@ public class Engine {
 	public static ArrayList<File> listFolder(File folder) throws Exception {
 		if(folder.getType().equals("folder") == false)
 			return null;
+		
+		if(Vault.isInsideVault(folder))
+			return List.listSafeFolder(folder);
 		
 		return List.listFolder(folder);
 	}

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import engine.file.File;
 import engine.file.Utility;
+import engine.file.vault.Vault;
+import engine.file.vault.index.Index;
 
 public class List {
 	
@@ -17,5 +19,15 @@ public class List {
 		});
 		
 		return files;
+	}
+	
+	public static ArrayList<File> listSafeFolder(File folder) throws Exception {
+		File vault = Vault.getVault(folder);
+		File index = Index.getMainIndex(vault);
+		
+		if(index == null)
+			return new ArrayList<File>();
+		
+		return Index.readIndex(index);
 	}
 }
