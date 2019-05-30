@@ -22,10 +22,12 @@ public class Index {
 		String[] contentLines = content.split("\n");
 		ArrayList<File> files = new ArrayList<>();
 		
+		String prePath = index.getPath().replaceFirst(".index$", "");
+		
 		for(int i=0; i < contentLines.length; i++) {
 			String[] line = contentLines[i].split(regexSeparator);
 			
-			File file = new File(index.getDrive(), line[0], line[2]);
+			File file = new File(index.getDrive(), prePath + line[0], line[2]);
 			file.setName(line[1]);
 			files.add(file);
 		}

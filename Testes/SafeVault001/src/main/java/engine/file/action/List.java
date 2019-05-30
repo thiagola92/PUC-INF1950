@@ -1,5 +1,6 @@
 package engine.file.action;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import engine.file.File;
@@ -24,10 +25,18 @@ public class List {
 	public static ArrayList<File> listSafeFolder(File folder) throws Exception {
 		File vault = Vault.getVault(folder);
 		File index = Index.getMainIndex(vault);
+		ArrayList<File> files = Index.readIndex(index);
+
+		String folderPath = Vault.pathInsideVault(folder);
 		
-		if(index == null)
-			return new ArrayList<File>();
+		for(int i = files.size() - 1; i >= 0; i--) {
+			String filePath = Vault.pathInsideVault(files.get(i));
+			String parentPath = Paths.get(filePath).getParent().toString();
+			
+			if(parentPath.equals(folderPath) == false)
+				files.remove(i);
+		}
 		
-		return Index.readIndex(index);
+		return files;
 	}
 }
