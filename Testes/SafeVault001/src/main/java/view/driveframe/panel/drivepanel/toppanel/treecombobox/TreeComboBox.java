@@ -2,8 +2,8 @@ package view.driveframe.panel.drivepanel.toppanel.treecombobox;
 
 import javax.swing.JComboBox;
 
-import engine.Engine;
 import engine.file.drive.Drive;
+import view.View;
 
 @SuppressWarnings({ "serial" })
 public class TreeComboBox extends JComboBox<Drive>{
@@ -11,7 +11,7 @@ public class TreeComboBox extends JComboBox<Drive>{
 	public TreeComboBox() {
 		this.addActionListener(new OnChange(this));
 		
-		Engine.update.addUpdateListener(new OnDriveUpdate(this));
+		View.update.addUpdateListener(new OnDriveUpdate(this));
 	}
 	
 }

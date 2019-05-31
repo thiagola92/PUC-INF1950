@@ -10,14 +10,9 @@ import engine.file.action.Decipher;
 import engine.file.action.Delete;
 import engine.file.action.List;
 import engine.file.action.Move;
-import engine.file.drive.DriveList;
 import engine.file.vault.Vault;
-import engine.update.Update;
 
 public class Engine {
-	
-	public static DriveList driverList = new DriveList();
-	public static Update update = new Update();
 	
 	public static void createFolder(File folder, String newFolderName) throws Exception {
 		if(folder.getType().equals("folder") == false)

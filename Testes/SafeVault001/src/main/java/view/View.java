@@ -7,9 +7,13 @@ import java.security.PrivateKey;
 import java.security.PublicKey;
 
 import view.driveframe.DriveFrame;
+import view.drivelist.DriveList;
+import view.update.Update;
 
 public class View {
-	
+
+	public static Update update = new Update();
+	public static DriveList driverList = new DriveList();
 	public static DriveFrame driveFrame = new DriveFrame();
 	
 	public static PublicKey publicKey;

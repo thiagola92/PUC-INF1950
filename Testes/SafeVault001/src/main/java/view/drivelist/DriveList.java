@@ -1,11 +1,12 @@
-package engine.file.drive;
+package view.drivelist;
 
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
-import engine.Engine;
-import engine.file.drive.exception.NameAlreadyUsedException;
-import engine.update.UpdateOptions;
+import engine.file.drive.Drive;
+import view.View;
+import view.drivelist.exception.NameAlreadyUsedException;
+import view.update.UpdateOptions;
 
 // DriveList é classe da Engine ou View?
 public class DriveList {
@@ -31,13 +32,13 @@ public class DriveList {
 		
 		driveList.add(drive);
 		
-		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+		View.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}
 	
 	public void removeDrive(String driveName) {
 		driveList.removeIf((drive) -> drive.getName().equals(driveName));
 		
-		Engine.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+		View.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
 	}
 	
 }

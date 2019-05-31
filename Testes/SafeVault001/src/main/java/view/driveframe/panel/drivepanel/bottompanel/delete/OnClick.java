@@ -9,9 +9,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.Engine;
 import engine.file.File;
-import engine.update.UpdateOptions;
 import view.View;
 import view.driveframe.panel.drivepanel.DrivePanel;
+import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
@@ -36,11 +36,11 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.delete(file, false);
 			
-			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (DirectoryNotEmptyException e1) {
 			deleteRecursive(file);
 			
-			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import engine.Engine;
 import engine.file.drive.Drive;
+import view.View;
 
 public class OnClick implements ActionListener {
 
@@ -20,7 +20,7 @@ public class OnClick implements ActionListener {
 		
 		try {
 			Drive drive = new Drive(driveName, "GoogleDrive");
-			Engine.driverList.addDrive(drive);
+			View.driverList.addDrive(drive);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

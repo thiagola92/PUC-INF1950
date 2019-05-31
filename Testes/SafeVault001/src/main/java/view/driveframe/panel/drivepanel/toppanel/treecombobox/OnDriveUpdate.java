@@ -1,8 +1,8 @@
 package view.driveframe.panel.drivepanel.toppanel.treecombobox;
 
-import engine.Engine;
-import engine.update.UpdateListener;
-import engine.update.UpdateOptions;
+import view.View;
+import view.update.UpdateListener;
+import view.update.UpdateOptions;
 
 public class OnDriveUpdate implements UpdateListener {
 	
@@ -18,7 +18,7 @@ public class OnDriveUpdate implements UpdateListener {
 			return;
 		
 		treeCombobox.removeAllItems();
-		Engine.driverList.getDrives().forEach(driver -> treeCombobox.addItem(driver));
+		View.driverList.getDrives().forEach(driver -> treeCombobox.addItem(driver));
 	}
 
 }

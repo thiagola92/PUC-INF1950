@@ -3,7 +3,7 @@ package view.driveframe.menubar.drive.removedrive.drive;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import engine.Engine;
+import view.View;
 
 public class OnClick implements ActionListener {
 	
@@ -15,7 +15,7 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Engine.driverList.removeDrive(drive.getText());
+		View.driverList.removeDrive(drive.getText());
 	}
 
 }

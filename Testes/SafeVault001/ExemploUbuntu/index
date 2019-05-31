@@ -1,0 +1,7 @@
+/XXX1|1|file
+/XXX2|2|file
+/XXX3|3|folder
+/XXX3/XXX4|4|file
+/XXX3/XXX5|5|folder
+/XXX3/XXX5/XXX6|6|folder
+/XXX7|7|folder

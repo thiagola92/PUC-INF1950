@@ -6,10 +6,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import engine.Engine;
 import engine.file.drive.Drive;
-import engine.file.drive.exception.NameAlreadyUsedException;
 import view.View;
+import view.drivelist.exception.NameAlreadyUsedException;
 
 public class OnClick implements ActionListener {
 
@@ -30,7 +29,7 @@ public class OnClick implements ActionListener {
 			Drive drive = new Drive(driveName, "Default");
 			drive.setStartPath(startPath);
 			
-			Engine.driverList.addDrive(drive);
+			View.driverList.addDrive(drive);
 		} catch (NameAlreadyUsedException e1) {
 			JOptionPane.showMessageDialog(View.driveFrame, "Nome já está em uso");
 		} catch (Exception e1) {

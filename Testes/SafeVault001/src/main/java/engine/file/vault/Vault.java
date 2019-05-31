@@ -40,7 +40,6 @@ public class Vault {
 		
 		String vaultPath = matcher.group(1);
 		File vault = new File(file.getDrive(), vaultPath, "folder");
-		System.out.println(file.getPath() + " => " + vaultPath);
 		
 		return vault;
 	}

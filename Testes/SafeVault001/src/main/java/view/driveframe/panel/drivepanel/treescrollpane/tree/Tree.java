@@ -8,6 +8,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.Engine;
 import engine.file.File;
+import view.View;
 
 @SuppressWarnings("serial")
 public class Tree extends JTree {
@@ -21,7 +22,7 @@ public class Tree extends JTree {
 		this.addMouseListener(new OnDoubleClick(this));
 		this.setCellRenderer(new CellRenderer());
 		
-		Engine.update.addUpdateListener(new OnDriveUpdate(this));
+		View.update.addUpdateListener(new OnDriveUpdate(this));
 	}
 	
 	public void updateRoot() {

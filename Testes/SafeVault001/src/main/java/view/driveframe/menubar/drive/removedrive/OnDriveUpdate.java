@@ -1,9 +1,9 @@
 package view.driveframe.menubar.drive.removedrive;
 
-import engine.Engine;
-import engine.update.UpdateListener;
-import engine.update.UpdateOptions;
+import view.View;
 import view.driveframe.menubar.drive.removedrive.drive.Drive;
+import view.update.UpdateListener;
+import view.update.UpdateOptions;
 
 public class OnDriveUpdate implements UpdateListener {
 	
@@ -19,7 +19,7 @@ public class OnDriveUpdate implements UpdateListener {
 			return;
 		
 		removeDrive.removeAll();
-		Engine.driverList.getDrives().forEach(drive -> {
+		View.driverList.getDrives().forEach(drive -> {
 			removeDrive.add(new Drive(drive.getName()));
 		});
 	}

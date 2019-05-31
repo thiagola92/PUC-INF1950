@@ -9,7 +9,8 @@ import com.google.api.client.http.HttpResponseException;
 
 import engine.Engine;
 import engine.file.File;
-import engine.update.UpdateOptions;
+import view.View;
+import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
@@ -31,7 +32,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.copy(fromFile, toFile);
 			
-			Engine.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (HttpResponseException e1) {
 			System.out.println("- Empty file?");
 			e1.printStackTrace();
