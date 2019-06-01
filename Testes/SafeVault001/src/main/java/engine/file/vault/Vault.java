@@ -11,18 +11,20 @@ public class Vault {
 	private static String vaultNameRegex = "\\.SafeVault";
 	private static String slashRegex = java.io.File.separator + java.io.File.separator;
 	
-	public static boolean isInsideVault(File file) {		
+	public static boolean isInsideVault(File file) {
+		// Vault is the start path
 		if(file.getPath().startsWith("." + vaultName))
 			return true;
 		
-		if(file.getPath().contains("/." + vaultName))
+		// Vault is in the path
+		if(file.getPath().contains(java.io.File.separator + "." + vaultName))
 			return true;
 		
 		return false;
 	}
 	
 	/**
-	 * Get the folder .SafeVault
+	 * Get the vault folder
 	 * For example, a file with the path:
 	 * /home/thiagola92/Downloads/Exemplo/.SafeVault/XXX3/XXX4
 	 * will return a folder to
@@ -45,8 +47,8 @@ public class Vault {
 	}
 	
 	/**
-	 * For the index doesn't matter anything outside the .SafeVault
-	 * So this functions return the path inside the .SafeVault
+	 * For the index doesn't matter anything outside the vault
+	 * So this functions return the path inside the vault
 	 * For example, a file with the path:
 	 * /home/thiagola92/Downloads/Exemplo/.SafeVault/XXX3/XXX4
 	 * Will return a string with the path

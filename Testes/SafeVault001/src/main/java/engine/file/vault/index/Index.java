@@ -3,11 +3,14 @@ package engine.file.vault.index;
 import java.util.ArrayList;
 
 import engine.file.File;
-import engine.file.action.List;
+import engine.file.Utility;
+import engine.file.vault.Vault;
 import engine.file.vault.cryptography.Decrypt;
+import engine.file.vault.cryptography.Encrypt;
 
 public class Index {
 	
+	private static String separator = "|";
 	private static String regexSeparator = "\\|";
 	
 	public static String indexToString(File index) throws Exception {
@@ -17,12 +20,17 @@ public class Index {
 		return new String(decryptedContent);
 	}
 	
+	public static void stringToIndex(File index, String content) throws Exception {
+		byte[] container = Encrypt.getEncryptedFile(content.getBytes(), index.getDrive().getPrivateKey(), index.getDrive().getPublicKey());
+		index.getDrive().getPlugin().writeFile(index.getPath(), container);
+	}
+	
 	public static ArrayList<File> readIndex(File index) throws Exception {
 		String content = indexToString(index);
 		String[] contentLines = content.split("\n");
 		ArrayList<File> files = new ArrayList<>();
 		
-		String prePath = index.getPath().replaceFirst(".index$", "");
+		String prePath = index.getPath().replaceFirst("." + index.getName() + "$", "");
 		
 		for(int i=0; i < contentLines.length; i++) {
 			String[] line = contentLines[i].split(regexSeparator);
@@ -34,14 +42,25 @@ public class Index {
 		
 		return files;
 	}
+	
+	public static void addToIndex(File index, File file) throws Exception {
+		String content = indexToString(index);
+		String path = Vault.pathInsideVault(file);
+		String name = file.getName();
+		String type = file.getType();
+		
+		content += "\n" + path + separator + name + separator + type;
+		content = content.replace("\n\n", "\n");
+		
+		stringToIndex(index, content);
+	}
+	
+	public static void removeFromIndex(File index, File file) throws Exception {
+		
+	}
 
-	public static File getMainIndex(File vault) throws Exception {
-		ArrayList<File> files = List.listFolder(vault);
-		
-		for(int i = 0; i < files.size(); i++)
-			if(files.get(i).getName().equals("index"))
-				return files.get(i);
-		
-		return null;
+	public static File getIndex(File folder, String indexName) throws Exception {
+		String indexPath = Utility.concatPath(folder.getPath(), indexName);
+		return new File(folder.getDrive(), indexPath, "file");
 	}
 }

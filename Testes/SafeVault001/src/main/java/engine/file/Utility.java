@@ -1,5 +1,7 @@
 package engine.file;
 
+import java.security.SecureRandom;
+
 public class Utility {
 	
 	// "src" + "main" = "src/main"
@@ -19,6 +21,17 @@ public class Utility {
 		System.arraycopy(encryptedContent, 0, container, encryptedSeed.length + signature.length, encryptedContent.length);
 		
 		return container;
+	}
+	
+	public static String createRandomName() {
+		String validChars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        SecureRandom secureRandom = new SecureRandom();
+        byte[] name = new byte[8];
+
+        for(int i = 0; i < name.length; i++)
+            name[i] = (byte)validChars.charAt(secureRandom.nextInt(validChars.length()));
+        
+        return new String(name);
 	}
 
 }

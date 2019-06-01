@@ -18,6 +18,11 @@ public class Engine {
 		if(folder.getType().equals("folder") == false)
 			return;
 		
+		if(Vault.isInsideVault(folder)) {
+			Create.createSafeFolder(folder, newFolderName);
+			return;
+		}
+		
 		Create.createFolder(folder, newFolderName);
 	}
 	
@@ -62,17 +67,15 @@ public class Engine {
 	
 	public static void cipher(File file) throws Exception {
 		if(file.getType().equals("folder"))
-			return;
-		
-		if(file.getType().equals("file"))
+			Cipher.cipherFolder(file);
+		else if(file.getType().equals("file"))
 			Cipher.cipherFile(file);
 	}
 	
 	public static void decipher(File file) throws Exception {
 		if(file.getType().equals("folder"))
-			return;
-		
-		if(file.getType().equals("file"))
+			Decipher.decipherFolder(file);
+		else if(file.getType().equals("file"))
 			Decipher.decipherFile(file);
 	}
 	

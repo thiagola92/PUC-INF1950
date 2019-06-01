@@ -30,7 +30,7 @@ public class OnClick implements ActionListener {
 		if(drive == null)
 			return;
 		
-		SettingsFrame settingsFrame = new SettingsFrame(drive);
+		new SettingsFrame(drive);
 	}
 
 }
