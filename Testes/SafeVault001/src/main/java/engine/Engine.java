@@ -18,12 +18,10 @@ public class Engine {
 		if(folder.getType().equals("folder") == false)
 			return;
 		
-		if(Vault.isInsideVault(folder)) {
+		if(Vault.isInsideVault(folder))
 			Create.createSafeFolder(folder, newFolderName);
-			return;
-		}
-		
-		Create.createFolder(folder, newFolderName);
+		else
+			Create.createFolder(folder, newFolderName);
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
@@ -32,8 +30,8 @@ public class Engine {
 		
 		if(Vault.isInsideVault(folder))
 			return List.listSafeFolder(folder);
-		
-		return List.listFolder(folder);
+		else
+			return List.listFolder(folder);
 	}
 	
 	public static void copy(File file, File toFolder) throws Exception {
@@ -57,7 +55,11 @@ public class Engine {
 	}
 	
 	public static void delete(File file) throws Exception {
-		if(file.getType().equals("file"))
+		if(Vault.isInsideVault(file) && file.getType().equals("file"))
+			Delete.deleteSafeFile(file);
+		else if(Vault.isInsideVault(file) && file.getType().equals("folder"))
+			Delete.deleteSafeFolder(file);
+		else if(file.getType().equals("file"))
 			Delete.deleteFile(file);
 		else if(file.getType().equals("folder"))
 			Delete.deleteFolder(file);
