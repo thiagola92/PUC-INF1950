@@ -1,9 +1,11 @@
 package engine.file.action;
 
 import engine.file.File;
+import engine.file.Random;
 import engine.file.Utility;
 import engine.file.vault.Vault;
 import engine.file.vault.index.Index;
+import engine.file.vault.index.action.Add;
 
 public class Create {
 
@@ -14,7 +16,7 @@ public class Create {
 	}
 
 	public static void createSafeFolder(File folder, String newFolderName) throws Exception {
-		String randomName = Utility.createRandomName();
+		String randomName = Random.createRandomName(folder);
 		String newFolderPath = Utility.concatPath(folder.getPath(), randomName);
 		
 		File newFolder = new File(folder.getDrive(), newFolderPath, "folder");
@@ -22,6 +24,7 @@ public class Create {
 		
 		File vault = Vault.getVault(folder);
 		File index = Index.getIndex(vault, "index");
-		Index.addToIndex(index, newFolder);
+		
+		Add.addFile(index, newFolder);
 	}
 }

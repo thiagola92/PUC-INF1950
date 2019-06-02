@@ -9,8 +9,6 @@ import java.security.Signature;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 
-import engine.file.Utility;
-
 public class Encrypt {
 	
 	public static byte[] createRandomSeed() {
@@ -63,6 +61,6 @@ public class Encrypt {
 		byte[] signature = getSignature(content, privateKey);
 		byte[] encryptedContent = getEncryptedContent(content, key);
 		
-		return Utility.createContainer(encryptedSeed, signature, encryptedContent);
+		return Container.createContainer(encryptedSeed, signature, encryptedContent);
 	}
 }
