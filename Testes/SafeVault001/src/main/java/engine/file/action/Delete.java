@@ -12,16 +12,20 @@ public class Delete {
 	}
 	
 	public static void deleteFolder(File folder) throws Exception {
-		folder.getDrive().getPlugin().deleteFolder(folder.getPath());
-	}
-	
-	public static void deleteFolderRecursive(File folder) throws Exception {
 		ArrayList<File> files = Engine.listFolder(folder);
 		
 		for(File file : files)
-			Engine.delete(file, true);
+			Engine.delete(file);
 		
 		folder.getDrive().getPlugin().deleteFolder(folder.getPath());
+	}
+	
+	public static void deleteSafeFile(File file) throws Exception {
+		
+	}
+	
+	public static void deleteSafeFolder(File file) throws Exception {
+		
 	}
 
 }

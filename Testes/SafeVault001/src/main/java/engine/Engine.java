@@ -56,13 +56,11 @@ public class Engine {
 			Move.moveFolder(file, toFolder);
 	}
 	
-	public static void delete(File file, boolean recursive) throws Exception {
+	public static void delete(File file) throws Exception {
 		if(file.getType().equals("file"))
 			Delete.deleteFile(file);
-		else if(file.getType().equals("folder") && recursive == false)
+		else if(file.getType().equals("folder"))
 			Delete.deleteFolder(file);
-		else if(file.getType().equals("folder") && recursive == true)
-			Delete.deleteFolderRecursive(file);
 	}
 	
 	public static void cipher(File file) throws Exception {

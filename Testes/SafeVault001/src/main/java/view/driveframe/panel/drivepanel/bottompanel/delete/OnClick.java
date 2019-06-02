@@ -32,33 +32,22 @@ public class OnClick implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
+
+		String message = "<html><font color='red'>";
+		message += "Essa ação não é reversível!<br>";
+		message += "Tudo deletado NÃO irá para a lixeira, será deletado permanentemente<br>";
+		message += "</font></html>";
 		
-		try {
-			Engine.delete(file, false);
-			
-			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
-		} catch (DirectoryNotEmptyException e1) {
-			deleteRecursive(file);
-			
-			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-	}
-	
-	private void deleteRecursive(File file) {
-		String message = "Esta pasta possui arquivos dentro, deseja deletar tudo dentro?";
 		int answer = JOptionPane.showOptionDialog(View.driveFrame, message, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.NO_OPTION);
-		
 		if(answer == JOptionPane.NO_OPTION)
 			return;
 		
 		try {
-			Engine.delete(file, true);
+			Engine.delete(file);
 			
-			getDrivePanel().treeScrollPane.tree.updateRoot();
-		} catch (Exception e) {
-			e.printStackTrace();
+			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+		} catch (Exception e1) {
+			e1.printStackTrace();
 		}
 	}
 

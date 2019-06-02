@@ -25,7 +25,7 @@ public class List {
 	public static ArrayList<File> listSafeFolder(File folder) throws Exception {
 		File vault = Vault.getVault(folder);
 		File index = Index.getIndex(vault, "index");
-		ArrayList<File> files = engine.file.vault.index.action.List.listIndex(index);
+		ArrayList<File> files = Index.readIndex(index);
 
 		String folderPath = Vault.pathInsideVault(folder);
 		

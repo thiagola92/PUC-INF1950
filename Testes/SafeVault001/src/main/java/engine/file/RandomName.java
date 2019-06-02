@@ -1,14 +1,15 @@
 package engine.file;
 
+import java.nio.file.Paths;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 
 import engine.file.action.List;
 
-public class Random {
+public class RandomName {
 	
 	public static String generateRandomName() {
-		String validChars = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+		String validChars = "1234567890abcdefghijklmnopqrstuvwxyz";
         SecureRandom secureRandom = new SecureRandom();
         byte[] randomName = new byte[8];
 
@@ -18,18 +19,26 @@ public class Random {
         return new String(randomName);
 	}
 	
+	public static boolean isNameUsed(ArrayList<File> files, String name) {
+		for(int i = 0; i < files.size(); i++) {
+			String fileName = Paths.get(files.get(i).getPath()).getFileName().toString();
+			
+			if(name.equalsIgnoreCase(fileName))
+				return true;
+		}
+		
+		return false;
+	}
+	
 	public static String createRandomName(File folder) throws Exception {
-		ArrayList<File> files = List.listFolder(folder);
+		ArrayList<File> files = List.listSafeFolder(folder);
 		
 		String name;
 		boolean nameExist = false;
 		
 		do {
 			name = generateRandomName();
-			
-			for(int i = 0; i < files.size(); i++)
-				if(files.get(i).getName().equalsIgnoreCase(name))
-					nameExist = true;
+			nameExist = isNameUsed(files, name);
 		} while(nameExist);
 		
 		return name;
