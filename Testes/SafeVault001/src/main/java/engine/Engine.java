@@ -9,19 +9,18 @@ import engine.file.action.Create;
 import engine.file.action.Decipher;
 import engine.file.action.Delete;
 import engine.file.action.List;
-import engine.file.action.Move;
 import engine.file.vault.Vault;
 
 public class Engine {
 	
-	public static void createFolder(File folder, String newFolderName) throws Exception {
+	public static File createFolder(File folder, String newFolderName) throws Exception {
 		if(folder.getType().equals("folder") == false)
-			return;
+			return null;
 		
 		if(Vault.isInsideVault(folder))
-			Create.createSafeFolder(folder, newFolderName);
+			return Create.createSafeFolder(folder, newFolderName);
 		else
-			Create.createFolder(folder, newFolderName);
+			return Create.createFolder(folder, newFolderName);
 	}
 	
 	public static ArrayList<File> listFolder(File folder) throws Exception {
@@ -52,10 +51,11 @@ public class Engine {
 		if(toFolder.getType().equals("file"))
 			return;
 		
-		if(file.getType().equals("file"))
-			Move.moveFile(file, toFolder);
-		else if(file.getType().equals("folder"))
-			Move.moveFolder(file, toFolder);
+		if(toFolder.isEqualTo(file))
+			return;
+		
+		Engine.copy(file, toFolder);
+		Engine.delete(file);
 	}
 	
 	public static void delete(File file) throws Exception {		

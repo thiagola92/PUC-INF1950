@@ -7,13 +7,15 @@ import engine.file.vault.index.Index;
 
 public class Create {
 
-	public static void createFolder(File folder, String newFolderName) throws Exception {
+	public static File createFolder(File folder, String newFolderName) throws Exception {
 		String newFolderPath = Utility.concatPath(folder.getPath(), newFolderName);
 		
 		folder.getDrive().getPlugin().createFolder(newFolderPath);
+		
+		return new File(folder.getDrive(), newFolderPath, "folder");
 	}
 
-	public static void createSafeFolder(File folder, String newFolderName) throws Exception {
+	public static File createSafeFolder(File folder, String newFolderName) throws Exception {
 		String randomName = RandomName.createRandomName(folder);
 		String newFolderPath = Utility.concatPath(folder.getPath(), randomName);
 		
@@ -21,5 +23,7 @@ public class Create {
 		newFolder.setName(newFolderName);
 		
 		Index.addFile(newFolder, folder);
+		
+		return newFolder;
 	}
 }

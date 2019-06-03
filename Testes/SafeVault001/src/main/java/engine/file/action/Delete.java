@@ -27,12 +27,8 @@ public class Delete {
 		File index = Index.getIndex(vault, "index");
 		ArrayList<File> files = Index.readIndex(index);
 		
-		for(File f : files) {
-			boolean equalName = file.getName().equals(f.getName());
-			boolean equalPath = Vault.pathInsideVault(file).equals(Vault.pathInsideVault(f));
-			boolean equalType = file.getType().equals(f.getType());
-			
-			if(equalName && equalPath && equalType) {
+		for(File f : files) {			
+			if(file.isEqualTo(f)) {
 				files.remove(f);
 				break;
 			}
@@ -47,7 +43,7 @@ public class Delete {
 		for(File file : files)
 			Engine.delete(file);
 		
-		deleteSafeFile(folder);
+		Engine.delete(folder);
 	}
 
 }

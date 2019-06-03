@@ -44,5 +44,21 @@ public class File {
 	public String toString() {
 		return name;
 	}
+	
+	public boolean isEqualTo(File file) {
+		if(this.getName().equals(file.getName()) == false)
+			return false;
+		
+		if(this.getPath().equals(file.getPath()) == false)
+			return false;
+		
+		if(this.getType().equals(file.getType()) == false)
+			return false;
+		
+		if(this.getDrive().getName().equals(file.getDrive().getName()) == false)
+			return false;
+		
+		return true;
+	}
 
 }

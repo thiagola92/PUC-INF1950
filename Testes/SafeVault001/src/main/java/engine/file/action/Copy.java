@@ -21,10 +21,7 @@ public class Copy {
 	public static void copyFolder(File folder, File toFolder) throws Exception {
 		ArrayList<File> files = List.listFolder(folder);
 		
-		String folderPath = Utility.concatPath(toFolder.getPath(), folder.getName());
-		toFolder.getDrive().getPlugin().createFolder(folderPath);
-		
-		File newFolder = new File(toFolder.getDrive(), folderPath, "folder");
+		File newFolder = Engine.createFolder(toFolder, folder.getName());
 		
 		for(File file : files)
 			Engine.copy(file, newFolder);
@@ -43,13 +40,7 @@ public class Copy {
 	public static void copyFolderToSafeFolder(File folder, File toFolder) throws Exception {
 		ArrayList<File> files = Engine.listFolder(folder);
 		
-		String randomName = RandomName.createRandomName(toFolder);
-		String folderPath = Utility.concatPath(toFolder.getPath(), randomName);
-		
-		File newFolder = new File(toFolder.getDrive(), folderPath, "folder");
-		newFolder.setName(folder.getName());
-		
-		Index.addFile(newFolder, toFolder);
+		File newFolder = Engine.createFolder(toFolder, folder.getName());
 		
 		for(File file : files)
 			Engine.copy(file, newFolder);

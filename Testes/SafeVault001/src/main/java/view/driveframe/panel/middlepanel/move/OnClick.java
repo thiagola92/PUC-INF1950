@@ -2,7 +2,9 @@ package view.driveframe.panel.middlepanel.move;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.FileAlreadyExistsException;
 
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import com.google.api.client.http.HttpResponseException;
@@ -34,7 +36,12 @@ public class OnClick implements ActionListener {
 			
 			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
 		} catch (HttpResponseException e1) {
-			System.out.println("- Empty file?");
+            JOptionPane.showMessageDialog(View.driveFrame, "Arquivo vazio?");
+            
+			e1.printStackTrace();
+		} catch (FileAlreadyExistsException e1) {
+            JOptionPane.showMessageDialog(View.driveFrame, "Arquivo/Pasta já existe.");
+            
 			e1.printStackTrace();
 		} catch (Exception e1) {
 			e1.printStackTrace();
