@@ -38,7 +38,11 @@ public class Engine {
 		if(toFolder.getType().equals("file"))
 			return;
 		
-		if(file.getType().equals("file"))
+		if(file.getType().equals("file") && Vault.isInsideVault(toFolder))
+			Copy.copyFileToSafeFolder(file, toFolder);
+		else if(file.getType().equals("folder") && Vault.isInsideVault(toFolder))
+			Copy.copyFolderToSafeFolder(file, toFolder);
+		else if(file.getType().equals("file"))
 			Copy.copyFile(file, toFolder);
 		else if(file.getType().equals("folder")) 
 			Copy.copyFolder(file, toFolder);
@@ -54,10 +58,10 @@ public class Engine {
 			Move.moveFolder(file, toFolder);
 	}
 	
-	public static void delete(File file) throws Exception {
-		if(Vault.isInsideVault(file) && file.getType().equals("file"))
+	public static void delete(File file) throws Exception {		
+		if(file.getType().equals("file") && Vault.isInsideVault(file))
 			Delete.deleteSafeFile(file);
-		else if(Vault.isInsideVault(file) && file.getType().equals("folder"))
+		else if(file.getType().equals("folder") && Vault.isInsideVault(file))
 			Delete.deleteSafeFolder(file);
 		else if(file.getType().equals("file"))
 			Delete.deleteFile(file);
@@ -66,6 +70,9 @@ public class Engine {
 	}
 	
 	public static void cipher(File file) throws Exception {
+		if(Vault.isInsideVault(file))
+			return;
+		
 		if(file.getType().equals("folder"))
 			Cipher.cipherFolder(file);
 		else if(file.getType().equals("file"))
@@ -73,6 +80,9 @@ public class Engine {
 	}
 	
 	public static void decipher(File file) throws Exception {
+		if(Vault.isInsideVault(file))
+			return;
+		
 		if(file.getType().equals("folder"))
 			Decipher.decipherFolder(file);
 		else if(file.getType().equals("file"))

@@ -59,4 +59,13 @@ public class Index {
 		
 		throw new IndexNotFoundException();
 	}
+	
+	public static void addFile(File newFile, File toFolder) throws Exception {
+		File vault = Vault.getVault(toFolder);
+		File index = Index.getIndex(vault, "index");
+		ArrayList<File> files = Index.readIndex(index);
+		
+		files.add(newFile);
+		Index.writeIndex(files, index);	
+	}
 }
