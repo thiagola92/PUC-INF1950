@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import engine.Engine;
 import engine.file.File;
-import engine.file.vault.Vault;
 import engine.file.vault.index.Index;
 
 public class Delete {
@@ -23,18 +22,7 @@ public class Delete {
 	}
 	
 	public static void deleteSafeFile(File file) throws Exception {
-		File vault = Vault.getVault(file);
-		File index = Index.getIndex(vault, "index");
-		ArrayList<File> files = Index.readIndex(index);
-		
-		for(File f : files) {			
-			if(file.isEqualTo(f)) {
-				files.remove(f);
-				break;
-			}
-		}
-		
-		Index.writeIndex(files, index);
+		Index.getIndex(file).removeFile(file);
 	}
 	
 	public static void deleteSafeFolder(File folder) throws Exception {
@@ -42,8 +30,8 @@ public class Delete {
 		
 		for(File file : files)
 			Engine.delete(file);
-		
-		Engine.delete(folder);
+
+		Index.getIndex(folder).removeFile(folder);
 	}
 
 }

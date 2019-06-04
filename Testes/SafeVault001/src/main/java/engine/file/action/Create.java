@@ -22,7 +22,7 @@ public class Create {
 		File newFolder = new File(folder.getDrive(), newFolderPath, "folder");
 		newFolder.setName(newFolderName);
 		
-		Index.addFile(newFolder, folder);
+		Index.getIndex(folder).addFile(newFolder, folder);
 		
 		return newFolder;
 	}

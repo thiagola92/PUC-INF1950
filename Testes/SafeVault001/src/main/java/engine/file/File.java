@@ -41,10 +41,6 @@ public class File {
 		return name;
 	}
 	
-	public String toString() {
-		return name;
-	}
-	
 	public boolean isEqualTo(File file) {
 		if(this.getName().equals(file.getName()) == false)
 			return false;
@@ -59,6 +55,10 @@ public class File {
 			return false;
 		
 		return true;
+	}
+	
+	public String toString() {
+		return name;
 	}
 
 }

@@ -34,7 +34,7 @@ public class Copy {
 		File newFile = new File(toFolder.getDrive(), filePath, "file");
 		newFile.setName(file.getName());
 		
-		Index.addFile(newFile, toFolder);
+		Index.getIndex(toFolder).addFile(newFile, toFolder);
 	}
 	
 	public static void copyFolderToSafeFolder(File folder, File toFolder) throws Exception {
