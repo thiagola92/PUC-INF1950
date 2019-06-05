@@ -51,7 +51,7 @@ public class IndexFile extends File {
 		this.getDrive().getPlugin().writeFile(this.getPath(), container);
 	}
 	
-	public void addFile(File newFile, File toFolder) throws Exception {
+	public void addFile(File newFile) throws Exception {
 		ArrayList<File> files = this.readIndex();
 		files.add(newFile);
 		writeIndex(files);	

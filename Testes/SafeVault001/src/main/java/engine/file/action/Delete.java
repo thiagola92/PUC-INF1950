@@ -22,6 +22,7 @@ public class Delete {
 	}
 	
 	public static void deleteSafeFile(File file) throws Exception {
+		deleteFile(file);
 		Index.getIndex(file).removeFile(file);
 	}
 	
@@ -31,6 +32,7 @@ public class Delete {
 		for(File file : files)
 			Engine.delete(file);
 
+		deleteFolder(folder);
 		Index.getIndex(folder).removeFile(folder);
 	}
 

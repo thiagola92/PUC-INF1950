@@ -21,8 +21,9 @@ public class Create {
 		
 		File newFolder = new File(folder.getDrive(), newFolderPath, "folder");
 		newFolder.setName(newFolderName);
-		
-		Index.getIndex(folder).addFile(newFolder, folder);
+
+		createFolder(folder, randomName);
+		Index.getIndex(folder).addFile(newFolder);
 		
 		return newFolder;
 	}
