@@ -22,7 +22,12 @@ public class OnDoubleClick implements MouseListener {
 		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
 		File file = (File)node.getUserObject();
-		tree.newRoot(file);
+		
+		try {
+			tree.newRoot(file);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override

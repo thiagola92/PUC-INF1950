@@ -33,7 +33,11 @@ public class OnChange implements ActionListener {
 		Drive drive = (Drive)treeComboBox.getSelectedItem();		
 		File file = new File(drive, drive.getStartPath(), "folder");
 		
-		tree.newRoot(file);
+		try {
+			tree.newRoot(file);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }

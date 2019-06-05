@@ -16,7 +16,11 @@ public class OnDriveUpdate implements UpdateListener {
 		if(engineUpdate != UpdateOptions.FILE_UPDATE)
 			return;
 		
-		tree.updateRoot();
+		try {
+			tree.updateRoot();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

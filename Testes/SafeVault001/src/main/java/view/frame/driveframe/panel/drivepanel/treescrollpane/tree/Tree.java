@@ -9,6 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import engine.Engine;
 import engine.file.File;
 import engine.file.vault.Vault;
+import engine.file.vault.index.Index;
 import view.View;
 import view.frame.driveframe.panel.drivepanel.treescrollpane.tree.returnfolder.ReturnFolder;
 
@@ -27,11 +28,11 @@ public class Tree extends JTree {
 		View.update.addUpdateListener(new OnDriveUpdate(this));
 	}
 	
-	public void updateRoot() {
+	public void updateRoot() throws Exception {
 		newRoot((File)root.getUserObject());
 	}
 	
-	public void newRoot(File folder) {
+	public void newRoot(File folder) throws Exception {
 		if(folder.getType().equals("file"))
 			return;
 		
@@ -47,28 +48,24 @@ public class Tree extends JTree {
 		this.updateUI();
 	}
 	
-	public void openRoot(File rootFolder) {
-		try {			
-			Engine.listFolder(rootFolder).forEach(file -> {
-				DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file);
-				
-				root.add(fileNode);
-			});
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
+	public void openRoot(File rootFolder) throws Exception {
+		Engine.listFolder(rootFolder).forEach(file -> {
+			DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file);
+			
+			root.add(fileNode);
+		});
 	}
 	
-	public void addReturnNode(File rootFolder) {
+	public void addReturnNode(File rootFolder) throws Exception {
 		Path returnPath = Paths.get(rootFolder.getPath()).getParent();
 		
 		if(returnPath == null)
 			return;
 		
-		File returnFolder = new ReturnFolder(rootFolder.getDrive(), returnPath.toString(), "folder");
-		if(Vault.isInsideVault(returnFolder)) {
-			
-		}
+		File returnFolder = new ReturnFolder(rootFolder, returnPath.toString());
+		
+		if(Vault.isInsideVault(returnFolder))
+			returnFolder.setName(Index.getSafeFile(returnFolder).getName());
 		
 		DefaultMutableTreeNode returnNode = new DefaultMutableTreeNode(returnFolder);
 

@@ -24,4 +24,14 @@ public class Index {
 		
 		throw new IndexNotFoundException();
 	}
+	
+	public static File getSafeFile(File file) throws Exception {
+		ArrayList<File> files = Index.getIndex(file).readIndex();
+		
+		for(File fileFromList : files)
+			if(fileFromList.getPath().equals(file.getPath()) && fileFromList.getType().equals(file.getType()))
+				return fileFromList;
+		
+		return file;
+	}
 }
