@@ -1,5 +1,7 @@
 package plugin._default;
 
+import java.awt.Desktop;
+import java.io.File;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
@@ -72,8 +74,10 @@ public class Default implements Plugin {
 		if(Files.isDirectory(path) == false)
 			throw new NoSuchFileException("NoSuchFileException");
 
-		// Deleta Permanentemente
-		Files.delete(path);
+		if(Desktop.getDesktop().isSupported(Desktop.Action.MOVE_TO_TRASH))
+			Desktop.getDesktop().moveToTrash(new File(folderPath));
+		else
+			Files.delete(path);
 	}
 
 	/**
@@ -127,9 +131,11 @@ public class Default implements Plugin {
 		
 		if(Files.isDirectory(path) == true)
 			throw new NoSuchFileException("NoSuchFileException");
-		
-		// Deleta Permanentemente
-		Files.delete(path);
+
+		if(Desktop.getDesktop().isSupported(Desktop.Action.MOVE_TO_TRASH))
+			Desktop.getDesktop().moveToTrash(new File(filePath));
+		else
+			Files.delete(path);
 	}
 
 }
