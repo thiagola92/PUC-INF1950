@@ -18,11 +18,14 @@ public class IndexFile extends File {
 	public ArrayList<File> readIndex() throws Exception {
 		byte[] container = this.getDrive().getPlugin().readFile(this.getPath());
 		byte[] decryptedContent = Decrypt.getDecryptedFile(container, this.getDrive().getPrivateKey(), this.getDrive().getPublicKey());
-		
-		String content = new String(decryptedContent);
-		String[] contentLines = content.split("\n");
+
 		ArrayList<File> files = new ArrayList<>();
+		String content = new String(decryptedContent);
 		
+		if(content.isEmpty())
+			return files;
+		
+		String[] contentLines = content.split("\n");
 		String prePath = this.getPath().replaceFirst("." + this.getName() + "$", "");
 		
 		for(int i=0; i < contentLines.length; i++) {

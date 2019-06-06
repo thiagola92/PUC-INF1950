@@ -73,7 +73,7 @@ public class Default implements Plugin {
 			throw new NoSuchFileException("NoSuchFileException");
 
 		// Deleta Permanentemente
-		Files.delete(path); 
+		Files.delete(path);
 	}
 
 	/**
