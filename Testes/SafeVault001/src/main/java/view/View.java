@@ -19,7 +19,7 @@ public class View {
 	public static PublicKey publicKey;
 	public static PrivateKey privateKey;
 
-	public static void main(String[] args) {		
+	public static void main(String[] args) {
 		try {
 			KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
 			KeyPair keyPair = keyPairGenerator.generateKeyPair();

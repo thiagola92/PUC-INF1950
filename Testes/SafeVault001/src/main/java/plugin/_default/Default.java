@@ -77,7 +77,7 @@ public class Default implements Plugin {
 		if(Desktop.getDesktop().isSupported(Desktop.Action.MOVE_TO_TRASH))
 			Desktop.getDesktop().moveToTrash(new File(folderPath));
 		else
-			Files.delete(path);
+			Files.delete(path); 
 	}
 
 	/**
@@ -131,11 +131,11 @@ public class Default implements Plugin {
 		
 		if(Files.isDirectory(path) == true)
 			throw new NoSuchFileException("NoSuchFileException");
-
+		
 		if(Desktop.getDesktop().isSupported(Desktop.Action.MOVE_TO_TRASH))
 			Desktop.getDesktop().moveToTrash(new File(filePath));
 		else
-			Files.delete(path);
+			Files.delete(path); 
 	}
 
 }

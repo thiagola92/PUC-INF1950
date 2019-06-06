@@ -27,7 +27,7 @@ public class Delete {
 	}
 	
 	public static void deleteSafeFolder(File folder) throws Exception {
-		ArrayList<File> files = List.listSafeFolder(folder);
+		ArrayList<File> files = Engine.listFolder(folder);
 		
 		for(File file : files)
 			Engine.delete(file);

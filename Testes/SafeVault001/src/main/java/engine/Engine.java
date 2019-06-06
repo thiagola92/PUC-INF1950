@@ -40,7 +40,7 @@ public class Engine {
 		if(file.getType().equals("file") && Vault.isInsideVault(toFolder))
 			Copy.copyFileToSafeFolder(file, toFolder);
 		else if(file.getType().equals("folder") && Vault.isInsideVault(toFolder))
-			Copy.copyFileToSafeFolder(file, toFolder);
+			Copy.copyFolderToSafeFolder(file, toFolder);
 		else if(file.getType().equals("file"))
 			Copy.copyFile(file, toFolder);
 		else if(file.getType().equals("folder")) 
