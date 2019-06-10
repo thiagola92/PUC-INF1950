@@ -13,7 +13,7 @@ import engine.file.action.List;
 import engine.file.vault.Vault;
 import engine.file.vault.index.Index;
 import view.View;
-import view.frames.driveframe.panel.drivepanel.drivepaneltype.DrivePanelType;
+import view.frames.driveframe.panel.drivepanel._enumeration.mode.DrivePanelMode;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.TreeScrollPane;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.tree.returnfolder.ReturnFolder;
 
@@ -59,7 +59,7 @@ public class Tree extends JTree {
 	public void openRoot(File rootFolder) throws Exception {
 		ArrayList<File> files;
 		
-		if(treeScrollPane.drivePanel.drivePanelType == DrivePanelType.NORMAL_MODE)
+		if(treeScrollPane.drivePanel.drivePanelMode == DrivePanelMode.NORMAL_MODE)
 			files = List.listFolder(rootFolder);
 		else
 			files = Engine.listFolder(rootFolder);
@@ -83,7 +83,7 @@ public class Tree extends JTree {
 		
 		File returnFolder = new ReturnFolder(rootFolder, returnPath.toString());
 		
-		if(treeScrollPane.drivePanel.drivePanelType == DrivePanelType.VAULT_MODE)
+		if(treeScrollPane.drivePanel.drivePanelMode == DrivePanelMode.VAULT_MODE)
 			if(Vault.isInsideVault(returnFolder) == false)
 				return;
 		

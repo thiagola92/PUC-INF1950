@@ -7,7 +7,7 @@ import java.awt.Insets;
 import javax.swing.JPanel;
 
 import view.frames.driveframe.panel.drivepanel.DrivePanel;
-import view.frames.driveframe.panel.drivepanel.drivepaneltype.DrivePanelType;
+import view.frames.driveframe.panel.drivepanel._enumeration.mode.DrivePanelMode;
 import view.frames.driveframe.panel.middlepanel.MiddlePanel;
 
 @SuppressWarnings("serial")
@@ -18,8 +18,8 @@ public class Panel extends JPanel {
 	public MiddlePanel middlePanel = new MiddlePanel(leftDrivePanel, rightDrivePanel);
 	
 	public Panel() {
-		this.leftDrivePanel.drivePanelType = DrivePanelType.NORMAL_MODE;
-		this.rightDrivePanel.drivePanelType = DrivePanelType.VAULT_MODE;
+		this.leftDrivePanel.drivePanelMode = DrivePanelMode.NORMAL_MODE;
+		this.rightDrivePanel.drivePanelMode = DrivePanelMode.VAULT_MODE;
 		
 		this.setLayout(new GridBagLayout());
 		

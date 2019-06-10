@@ -5,15 +5,15 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import view.frames.driveframe.panel.drivepanel._enumeration.mode.DrivePanelMode;
 import view.frames.driveframe.panel.drivepanel.bottompanel.BottomPanel;
-import view.frames.driveframe.panel.drivepanel.drivepaneltype.DrivePanelType;
 import view.frames.driveframe.panel.drivepanel.toppanel.TopPanel;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.TreeScrollPane;
 
 @SuppressWarnings("serial")
 public class DrivePanel extends JPanel {
 	
-	public DrivePanelType drivePanelType = DrivePanelType.NORMAL_MODE;
+	public DrivePanelMode drivePanelMode = DrivePanelMode.GLOBAL_MODE;
 	
 	public TopPanel topPanel = new TopPanel(this);
 	public TreeScrollPane treeScrollPane = new TreeScrollPane(this);

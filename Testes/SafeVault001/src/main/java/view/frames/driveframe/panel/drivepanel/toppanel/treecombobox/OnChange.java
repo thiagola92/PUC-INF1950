@@ -7,7 +7,7 @@ import engine.Engine;
 import engine.file.File;
 import engine.file.drive.Drive;
 import engine.file.vault.Vault;
-import view.frames.driveframe.panel.drivepanel.drivepaneltype.DrivePanelType;
+import view.frames.driveframe.panel.drivepanel._enumeration.mode.DrivePanelMode;
 
 public class OnChange implements ActionListener {
 	
@@ -26,7 +26,7 @@ public class OnChange implements ActionListener {
 		File file = new File(drive, drive.getStartPath(), "folder");
 		File vault = getVault(file);
 		
-		if(treeComboBox.topPanel.drivePanel.drivePanelType == DrivePanelType.VAULT_MODE)
+		if(treeComboBox.topPanel.drivePanel.drivePanelMode == DrivePanelMode.VAULT_MODE)
 			file = vault;
 		
 		try {			

@@ -1,14 +1,14 @@
 package view.frames.driveframe.menubar.transfer.normaltovault;
 
-import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 @SuppressWarnings("serial")
-public class NormalToVault extends JMenu {
+public class NormalToVault extends JMenuItem {
 	
 	public NormalToVault() {
 		this.setText("Normal <-> Vault");
 		
-		this.add(new OnClick());
+		this.addActionListener(new OnClick());
 	}
 
 }
