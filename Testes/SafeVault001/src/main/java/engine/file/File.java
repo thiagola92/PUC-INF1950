@@ -41,10 +41,7 @@ public class File {
 		return name;
 	}
 	
-	public boolean isEqualTo(File file) {
-		if(this.getName().equals(file.getName()) == false)
-			return false;
-		
+	public boolean isEqualTo(File file) {		
 		if(this.getPath().equals(file.getPath()) == false)
 			return false;
 		
