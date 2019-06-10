@@ -12,6 +12,7 @@ import com.google.api.client.http.HttpResponseException;
 import engine.Engine;
 import engine.file.File;
 import view.View;
+import view.frame.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -24,11 +25,14 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
-		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)move.fromDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		Tree tree;
+		
+		tree = move.fromDrivePanel.treeScrollPane.tree;
+		DefaultMutableTreeNode fromNode = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File fromFile = (File) fromNode.getUserObject();
 
-		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)move.toDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		tree = move.toDrivePanel.treeScrollPane.tree;
+		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File toFile = (File) toNode.getUserObject();
 		
 		try {

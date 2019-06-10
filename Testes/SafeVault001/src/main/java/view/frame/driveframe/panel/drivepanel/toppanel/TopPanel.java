@@ -5,16 +5,21 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
+import view.frame.driveframe.panel.drivepanel.DrivePanel;
 import view.frame.driveframe.panel.drivepanel.toppanel.settingsbutton.SettingsButton;
 import view.frame.driveframe.panel.drivepanel.toppanel.treecombobox.TreeComboBox;
 
 @SuppressWarnings("serial")
 public class TopPanel extends JPanel {
 	
-	public TreeComboBox treeComboBox = new TreeComboBox();
-	public SettingsButton settingsButton = new SettingsButton();
+	public TreeComboBox treeComboBox = new TreeComboBox(this);
+	public SettingsButton settingsButton = new SettingsButton(this);
 	
-	public TopPanel() {
+	public DrivePanel drivePanel;
+	
+	public TopPanel(DrivePanel drivePanel) {
+		this.drivePanel = drivePanel;
+		
 		this.setLayout(new GridBagLayout());
 		
 		GridBagConstraints constraints;

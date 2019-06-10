@@ -3,11 +3,11 @@ package view.frame.driveframe.panel.drivepanel.toppanel.treecombobox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import engine.Engine;
 import engine.file.File;
 import engine.file.drive.Drive;
-import view.View;
-import view.frame.driveframe.panel.drivepanel.DrivePanel;
-import view.frame.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
+import engine.file.vault.Vault;
+import view.frame.driveframe.panel.drivepanel.drivepaneltype.DrivePanelType;
 
 public class OnChange implements ActionListener {
 	
@@ -16,28 +16,42 @@ public class OnChange implements ActionListener {
 	public OnChange(TreeComboBox treeComboBox) {
 		this.treeComboBox = treeComboBox;
 	}
-	
-	private DrivePanel getDrivePanel() {
-		if(View.driveFrame.panel.firstDrivePanel.topPanel.treeComboBox == treeComboBox)
-			return View.driveFrame.panel.firstDrivePanel;
-		
-		return View.driveFrame.panel.secondDrivePanel;
-	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {	
-		if(getDrivePanel().topPanel.treeComboBox.getItemCount() == 0)
+	public void actionPerformed(ActionEvent e) {		
+		if(treeComboBox.getItemCount() == 0)
 			return;
 		
-		Tree tree = getDrivePanel().treeScrollPane.tree;
 		Drive drive = (Drive)treeComboBox.getSelectedItem();		
 		File file = new File(drive, drive.getStartPath(), "folder");
+		File vault = getVault(file);
 		
-		try {
-			tree.newRoot(file);
+		if(treeComboBox.topPanel.drivePanel.drivePanelType == DrivePanelType.VAULT_MODE)
+			file = vault;
+		
+		try {			
+			treeComboBox.topPanel.drivePanel.treeScrollPane.tree.newRoot(file);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 	}
-
+	
+	public File getVault(File root) {
+		File vault = null;
+		
+		try {
+			vault = Vault.getVault(Engine.listFolder(root));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if(vault == null)
+				return Vault.createSafeVault(root);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return vault;
+	}
 }

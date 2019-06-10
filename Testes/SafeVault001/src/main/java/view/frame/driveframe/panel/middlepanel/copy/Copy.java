@@ -10,8 +10,8 @@ import view.frame.driveframe.panel.drivepanel.DrivePanel;
 @SuppressWarnings("serial")
 public class Copy extends JButton {
 	
-	private DrivePanel fromDrivePanel;
-	private DrivePanel toDrivePanel;
+	public DrivePanel fromDrivePanel;
+	public DrivePanel toDrivePanel;
 	
 	public Copy(String direction, DrivePanel fromDrivePanel, DrivePanel toDrivePanel) {
 		this.fromDrivePanel = fromDrivePanel;
@@ -20,14 +20,6 @@ public class Copy extends JButton {
 		createIcon(direction);
 		
 		this.addActionListener(new OnClick(this));
-	}
-	
-	public DrivePanel fromDrivePanel() {
-		return fromDrivePanel;
-	}
-	
-	public DrivePanel toDrivePanel() {
-		return toDrivePanel;
 	}
 	
 	private void createIcon(String direction) {

@@ -9,27 +9,21 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import engine.Engine;
 import engine.file.File;
 import view.View;
-import view.frame.driveframe.panel.drivepanel.DrivePanel;
+import view.frame.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	private Cipher cipher;
+	public Cipher cipher;
 	
 	public OnClick(Cipher cipher) {
 		this.cipher = cipher;
 	}
-	
-	private DrivePanel getDrivePanel() {
-		if(View.driveFrame.panel.firstDrivePanel.bottomPanel.cipher == cipher)
-			return View.driveFrame.panel.firstDrivePanel;
-		
-		return View.driveFrame.panel.secondDrivePanel;
-	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+	public void actionPerformed(ActionEvent e) {
+		Tree tree = cipher.bottomPanel.drivePanel.treeScrollPane.tree;
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 
 		String message = "Cifrar utilizando esse botão é perigoso, a maneira segura seria mover o arquivo para a pasta segura.\nDeseja cifrar mesmo assim? Note que o nome do arquivo não será alterado.";

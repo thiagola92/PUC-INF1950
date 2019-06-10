@@ -11,8 +11,8 @@ import view.frame.driveframe.panel.middlepanel.move.OnClick;
 @SuppressWarnings("serial")
 public class Move extends JButton {
 	
-	private DrivePanel fromDrivePanel;
-	private DrivePanel toDrivePanel;
+	public DrivePanel fromDrivePanel;
+	public DrivePanel toDrivePanel;
 	
 	public Move(String direction, DrivePanel fromDrivePanel, DrivePanel toDrivePanel) {
 		this.fromDrivePanel = fromDrivePanel;
@@ -21,14 +21,6 @@ public class Move extends JButton {
 		createIcon(direction);
 		
 		this.addActionListener(new OnClick(this));
-	}
-	
-	public DrivePanel fromDrivePanel() {
-		return fromDrivePanel;
-	}
-	
-	public DrivePanel toDrivePanel() {
-		return toDrivePanel;
 	}
 	
 	private void createIcon(String direction) {

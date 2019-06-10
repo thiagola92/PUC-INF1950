@@ -5,13 +5,21 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import view.frame.driveframe.panel.drivepanel.bottompanel.BottomPanel;
+
 @SuppressWarnings("serial")
 public class Cipher extends JButton {
 	
-	public Cipher() {		
+	public OnClick onClick = new OnClick(this);
+	
+	public BottomPanel bottomPanel;
+	
+	public Cipher(BottomPanel bottomPanel) {
+		this.bottomPanel = bottomPanel;
+		
 		createIcon();
 		
-		this.addActionListener(new OnClick(this));
+		this.addActionListener(onClick);
 	}
 	
 	private void createIcon() {

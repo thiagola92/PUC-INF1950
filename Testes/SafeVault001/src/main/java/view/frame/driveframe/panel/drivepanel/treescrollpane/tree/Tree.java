@@ -2,6 +2,7 @@ package view.frame.driveframe.panel.drivepanel.treescrollpane.tree;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,7 +50,11 @@ public class Tree extends JTree {
 	}
 	
 	public void openRoot(File rootFolder) throws Exception {
-		Engine.listFolder(rootFolder).forEach(file -> {
+		ArrayList<File> files;
+		
+		files = Engine.listFolder(rootFolder);
+		
+		files.forEach(file -> {
 			DefaultMutableTreeNode fileNode = new DefaultMutableTreeNode(file);
 			
 			root.add(fileNode);
@@ -57,10 +62,14 @@ public class Tree extends JTree {
 	}
 	
 	public void addReturnNode(File rootFolder) throws Exception {
-		Path returnPath = Paths.get(rootFolder.getPath()).getParent();
+		Path rootPath = Paths.get(rootFolder.getPath());
+		String returnPath = rootFolder.getDrive().getStartPath();
 		
-		if(returnPath == null)
+		if(rootPath.toString().equals(returnPath))
 			return;
+		
+		if(rootPath.getParent() != null)
+			returnPath = rootPath.getParent().toString();
 		
 		File returnFolder = new ReturnFolder(rootFolder, returnPath.toString());
 		

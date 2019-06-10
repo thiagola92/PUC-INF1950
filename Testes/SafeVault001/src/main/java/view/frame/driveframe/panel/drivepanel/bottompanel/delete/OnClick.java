@@ -9,7 +9,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import engine.Engine;
 import engine.file.File;
 import view.View;
-import view.frame.driveframe.panel.drivepanel.DrivePanel;
+import view.frame.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -19,17 +19,11 @@ public class OnClick implements ActionListener {
 	public OnClick(Delete delete) {
 		this.delete = delete;
 	}
-	
-	private DrivePanel getDrivePanel() {
-		if(View.driveFrame.panel.firstDrivePanel.bottomPanel.delete == delete)
-			return View.driveFrame.panel.firstDrivePanel;
-		
-		return View.driveFrame.panel.secondDrivePanel;
-	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		DefaultMutableTreeNode node = (DefaultMutableTreeNode)getDrivePanel().treeScrollPane.tree.getSelectionPath().getLastPathComponent();
+		Tree tree = delete.bottomPanel.drivePanel.treeScrollPane.tree;
+		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 
 		String message = "<html><font color='red' style='text-align: center'>";
