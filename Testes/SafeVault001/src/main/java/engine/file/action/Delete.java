@@ -1,9 +1,12 @@
 package engine.file.action;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import engine.Engine;
 import engine.file.File;
+import engine.file.Utility;
+import engine.file.vault.Vault;
 import engine.file.vault.index.Index;
 
 public class Delete {
@@ -22,7 +25,11 @@ public class Delete {
 	}
 	
 	public static void deleteSafeFile(File file) throws Exception {
-		deleteFile(file);
+		File vault = Vault.getVault(file);
+		String fileName = Paths.get(file.getPath()).getFileName().toString();
+		String filePath = Utility.concatPath(vault.getPath(), fileName);
+		
+		file.getDrive().getPlugin().deleteFile(filePath);
 		Index.getIndex(file).removeFile(file);
 	}
 	
@@ -32,7 +39,6 @@ public class Delete {
 		for(File file : files)
 			Engine.delete(file);
 
-		deleteFolder(folder);
 		Index.getIndex(folder).removeFile(folder);
 	}
 

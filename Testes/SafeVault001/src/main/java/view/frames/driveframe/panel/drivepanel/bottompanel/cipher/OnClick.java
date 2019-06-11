@@ -2,6 +2,7 @@ package view.frames.driveframe.panel.drivepanel.bottompanel.cipher;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.charset.StandardCharsets;
 
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -27,6 +28,8 @@ public class OnClick implements ActionListener {
 		File file = (File) node.getUserObject();
 
 		String message = "Cifrar utilizando esse botão é perigoso, a maneira segura seria mover o arquivo para a pasta segura.\nDeseja cifrar mesmo assim? Note que o nome do arquivo não será alterado.";
+		message = new String(message.getBytes(), StandardCharsets.UTF_8);
+		
 		int answer = JOptionPane.showOptionDialog(View.driveFrame, message, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.NO_OPTION);
 		
 		if(answer == JOptionPane.NO_OPTION)

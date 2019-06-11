@@ -1,5 +1,6 @@
 package engine.file.action;
 
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
@@ -29,8 +30,12 @@ public class List {
 		
 		for(int i = files.size() - 1; i >= 0; i--) {
 			String filePath = Vault.pathInsideVault(files.get(i));
-			String parentPath = Paths.get(filePath).getParent().toString();
+			String parentPath = java.io.File.separator;
 			
+			Path path = Paths.get(filePath).getParent();
+			if(path != null)
+				parentPath = path.toString();
+
 			if(parentPath.equals(folderPath) == false)
 				files.remove(i);
 		}

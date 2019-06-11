@@ -26,7 +26,7 @@ public class OnClick implements ActionListener {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File folder = (File) node.getUserObject();
 		
-		String newFolderName = JOptionPane.showInputDialog("Folder name:");
+		String newFolderName = JOptionPane.showInputDialog("Nome da pasta:");
 		
 		if(newFolderName == null)
 			return;
