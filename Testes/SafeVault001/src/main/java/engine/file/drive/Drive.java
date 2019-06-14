@@ -5,7 +5,6 @@ import java.security.PublicKey;
 
 import plugin.Plugin;
 import plugin.PluginList;
-import view.View;
 
 public class Drive {
 
@@ -23,10 +22,8 @@ public class Drive {
 		this.startPath = "";
 		
 		this.plugin = PluginList.createPlugin(pluginName);
-//		this.publicKey = null;
-//		this.privateKey = null;
-		this.publicKey = View.publicKey; // temporario, trocar para null depois
-		this.privateKey = View.privateKey; // temporario, trocar para null depois
+		this.publicKey = null;
+		this.privateKey = null;
 	}
 	
 	public String getName() {

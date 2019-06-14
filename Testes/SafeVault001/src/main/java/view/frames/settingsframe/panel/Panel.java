@@ -46,6 +46,9 @@ public class Panel extends JPanel {
 		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
 		this.importCertificateButton = new ImportCertificateButton(this);
 		
+		this.privateKey = drive.getPrivateKey();
+		this.publicKey = drive.getPublicKey();
+		
 		this.setLayout(new GridBagLayout());
 		
 		GridBagConstraints constraints;

@@ -2,6 +2,7 @@ package view.frames.driveframe.panel.drivepanel.toppanel.treecombobox;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.InvalidKeyException;
 
 import javax.crypto.BadPaddingException;
 import javax.swing.JOptionPane;
@@ -37,7 +38,7 @@ public class OnChange implements ActionListener {
 		
 		try {
 			treeComboBox.topPanel.drivePanel.treeScrollPane.tree.newRoot(file);
-		} catch (BadPaddingException e1) {
+		} catch (BadPaddingException | InvalidKeyException e1) {
             JOptionPane.showMessageDialog(View.driveFrame, "Esse SafeVault nao esta ligado a sua chave privada/publica");
             
 			e1.printStackTrace();

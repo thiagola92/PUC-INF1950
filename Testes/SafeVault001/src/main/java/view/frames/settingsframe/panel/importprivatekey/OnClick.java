@@ -18,8 +18,6 @@ import javax.crypto.KeyGenerator;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import view.View;
-
 public class OnClick implements ActionListener {
 	
 	public ImportPrivateKeyButton importPrivateKeyButton;
@@ -33,7 +31,7 @@ public class OnClick implements ActionListener {
 		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
-		if(fileChooser.showOpenDialog(View.driveFrame.menuBar.drive.addDrive._default) != JFileChooser.APPROVE_OPTION)
+		if(fileChooser.showOpenDialog(importPrivateKeyButton.panel) != JFileChooser.APPROVE_OPTION)
 			return;
 		
 		String password = JOptionPane.showInputDialog("Senha:");
@@ -49,7 +47,7 @@ public class OnClick implements ActionListener {
 		} catch(Exception e) {
 			String message = "Chave privada inválida ou senha incorreta.";
 			message = new String(message.getBytes(), StandardCharsets.UTF_8);
-			JOptionPane.showMessageDialog(View.driveFrame, message);
+			JOptionPane.showMessageDialog(importPrivateKeyButton.panel, message);
 		}
 
 	}
