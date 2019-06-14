@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import view.frames.driveframe.panel.drivepanel.DrivePanel;
+import view.frames.driveframe.panel.drivepanel.toppanel.newvaultbutton.NewVaultButton;
 import view.frames.driveframe.panel.drivepanel.toppanel.settingsbutton.SettingsButton;
 import view.frames.driveframe.panel.drivepanel.toppanel.treecombobox.TreeComboBox;
 
@@ -13,6 +14,7 @@ import view.frames.driveframe.panel.drivepanel.toppanel.treecombobox.TreeComboBo
 public class TopPanel extends JPanel {
 	
 	public TreeComboBox treeComboBox = new TreeComboBox(this);
+	public NewVaultButton newVaultButton = new NewVaultButton(this);
 	public SettingsButton settingsButton = new SettingsButton(this);
 	
 	public DrivePanel drivePanel;
@@ -33,6 +35,12 @@ public class TopPanel extends JPanel {
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
+		constraints.gridy = 0;
+		constraints.anchor = GridBagConstraints.LINE_END;
+		this.add(newVaultButton, constraints);
+		
+		constraints = new GridBagConstraints();
+		constraints.gridx = 2;
 		constraints.gridy = 0;
 		constraints.anchor = GridBagConstraints.LINE_END;
 		this.add(settingsButton, constraints);

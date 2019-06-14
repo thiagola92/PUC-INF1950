@@ -3,6 +3,8 @@ package view.frames.settingsframe.panel;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +13,8 @@ import javax.swing.JTextField;
 import engine.file.drive.Drive;
 import view.frames.settingsframe.SettingsFrame;
 import view.frames.settingsframe.panel.cancelbutton.CancelButton;
+import view.frames.settingsframe.panel.importcertificate.ImportCertificateButton;
+import view.frames.settingsframe.panel.importprivatekey.ImportPrivateKeyButton;
 import view.frames.settingsframe.panel.keytextfield.KeyTextField;
 import view.frames.settingsframe.panel.savebutton.SaveButton;
 
@@ -24,13 +28,23 @@ public class Panel extends JPanel {
 	public KeyTextField privateKeyTextField;
 	public KeyTextField publicKeyTextField;
 	
+	public ImportPrivateKeyButton importPrivateKeyButton;
+	public ImportCertificateButton importCertificateButton;
+	
+	public PrivateKey privateKey;
+	public PublicKey publicKey;
+	
 	public Panel(SettingsFrame settingsFrame, Drive drive) {
 		this.settingsFrame = settingsFrame;
 		this.drive = drive;
 		
 		this.startPath = new JTextField(drive.getStartPath());
+		
 		this.privateKeyTextField = new KeyTextField(drive.getPrivateKey());
 		this.publicKeyTextField = new KeyTextField(drive.getPublicKey());
+		
+		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
+		this.importCertificateButton = new ImportCertificateButton(this);
 		
 		this.setLayout(new GridBagLayout());
 		
@@ -39,7 +53,7 @@ public class Panel extends JPanel {
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 0;
-		constraints.weightx = 0;
+		constraints.weightx = 1;
 		constraints.gridwidth = 4;
 		constraints.insets = new Insets(10, 10, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -48,7 +62,7 @@ public class Panel extends JPanel {
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 0;
+		constraints.weightx = 1;
 		constraints.gridwidth = 4;
 		constraints.insets = new Insets(0, 10, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
@@ -57,8 +71,6 @@ public class Panel extends JPanel {
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 2;
-		constraints.weightx = 0;
-		constraints.gridwidth = 4;
 		constraints.insets = new Insets(0, 10, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(new JLabel("Start path: "), constraints);
@@ -68,6 +80,7 @@ public class Panel extends JPanel {
 		constraints.gridy = 2;
 		constraints.weightx = 1;
 		constraints.gridwidth = 3;
+		constraints.weightx = 1;
 		constraints.insets = new Insets(0, 0, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(startPath, constraints);
@@ -75,7 +88,6 @@ public class Panel extends JPanel {
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 3;
-		constraints.weightx = 0;
 		constraints.insets = new Insets(0, 10, 10, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(new JLabel("Private key: "), constraints);
@@ -84,15 +96,21 @@ public class Panel extends JPanel {
 		constraints.gridx = 1;
 		constraints.gridy = 3;
 		constraints.weightx = 1;
-		constraints.gridwidth = 3;
+		constraints.gridwidth = 2;
 		constraints.insets = new Insets(0, 0, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(privateKeyTextField, constraints);
 
 		constraints = new GridBagConstraints();
+		constraints.gridx = 3;
+		constraints.gridy = 3;
+		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(importPrivateKeyButton, constraints);
+
+		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 4;
-		constraints.weightx = 0;
 		constraints.insets = new Insets(0, 10, 10, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(new JLabel("Public key: "), constraints);
@@ -101,10 +119,17 @@ public class Panel extends JPanel {
 		constraints.gridx = 1;
 		constraints.gridy = 4;
 		constraints.weightx = 1;
-		constraints.gridwidth = 3;
+		constraints.gridwidth = 2;
 		constraints.insets = new Insets(0, 0, 10, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(publicKeyTextField, constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 3;
+		constraints.gridy = 4;
+		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(importCertificateButton, constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;

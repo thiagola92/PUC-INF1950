@@ -32,6 +32,9 @@ public class OnChange implements ActionListener {
 		if(treeComboBox.topPanel.drivePanel.drivePanelMode == DrivePanelMode.VAULT_MODE)
 			file = vault;
 		
+		if(file == null)
+			return;
+		
 		try {
 			treeComboBox.topPanel.drivePanel.treeScrollPane.tree.newRoot(file);
 		} catch (BadPaddingException e1) {
@@ -47,8 +50,6 @@ public class OnChange implements ActionListener {
 		try {
 			if(Vault.existVault(root))
 				return Vault.getVault(root);
-			else
-				return Vault.createSafeVault(root);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
