@@ -13,7 +13,7 @@ public class ImportCertificateButton extends JButton {
 	public ImportCertificateButton(Panel panel) {
 		this.panel = panel;
 		
-		this.setText("Import");
+		this.setText("Import Certificate");
 		
 		this.addActionListener(new OnClick(this));
 	}

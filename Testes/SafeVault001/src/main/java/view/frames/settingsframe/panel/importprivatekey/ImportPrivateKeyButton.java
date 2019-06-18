@@ -12,7 +12,7 @@ public class ImportPrivateKeyButton extends JButton {
 	public ImportPrivateKeyButton(Panel panel) {
 		this.panel = panel;
 		
-		this.setText("Import");
+		this.setText("Import Private Key");
 		
 		this.addActionListener(new OnClick(this));
 	}

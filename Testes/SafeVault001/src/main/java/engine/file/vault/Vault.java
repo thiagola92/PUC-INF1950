@@ -51,12 +51,12 @@ public class Vault {
 	}
 	
 	public static File createSafeVault(File file) throws Exception {
+		byte[] container = Encrypt.getEncryptedFile("".getBytes(), file.getDrive().getPrivateKey(), file.getDrive().getPublicKey());
+		
 		File vault = Create.createFolder(file, vaultName);
 		
 		String indexPath = Utility.concatPath(vault.getPath(), "index");
 		file.getDrive().getPlugin().createFile(indexPath);
-		
-		byte[] container = Encrypt.getEncryptedFile("".getBytes(), file.getDrive().getPrivateKey(), file.getDrive().getPublicKey());
 		file.getDrive().getPlugin().writeFile(indexPath, container);
 		
 		return vault;

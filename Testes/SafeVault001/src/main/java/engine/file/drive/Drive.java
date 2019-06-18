@@ -2,6 +2,7 @@ package engine.file.drive;
 
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.cert.X509Certificate;
 
 import plugin.Plugin;
 import plugin.PluginList;
@@ -13,7 +14,7 @@ public class Drive {
 	private String startPath;
 	
 	private Plugin plugin;
-	private PublicKey publicKey;
+	private X509Certificate certificate;
 	private PrivateKey privateKey;
 	
 	public Drive(String driveName, String pluginName) throws Exception {
@@ -22,7 +23,7 @@ public class Drive {
 		this.startPath = "";
 		
 		this.plugin = PluginList.createPlugin(pluginName);
-		this.publicKey = null;
+		this.certificate = null;
 		this.privateKey = null;
 	}
 	
@@ -50,12 +51,19 @@ public class Drive {
 		return plugin;
 	}
 	
-	public PublicKey getPublicKey() {
-		return publicKey;
+	public X509Certificate getCertificate() {
+		return certificate;
 	}
 	
-	public void setPublicKey(PublicKey publicKey) {
-		this.publicKey = publicKey;
+	public void setCertificate(X509Certificate certificate) {
+		this.certificate = certificate;
+	}
+	
+	public PublicKey getPublicKey() {
+		if(certificate == null)
+			return null;
+		
+		return certificate.getPublicKey();
 	}
 	
 	public PrivateKey getPrivateKey() {

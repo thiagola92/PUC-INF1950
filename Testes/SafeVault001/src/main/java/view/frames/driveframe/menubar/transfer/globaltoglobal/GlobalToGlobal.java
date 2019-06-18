@@ -8,7 +8,7 @@ import view.frames.driveframe.menubar.transfer.globaltoglobal.OnClick;
 public class GlobalToGlobal extends JMenuItem {
 	
 	public GlobalToGlobal() {
-		this.setText("Global <-> Global");
+		this.setText("Global <=> Global");
 		
 		this.addActionListener(new OnClick());
 	}

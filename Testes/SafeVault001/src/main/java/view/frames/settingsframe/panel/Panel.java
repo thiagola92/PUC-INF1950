@@ -4,7 +4,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.security.PrivateKey;
-import java.security.PublicKey;
+import java.security.cert.X509Certificate;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -32,7 +32,7 @@ public class Panel extends JPanel {
 	public ImportCertificateButton importCertificateButton;
 	
 	public PrivateKey privateKey;
-	public PublicKey publicKey;
+	public X509Certificate certificate;
 	
 	public Panel(SettingsFrame settingsFrame, Drive drive) {
 		this.settingsFrame = settingsFrame;
@@ -47,7 +47,7 @@ public class Panel extends JPanel {
 		this.importCertificateButton = new ImportCertificateButton(this);
 		
 		this.privateKey = drive.getPrivateKey();
-		this.publicKey = drive.getPublicKey();
+		this.certificate = drive.getCertificate();
 		
 		this.setLayout(new GridBagLayout());
 		
@@ -116,7 +116,7 @@ public class Panel extends JPanel {
 		constraints.gridy = 4;
 		constraints.insets = new Insets(0, 10, 10, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Public key: "), constraints);
+		this.add(new JLabel("Public Key: "), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;

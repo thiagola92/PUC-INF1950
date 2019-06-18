@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import java.security.PublicKey;
 import java.security.SecureRandom;
 import java.security.Signature;
+import java.security.cert.X509Certificate;
 
 import javax.swing.JOptionPane;
 
@@ -28,10 +28,10 @@ public class OnClick implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		boolean changeKeys = false;
 		
-		PublicKey publicKey = panel.publicKey;
+		X509Certificate certificate = panel.certificate;
 		PrivateKey privateKey = panel.privateKey;
-		if(publicKey != null && privateKey != null) {
-			if(isValidKeys(publicKey, privateKey) == false)
+		if(certificate != null && privateKey != null) {
+			if(isValidKeys(certificate, privateKey) == false)
 				return;
 			
 			changeKeys = true;
@@ -43,7 +43,7 @@ public class OnClick implements ActionListener {
 		
 		if(changeKeys == true) {
 			panel.drive.setPrivateKey(privateKey);
-			panel.drive.setPublicKey(publicKey);
+			panel.drive.setCertificate(certificate);
 		}
 		
 		panel.drive.setStartPath(newStartPath);
@@ -71,9 +71,9 @@ public class OnClick implements ActionListener {
 		return true;
 	}
 	
-	public boolean isValidKeys(PublicKey publicKey, PrivateKey privateKey) {
+	public boolean isValidKeys(X509Certificate certificate, PrivateKey privateKey) {
 		try {
-			if(isKeysPairs(publicKey, privateKey) == false) {
+			if(isKeysPairs(certificate, privateKey) == false) {
 				String message = "Chave pública e chave privada não são pares uma da outra.";
 				message = new String(message.getBytes(), StandardCharsets.UTF_8);
 				JOptionPane.showMessageDialog(panel, message);
@@ -93,7 +93,7 @@ public class OnClick implements ActionListener {
 		return true;
 	}
 
-    public boolean isKeysPairs(PublicKey publicKey, PrivateKey privateKey) throws Exception {    	
+    public boolean isKeysPairs(X509Certificate certificate, PrivateKey privateKey) throws Exception {    	
         byte[] message = new byte[2048];
         (new SecureRandom()).nextBytes(message);
 
@@ -102,7 +102,7 @@ public class OnClick implements ActionListener {
         signature.update(message);
         byte[] cipherMessage = signature.sign();
 
-        signature.initVerify(publicKey);
+        signature.initVerify(certificate);
         signature.update(message);
 
         if(signature.verify(cipherMessage))

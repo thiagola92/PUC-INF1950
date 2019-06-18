@@ -28,13 +28,8 @@ public class OnClick implements ActionListener {
 		File file = new File(drive, drive.getStartPath(), "folder");
 		
 		try {
-			if(Vault.existVault(file)) {
-				String message = "Vault já existe.";
-				message = new String(message.getBytes(), StandardCharsets.UTF_8);
-				JOptionPane.showMessageDialog(View.driveFrame, message);
-				
+			if(canCreateSafeVault(file) == false)
 				return;
-			}
 			
 			Vault.createSafeVault(file);
 			
@@ -46,7 +41,26 @@ public class OnClick implements ActionListener {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public boolean canCreateSafeVault(File file) throws Exception {
+		if(Vault.existVault(file)) {
+			String message = "Vault já existe.";
+			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			JOptionPane.showMessageDialog(View.driveFrame, message);
+			
+			return false;
+		}
 		
+		if(file.getDrive().getPrivateKey() == null || file.getDrive().getCertificate() == null) {
+			String message = "Não foi possível identificar chave privada ou pública.";
+			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			JOptionPane.showMessageDialog(View.driveFrame, message);
+			
+			return false;
+		}
+		
+		return true;
 	}
 
 }

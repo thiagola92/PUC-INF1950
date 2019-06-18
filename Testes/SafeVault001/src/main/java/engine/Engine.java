@@ -2,6 +2,8 @@ package engine;
 
 import java.util.ArrayList;
 
+import engine.exception.CipherInsideVaultException;
+import engine.exception.DecipherInsideVaultException;
 import engine.file.File;
 import engine.file.action.Cipher;
 import engine.file.action.Copy;
@@ -71,7 +73,7 @@ public class Engine {
 	
 	public static void cipher(File file) throws Exception {
 		if(Vault.isInsideVault(file))
-			return;
+			throw new CipherInsideVaultException();
 		
 		if(file.getType().equals("folder"))
 			Cipher.cipherFolder(file);
@@ -81,7 +83,7 @@ public class Engine {
 	
 	public static void decipher(File file) throws Exception {
 		if(Vault.isInsideVault(file))
-			return;
+			throw new DecipherInsideVaultException();
 		
 		if(file.getType().equals("folder"))
 			Decipher.decipherFolder(file);

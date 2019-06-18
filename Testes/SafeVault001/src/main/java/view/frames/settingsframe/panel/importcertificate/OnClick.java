@@ -34,7 +34,7 @@ public class OnClick implements ActionListener {
 			byte[] certificateBytes = Files.readAllBytes(Paths.get(certificatePath));
 			X509Certificate certificate = getCertificate(certificateBytes);
 			
-			importCertificateButton.panel.publicKey = certificate.getPublicKey();
+			importCertificateButton.panel.certificate = certificate;
 			importCertificateButton.panel.publicKeyTextField.setKey(certificate.getPublicKey());
 		} catch(Exception e) {
 			String message = "Certificado inválido.";

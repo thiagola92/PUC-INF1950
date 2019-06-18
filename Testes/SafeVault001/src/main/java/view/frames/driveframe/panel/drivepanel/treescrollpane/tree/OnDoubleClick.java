@@ -20,6 +20,9 @@ public class OnDoubleClick implements MouseListener {
 		if(e.getClickCount() <= 1)
 			return;
 		
+		if(tree.getSelectionPath() == null)
+			return;
+		
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode) tree.getSelectionPath().getLastPathComponent();
 		File file = (File)node.getUserObject();
 		

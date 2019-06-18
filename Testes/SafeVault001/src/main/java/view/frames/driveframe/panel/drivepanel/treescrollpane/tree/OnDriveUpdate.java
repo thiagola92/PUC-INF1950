@@ -13,7 +13,7 @@ public class OnDriveUpdate implements UpdateListener {
 
 	@Override
 	public void engineUpdated(UpdateOptions engineUpdate) {
-		if(engineUpdate != UpdateOptions.FILE_UPDATE)
+		if(engineUpdate == UpdateOptions.DRIVE_UPDATE)
 			return;
 		
 		try {

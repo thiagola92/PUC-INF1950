@@ -6,7 +6,7 @@ import javax.swing.JMenuItem;
 public class NormalToVault extends JMenuItem {
 	
 	public NormalToVault() {
-		this.setText("Normal <-> Vault");
+		this.setText("Normal <=> Vault");
 		
 		this.addActionListener(new OnClick());
 	}
