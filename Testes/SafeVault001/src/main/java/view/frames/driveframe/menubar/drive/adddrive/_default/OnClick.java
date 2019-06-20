@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import engine.file.drive.Drive;
 import view.View;
 import view.drivelist.exception.NameAlreadyUsedException;
+import view.stringformat.StringFormat;
 
 public class OnClick implements ActionListener {
 
@@ -31,7 +32,8 @@ public class OnClick implements ActionListener {
 			
 			View.driverList.addDrive(drive);
 		} catch (NameAlreadyUsedException e1) {
-			JOptionPane.showMessageDialog(View.driveFrame, "Nome já está em uso");
+			StringFormat message = new StringFormat("Nome já está em uso.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

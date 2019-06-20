@@ -38,7 +38,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.move(fromFile, toFile);
 			
-			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (HttpResponseException e1) {
             JOptionPane.showMessageDialog(View.driveFrame, "Arquivo vazio?");
             

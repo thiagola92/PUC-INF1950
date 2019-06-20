@@ -7,7 +7,9 @@ import view.update.UpdateOptions;
 
 public class OnDriveUpdate implements UpdateListener {
 	
-	private TreeComboBox treeCombobox;
+	public TreeComboBox treeCombobox;
+	
+	private Drive driveSelected;
 	
 	public OnDriveUpdate(TreeComboBox treeCombobox) {
 		this.treeCombobox = treeCombobox;
@@ -15,20 +17,37 @@ public class OnDriveUpdate implements UpdateListener {
 
 	@Override
 	public void engineUpdated(UpdateOptions engineUpdate) {
-		if(engineUpdate == UpdateOptions.FILE_UPDATE)
-			return;
-		
-		Drive driveSelected = (Drive)treeCombobox.getSelectedItem();
+		if(engineUpdate == UpdateOptions.DRIVE_UPDATED)
+			driveUpdated();
+		else if(engineUpdate == UpdateOptions.DRIVE_ADDED)
+			driveAdded();
+		else if(engineUpdate == UpdateOptions.DRIVE_REMOVED)
+			driveRemoved();
+	}
+	
+	public void driveUpdated() {
+		treeCombobox.driveSeleceted();
+	}
+	
+	public void driveAdded() {
+		Drive drive = View.driverList.getLastDrive();
+		treeCombobox.addItem(drive);
+	}
+	
+	public void driveRemoved() {
+		driveSelected = (Drive)treeCombobox.getSelectedItem();
 		
 		treeCombobox.removeAllItems();
 		
-		View.driverList.getDrives().forEach(driver -> treeCombobox.addItem(driver));
+		if(View.driverList.getStream().anyMatch(drive -> driveSelected == drive))
+			treeCombobox.addItem(driveSelected);
 		
-		for(int i = 0; i < treeCombobox.getItemCount(); i++) {
-			Drive drive = treeCombobox.getItemAt(i);
-			if(drive == driveSelected)
-				treeCombobox.setSelectedIndex(i);
-		}
+		View.driverList.getStream().forEach(drive -> {
+			if(driveSelected == drive)
+				return;
+			
+			treeCombobox.addItem(drive);
+		});
 	}
 
 }

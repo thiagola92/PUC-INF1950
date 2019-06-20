@@ -2,10 +2,14 @@ package view.frames.driveframe.panel.drivepanel.treescrollpane.tree;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.security.InvalidKeyException;
 
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.file.File;
+import view.View;
+import view.stringformat.StringFormat;
 
 public class OnDoubleClick implements MouseListener {
 	
@@ -28,6 +32,9 @@ public class OnDoubleClick implements MouseListener {
 		
 		try {
 			tree.newRoot(file);
+		} catch (InvalidKeyException e1) {
+			StringFormat message = new StringFormat("Chave inválida para esse vault.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

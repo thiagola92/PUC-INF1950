@@ -1,6 +1,8 @@
 package view.update;
 
 public enum UpdateOptions {
-	DRIVE_UPDATE,
-	FILE_UPDATE,
+	DRIVE_UPDATED,
+	DRIVE_ADDED,
+	DRIVE_REMOVED,
+	FILE_UPDATED,
 }

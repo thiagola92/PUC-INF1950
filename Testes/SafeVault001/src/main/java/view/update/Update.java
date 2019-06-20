@@ -22,8 +22,7 @@ public class Update {
 	}
 	
 	public void updateListeners(UpdateOptions updateOption) {
-		updateListenerList.forEach(listener -> {
-			listener.engineUpdated(updateOption);
-		});
+		for(int i = 0; i < updateListenerList.size(); i++)
+			updateListenerList.get(i).engineUpdated(updateOption);
 	}
 }

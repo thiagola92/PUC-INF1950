@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.cert.CertificateFactory;
@@ -12,6 +11,8 @@ import java.security.cert.X509Certificate;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
+import view.stringformat.StringFormat;
 
 public class OnClick implements ActionListener {
 	
@@ -37,8 +38,7 @@ public class OnClick implements ActionListener {
 			importCertificateButton.panel.certificate = certificate;
 			importCertificateButton.panel.publicKeyTextField.setKey(certificate.getPublicKey());
 		} catch(Exception e) {
-			String message = "Certificado inválido.";
-			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			StringFormat message = new StringFormat("Certificado inválido.");
 			JOptionPane.showMessageDialog(importCertificateButton.panel, message);
 		}
 	}

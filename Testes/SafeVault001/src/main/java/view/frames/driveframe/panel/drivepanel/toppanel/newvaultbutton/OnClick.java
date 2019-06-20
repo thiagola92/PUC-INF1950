@@ -37,7 +37,7 @@ public class OnClick implements ActionListener {
 			message = new String(message.getBytes(), StandardCharsets.UTF_8);
 			JOptionPane.showMessageDialog(View.driveFrame, message);
 			
-			View.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+			View.update.updateListeners(UpdateOptions.DRIVE_UPDATED);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -35,7 +35,7 @@ public class OnClick implements ActionListener {
 	}
 	
 	public void cipherFile(File file) {
-		StringFormat message = new StringFormat("Cifrar utilizando esse botão é perigoso, a maneira segura seria mover o arquivo para a pasta segura.\\nDeseja cifrar mesmo assim? Note que o nome do arquivo não será alterado.");
+		StringFormat message = new StringFormat("Cifrar utilizando esse botão é perigoso, a maneira segura seria mover o arquivo para a pasta segura." + "\n" + "Deseja cifrar mesmo assim? Note que o nome do arquivo não será alterado.");
 		int answer = JOptionPane.showOptionDialog(View.driveFrame, message, null, JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, JOptionPane.NO_OPTION);
 		
 		if(answer == JOptionPane.NO_OPTION)
@@ -46,7 +46,7 @@ public class OnClick implements ActionListener {
 			
             JOptionPane.showMessageDialog(View.driveFrame, "Cifrado com sucesso.");
 			
-            View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+            View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

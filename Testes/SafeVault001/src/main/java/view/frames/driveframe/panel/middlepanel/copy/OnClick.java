@@ -36,7 +36,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.copy(fromFile, toFile);
 			
-			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (HttpResponseException e1) {
 			System.out.println("- Empty file?");
 			e1.printStackTrace();

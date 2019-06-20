@@ -2,7 +2,6 @@ package view.frames.settingsframe.panel.importprivatekey;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,7 +15,12 @@ import java.util.Base64;
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.swing.JFileChooser;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+
+import view.stringformat.StringFormat;
 
 public class OnClick implements ActionListener {
 	
@@ -29,12 +33,13 @@ public class OnClick implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		
+		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		if(fileChooser.showOpenDialog(importPrivateKeyButton.panel) != JFileChooser.APPROVE_OPTION)
 			return;
 		
-		String password = JOptionPane.showInputDialog("Senha:");
+		String password = getPassword();
 		if(password == null)
 			return;
 
@@ -45,14 +50,34 @@ public class OnClick implements ActionListener {
 			importPrivateKeyButton.panel.privateKey = privateKey;
 			importPrivateKeyButton.panel.privateKeyTextField.setKey(privateKey);
 		} catch(Exception e) {
-			String message = "Chave privada inválida ou senha incorreta.";
-			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			StringFormat message = new StringFormat("Chave privada inválida ou senha incorreta.");
 			JOptionPane.showMessageDialog(importPrivateKeyButton.panel, message);
 		}
 
 	}
+	
+	public String getPassword() {
+		JLabel passwordLabel = new JLabel("Senha: ");
+		JPasswordField passworldField = new JPasswordField(20);
+		JPanel panel = new JPanel();
+		String[] options = new String[] {"OK", "Cancel"};
+		
+		panel.add(passwordLabel);
+		panel.add(passworldField);
+		
+		int answer = JOptionPane.showOptionDialog(importPrivateKeyButton.panel, panel, "Input", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, 1);
+		String password = new String(passworldField.getPassword());
+		
+		System.out.println(answer);
+		System.out.println(password);
+		
+		if(answer != 0)
+			return null;
+		
+		return password;
+	}
 
-    public static PrivateKey getPrivateKey(String password, String cipherPemPathString) throws Exception {
+    public PrivateKey getPrivateKey(String password, String cipherPemPathString) throws Exception {
     	Path cipherPemPath = Paths.get(cipherPemPathString);
     	
         SecureRandom secureRandom = SecureRandom.getInstance("SHA1PRNG");

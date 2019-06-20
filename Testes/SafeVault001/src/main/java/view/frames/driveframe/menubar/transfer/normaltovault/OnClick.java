@@ -14,7 +14,7 @@ public class OnClick implements ActionListener {
 		View.driveFrame.panel.leftDrivePanel.drivePanelMode = DrivePanelMode.NORMAL_MODE;
 		View.driveFrame.panel.rightDrivePanel.drivePanelMode = DrivePanelMode.VAULT_MODE;
 		
-		View.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+		View.update.updateListeners(UpdateOptions.DRIVE_UPDATED);
 	}
 
 }

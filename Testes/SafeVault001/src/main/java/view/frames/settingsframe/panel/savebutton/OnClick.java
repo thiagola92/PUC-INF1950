@@ -2,7 +2,6 @@ package view.frames.settingsframe.panel.savebutton;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.Signature;
@@ -14,6 +13,7 @@ import engine.Engine;
 import engine.file.File;
 import view.View;
 import view.frames.settingsframe.panel.Panel;
+import view.stringformat.StringFormat;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -26,31 +26,27 @@ public class OnClick implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		boolean changeKeys = false;
-		
-		X509Certificate certificate = panel.certificate;
-		PrivateKey privateKey = panel.privateKey;
-		if(certificate != null && privateKey != null) {
-			if(isValidKeys(certificate, privateKey) == false)
-				return;
-			
-			changeKeys = true;
-		}
-		
 		String newStartPath = panel.startPath.getText();
+		
 		if(isValidPath(newStartPath) == false)
 			return;
 		
-		if(changeKeys == true) {
-			panel.drive.setPrivateKey(privateKey);
-			panel.drive.setCertificate(certificate);
-		}
+		X509Certificate certificate = panel.certificate;
+		PrivateKey privateKey = panel.privateKey;
 		
+		if(certificate != null && privateKey != null) {
+			if(isValidKeys(certificate, privateKey) == false)
+				return;
+		}
+
+		panel.drive.setName(panel.name.getText());
 		panel.drive.setStartPath(newStartPath);
+		panel.drive.setPrivateKey(privateKey);
+		panel.drive.setCertificate(certificate);
 
 		panel.settingsFrame.dispose();
 		
-		View.update.updateListeners(UpdateOptions.DRIVE_UPDATE);
+		View.update.updateListeners(UpdateOptions.DRIVE_UPDATED);
 	}
 	
 	public boolean isValidPath(String newStartPath) {
@@ -59,8 +55,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.listFolder(folder);
 		} catch (Exception e) {
-			String message = "Não foi possível listar essa pasta como pasta inicial.";
-			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			StringFormat message = new StringFormat("Não foi possível listar essa pasta como pasta inicial.");
 			JOptionPane.showMessageDialog(panel, message);
 			
 			e.printStackTrace();
@@ -74,15 +69,13 @@ public class OnClick implements ActionListener {
 	public boolean isValidKeys(X509Certificate certificate, PrivateKey privateKey) {
 		try {
 			if(isKeysPairs(certificate, privateKey) == false) {
-				String message = "Chave pública e chave privada não são pares uma da outra.";
-				message = new String(message.getBytes(), StandardCharsets.UTF_8);
+				StringFormat message = new StringFormat("Chave pública e chave privada não são pares uma da outra.");
 				JOptionPane.showMessageDialog(panel, message);
 				
 				return false;
 			}
 		} catch (Exception e) {
-			String message = "Erro ao tentar verificar se as chaves são pares uma da outra.";
-			message = new String(message.getBytes(), StandardCharsets.UTF_8);
+			StringFormat message = new StringFormat("Erro ao tentar verificar se as chaves são pares uma da outra.");
 			JOptionPane.showMessageDialog(panel, message);
 			
 			e.printStackTrace();

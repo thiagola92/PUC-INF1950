@@ -40,7 +40,7 @@ public class Tree extends JTree {
 		newRoot((File)root.getUserObject());
 	}
 	
-	public void newRoot(File folder) throws Exception {
+	public void newRoot(File folder) throws Exception {		
 		if(folder.getType().equals("file"))
 			return;
 		
@@ -93,6 +93,12 @@ public class Tree extends JTree {
 		DefaultMutableTreeNode returnNode = new DefaultMutableTreeNode(returnFolder);
 
 		root.add(returnNode);
+	}
+	
+	public void cleanChildren() {
+		root.removeAllChildren();
+		
+		this.updateUI();
 	}
 
 }

@@ -32,7 +32,7 @@ public class OnClick implements ActionListener {
 			
             JOptionPane.showMessageDialog(View.driveFrame, "Decifrado com sucesso.");
 			
-            View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+            View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (BadPaddingException e1) {
             JOptionPane.showMessageDialog(View.driveFrame, "Falha ao tentar decifrar.");
 		} catch (Exception e1) {

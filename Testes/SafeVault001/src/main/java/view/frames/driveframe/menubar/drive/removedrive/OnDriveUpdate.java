@@ -15,11 +15,11 @@ public class OnDriveUpdate implements UpdateListener {
 
 	@Override
 	public void engineUpdated(UpdateOptions engineUpdate) {
-		if(engineUpdate == UpdateOptions.FILE_UPDATE)
+		if(engineUpdate != UpdateOptions.DRIVE_ADDED)
 			return;
 		
 		removeDrive.removeAll();
-		View.driverList.getDrives().forEach(drive -> {
+		View.driverList.getStream().forEach(drive -> {
 			removeDrive.add(new Drive(drive.getName()));
 		});
 	}

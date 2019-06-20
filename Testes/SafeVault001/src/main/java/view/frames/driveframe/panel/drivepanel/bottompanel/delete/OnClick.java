@@ -42,7 +42,7 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.delete(file);
 			
-			View.update.updateListeners(UpdateOptions.FILE_UPDATE);
+			View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

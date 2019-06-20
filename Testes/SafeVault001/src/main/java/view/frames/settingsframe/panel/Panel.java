@@ -23,6 +23,8 @@ public class Panel extends JPanel {
 
 	public SettingsFrame settingsFrame;
 	public Drive drive;
+	
+	public JTextField name;
 	public JTextField startPath;
 	
 	public KeyTextField privateKeyTextField;
@@ -30,6 +32,8 @@ public class Panel extends JPanel {
 	
 	public ImportPrivateKeyButton importPrivateKeyButton;
 	public ImportCertificateButton importCertificateButton;
+
+	public JTextField secretPhrase;
 	
 	public PrivateKey privateKey;
 	public X509Certificate certificate;
@@ -38,6 +42,7 @@ public class Panel extends JPanel {
 		this.settingsFrame = settingsFrame;
 		this.drive = drive;
 		
+		this.name = new JTextField(drive.getName());
 		this.startPath = new JTextField(drive.getStartPath());
 		
 		this.privateKeyTextField = new KeyTextField(drive.getPrivateKey());
@@ -45,6 +50,8 @@ public class Panel extends JPanel {
 		
 		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
 		this.importCertificateButton = new ImportCertificateButton(this);
+		
+		this.secretPhrase = new JTextField("frase secreta aqui");
 		
 		this.privateKey = drive.getPrivateKey();
 		this.certificate = drive.getCertificate();
@@ -58,100 +65,118 @@ public class Panel extends JPanel {
 		constraints.gridy = 0;
 		constraints.weightx = 1;
 		constraints.gridwidth = 4;
-		constraints.insets = new Insets(10, 10, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(new JLabel("Drive name: " + drive.getName()), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 1;
-		constraints.weightx = 1;
-		constraints.gridwidth = 4;
-		constraints.insets = new Insets(0, 10, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Plugin name: " + drive.getPluginName()), constraints);
+		this.add(new JLabel("Plugin name:"), constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 1;
+		constraints.gridy = 1;
+		constraints.weightx = 1;
+		constraints.gridwidth = 3;
+		constraints.insets = new Insets(10, 10, 0, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(name, constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 2;
-		constraints.insets = new Insets(0, 10, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Start path: "), constraints);
+		this.add(new JLabel("Start path:"), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
 		constraints.gridy = 2;
 		constraints.weightx = 1;
 		constraints.gridwidth = 3;
-		constraints.weightx = 1;
-		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(startPath, constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 3;
-		constraints.insets = new Insets(0, 10, 10, 0);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Private key: "), constraints);
+		this.add(new JLabel("Private key:"), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
 		constraints.gridy = 3;
 		constraints.weightx = 1;
-		constraints.gridwidth = 2;
-		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(privateKeyTextField, constraints);
 
 		constraints = new GridBagConstraints();
-		constraints.gridx = 3;
+		constraints.gridx = 2;
 		constraints.gridy = 3;
-		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.gridwidth = 2;
+		constraints.insets = new Insets(10, 10, 0, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(importPrivateKeyButton, constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 4;
-		constraints.insets = new Insets(0, 10, 10, 0);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Public Key: "), constraints);
+		this.add(new JLabel("Public Key:"), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
 		constraints.gridy = 4;
 		constraints.weightx = 1;
-		constraints.gridwidth = 2;
-		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(publicKeyTextField, constraints);
 
 		constraints = new GridBagConstraints();
-		constraints.gridx = 3;
+		constraints.gridx = 2;
 		constraints.gridy = 4;
-		constraints.insets = new Insets(0, 0, 10, 10);
+		constraints.gridwidth = 2;
+		constraints.insets = new Insets(10, 10, 0, 10);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
 		this.add(importCertificateButton, constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 5;
+		constraints.insets = new Insets(10, 10, 0, 0);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(new JLabel("Frase secreta:"), constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 1;
+		constraints.gridy = 5;
 		constraints.weightx = 1;
+		constraints.gridwidth = 3;
+		constraints.insets = new Insets(10, 10, 0, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(secretPhrase, constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 2;
+		constraints.gridy = 6;
 		constraints.weighty = 1;
-		constraints.gridwidth = 2;
-		constraints.insets = new Insets(0, 10, 10, 0);
+		constraints.insets = new Insets(10, 10, 10, 0);
 		constraints.anchor = GridBagConstraints.LAST_LINE_END;
 		this.add(new SaveButton(this), constraints);
 
 		constraints = new GridBagConstraints();
-		constraints.gridx = 2;
-		constraints.gridy = 5;
-		constraints.weightx = 1;
+		constraints.gridx = 3;
+		constraints.gridy = 6;
 		constraints.weighty = 1;
-		constraints.gridwidth = 2;
-		constraints.insets = new Insets(0, 10, 10, 0);
-		constraints.anchor = GridBagConstraints.LAST_LINE_START;
+		constraints.insets = new Insets(10, 10, 10, 10);
+		constraints.anchor = GridBagConstraints.LAST_LINE_END;
 		this.add(new CancelButton(this), constraints);
 	}
 
