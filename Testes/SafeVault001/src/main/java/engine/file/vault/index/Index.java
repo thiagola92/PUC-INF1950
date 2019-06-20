@@ -20,7 +20,6 @@ public class Index {
 		ArrayList<File> files = List.listFolder(vault);
 		
 		String indexName = getIndexName(file.getDrive());
-		System.out.println(indexName);
 		
 		for(int i = 0; i < files.size(); i++)
 			if(files.get(i).getName().equals(indexName) && files.get(i).getType().equals("file"))
