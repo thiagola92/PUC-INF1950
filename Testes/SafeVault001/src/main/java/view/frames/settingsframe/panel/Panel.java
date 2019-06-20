@@ -51,7 +51,7 @@ public class Panel extends JPanel {
 		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
 		this.importCertificateButton = new ImportCertificateButton(this);
 		
-		this.secretPhrase = new JTextField("frase secreta aqui");
+		this.secretPhrase = new JTextField(drive.getSecretPhrase());
 		
 		this.privateKey = drive.getPrivateKey();
 		this.certificate = drive.getCertificate();

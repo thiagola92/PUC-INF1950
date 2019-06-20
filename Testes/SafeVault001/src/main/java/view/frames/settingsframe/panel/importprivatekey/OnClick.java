@@ -68,9 +68,6 @@ public class OnClick implements ActionListener {
 		int answer = JOptionPane.showOptionDialog(importPrivateKeyButton.panel, panel, "Input", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, options, 1);
 		String password = new String(passworldField.getPassword());
 		
-		System.out.println(answer);
-		System.out.println(password);
-		
 		if(answer != 0)
 			return null;
 		

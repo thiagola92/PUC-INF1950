@@ -7,6 +7,7 @@ import engine.file.File;
 import engine.file.Utility;
 import engine.file.action.Create;
 import engine.file.vault.cryptography.Encrypt;
+import engine.file.vault.index.Index;
 
 public class Vault {
 
@@ -55,7 +56,10 @@ public class Vault {
 		
 		File vault = Create.createFolder(file, vaultName);
 		
-		String indexPath = Utility.concatPath(vault.getPath(), "index");
+		String indexName = Index.getIndexName(file.getDrive());
+		System.out.println(indexName);
+		String indexPath = Utility.concatPath(vault.getPath(), indexName);
+		
 		file.getDrive().getPlugin().createFile(indexPath);
 		file.getDrive().getPlugin().writeFile(indexPath, container);
 		

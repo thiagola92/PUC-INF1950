@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import engine.file.File;
+import engine.file.vault.index.exception.IndexNotFoundException;
 import view.View;
 import view.stringformat.StringFormat;
 
@@ -34,6 +35,12 @@ public class OnDoubleClick implements MouseListener {
 			tree.newRoot(file);
 		} catch (InvalidKeyException e1) {
 			StringFormat message = new StringFormat("Chave inválida para esse vault.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
+		} catch (IndexNotFoundException e1) {
+			StringFormat message = new StringFormat("Não foi possível encontrar o index do vault '" + file.getDrive().getName() + "'.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
+		} catch (ArrayIndexOutOfBoundsException e1) {
+			StringFormat message = new StringFormat("Index do drive '" + file.getDrive().getName() + "' está mal formulado ou não é o index do vault.");
 			JOptionPane.showMessageDialog(View.driveFrame, message);
 		} catch (Exception e1) {
 			e1.printStackTrace();

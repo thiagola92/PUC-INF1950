@@ -12,6 +12,7 @@ public class Drive {
 	private String name;
 	private String pluginName;
 	private String startPath;
+	private String secretPhrase;
 	
 	private Plugin plugin;
 	private X509Certificate certificate;
@@ -21,6 +22,7 @@ public class Drive {
 		this.name = driveName;
 		this.pluginName = pluginName;
 		this.startPath = "";
+		this.secretPhrase = "";
 		
 		this.plugin = PluginList.createPlugin(pluginName);
 		this.certificate = null;
@@ -45,6 +47,14 @@ public class Drive {
 	
 	public void setStartPath(String startPath) {
 		this.startPath = startPath;
+	}
+	
+	public String getSecretPhrase() {
+		return secretPhrase;
+	}
+	
+	public void setSecretPhrase(String secretPhrase) {
+		this.secretPhrase = secretPhrase;
 	}
 	
 	public Plugin getPlugin() {

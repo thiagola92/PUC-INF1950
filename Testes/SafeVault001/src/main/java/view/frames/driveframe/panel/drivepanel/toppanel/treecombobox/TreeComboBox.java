@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import engine.file.File;
 import engine.file.drive.Drive;
 import engine.file.vault.Vault;
+import engine.file.vault.index.exception.IndexNotFoundException;
 import view.View;
 import view.frames.driveframe.panel.drivepanel._enumeration.mode.DrivePanelMode;
 import view.frames.driveframe.panel.drivepanel.toppanel.TopPanel;
@@ -53,7 +54,7 @@ public class TreeComboBox extends JComboBox<Drive>{
 	}
 	
 	public void cleanTree(Drive drive) {
-		StringFormat message = new StringFormat("O vault '" + drive.getName() + "' não possui vault.");
+		StringFormat message = new StringFormat("O drive '" + drive.getName() + "' não possui um vault.");
 		JOptionPane.showMessageDialog(View.driveFrame, message);
 
 		topPanel.drivePanel.treeScrollPane.tree.cleanChildren();
@@ -67,6 +68,14 @@ public class TreeComboBox extends JComboBox<Drive>{
 			JOptionPane.showMessageDialog(View.driveFrame, message);
 
 			topPanel.drivePanel.treeScrollPane.tree.cleanChildren();
+		} catch (IndexNotFoundException e1) {
+			StringFormat message = new StringFormat("Não foi possível encontrar o index do vault '" + file.getDrive().getName() + "'.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
+
+			topPanel.drivePanel.treeScrollPane.tree.cleanChildren();
+		} catch (ArrayIndexOutOfBoundsException e1) {
+			StringFormat message = new StringFormat("Index do drive '" + file.getDrive().getName() + "' está mal formulado ou não é o index do vault.");
+			JOptionPane.showMessageDialog(View.driveFrame, message);
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}

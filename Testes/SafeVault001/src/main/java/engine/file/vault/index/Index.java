@@ -3,20 +3,24 @@ package engine.file.vault.index;
 import java.util.ArrayList;
 
 import engine.file.File;
+import engine.file.RandomName;
 import engine.file.action.List;
+import engine.file.drive.Drive;
 import engine.file.vault.Vault;
 import engine.file.vault.index.exception.IndexNotFoundException;
 import engine.file.vault.index.indexfile.IndexFile;
 
 public class Index {
-
-	public static String indexName = "index";
+	
 	public static String separator = "|";
 	public static String regexSeparator = "\\|";
 	
 	public static IndexFile getIndex(File file) throws Exception {
 		File vault = Vault.getVault(file);
 		ArrayList<File> files = List.listFolder(vault);
+		
+		String indexName = getIndexName(file.getDrive());
+		System.out.println(indexName);
 		
 		for(int i = 0; i < files.size(); i++)
 			if(files.get(i).getName().equals(indexName) && files.get(i).getType().equals("file"))
@@ -33,5 +37,12 @@ public class Index {
 				return fileFromList;
 		
 		return file;
+	}
+	
+	public static String getIndexName(Drive drive) throws Exception {
+		String secretPhrase = drive.getSecretPhrase();
+		String indexName = RandomName.generatePseudoRandomName(secretPhrase);
+		
+		return indexName;
 	}
 }
