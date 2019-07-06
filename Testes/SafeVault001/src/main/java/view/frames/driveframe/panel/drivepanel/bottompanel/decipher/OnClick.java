@@ -11,6 +11,7 @@ import engine.Engine;
 import engine.file.File;
 import view.View;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
+import view.frames.loadingframe.LoadingFrame;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -27,6 +28,8 @@ public class OnClick implements ActionListener {
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 		
+		View.loadingFrame = new LoadingFrame();
+		
 		try {
 			Engine.decipher(file);
 			
@@ -37,6 +40,8 @@ public class OnClick implements ActionListener {
             JOptionPane.showMessageDialog(View.driveFrame, "Falha ao tentar decifrar.");
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		} finally {
+			View.loadingFrame.dispose();
 		}
 	}
 

@@ -43,7 +43,7 @@ public class OnClick implements ActionListener {
 		panel.drive.setStartPath(newStartPath);
 		panel.drive.setPrivateKey(privateKey);
 		panel.drive.setCertificate(certificate);
-		panel.drive.setSecretPhrase(panel.secretPhrase.getText());
+		panel.drive.setSecretPhrase(new String(panel.secretPhrase.getPassword()));
 
 		panel.settingsFrame.dispose();
 		

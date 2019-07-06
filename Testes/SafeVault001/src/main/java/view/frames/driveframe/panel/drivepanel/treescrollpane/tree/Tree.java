@@ -71,7 +71,7 @@ public class Tree extends JTree {
 		});
 	}
 	
-	public void addReturnNode(File rootFolder) throws Exception {
+	public void addReturnNode(File rootFolder) throws Exception {		
 		Path rootPath = Paths.get(rootFolder.getPath());
 		String returnPath = rootFolder.getDrive().getStartPath();
 		
@@ -97,6 +97,9 @@ public class Tree extends JTree {
 	
 	public void cleanChildren() {
 		root.removeAllChildren();
+		
+		File rootWithoutName = (File)root.getUserObject();
+		rootWithoutName.setName("");
 		
 		this.updateUI();
 	}

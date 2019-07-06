@@ -57,7 +57,6 @@ public class Vault {
 		File vault = Create.createFolder(file, vaultName);
 		
 		String indexName = Index.getIndexName(file.getDrive());
-		System.out.println(indexName);
 		String indexPath = Utility.concatPath(vault.getPath(), indexName);
 		
 		file.getDrive().getPlugin().createFile(indexPath);

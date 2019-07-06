@@ -8,6 +8,7 @@ import java.security.cert.X509Certificate;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import engine.file.drive.Drive;
@@ -33,7 +34,7 @@ public class Panel extends JPanel {
 	public ImportPrivateKeyButton importPrivateKeyButton;
 	public ImportCertificateButton importCertificateButton;
 
-	public JTextField secretPhrase;
+	public JPasswordField secretPhrase;
 	
 	public PrivateKey privateKey;
 	public X509Certificate certificate;
@@ -51,7 +52,7 @@ public class Panel extends JPanel {
 		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
 		this.importCertificateButton = new ImportCertificateButton(this);
 		
-		this.secretPhrase = new JTextField(drive.getSecretPhrase());
+		this.secretPhrase = new JPasswordField(drive.getSecretPhrase());
 		
 		this.privateKey = drive.getPrivateKey();
 		this.certificate = drive.getCertificate();

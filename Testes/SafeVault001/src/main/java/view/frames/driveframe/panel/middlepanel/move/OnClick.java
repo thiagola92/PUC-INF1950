@@ -13,6 +13,7 @@ import engine.Engine;
 import engine.file.File;
 import view.View;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
+import view.frames.loadingframe.LoadingFrame;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -35,6 +36,8 @@ public class OnClick implements ActionListener {
 		DefaultMutableTreeNode toNode = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File toFile = (File) toNode.getUserObject();
 		
+		View.loadingFrame = new LoadingFrame();
+		
 		try {
 			Engine.move(fromFile, toFile);
 			
@@ -49,6 +52,8 @@ public class OnClick implements ActionListener {
 			e1.printStackTrace();
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		} finally {
+			View.loadingFrame.dispose();
 		}
 	}
 

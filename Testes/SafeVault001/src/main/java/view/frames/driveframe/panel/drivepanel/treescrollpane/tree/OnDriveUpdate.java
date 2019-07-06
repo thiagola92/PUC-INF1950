@@ -18,7 +18,9 @@ public class OnDriveUpdate implements UpdateListener {
 		
 		try {
 			tree.updateRoot();
-		} catch (Exception e) {
+		} catch (NullPointerException e1) { 
+			System.err.println("Uma das arvores não foi possível carregar");
+		}  catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

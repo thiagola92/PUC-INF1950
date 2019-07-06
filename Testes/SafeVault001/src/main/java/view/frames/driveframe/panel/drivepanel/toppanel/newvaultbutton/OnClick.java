@@ -11,6 +11,7 @@ import engine.file.drive.Drive;
 import engine.file.vault.Vault;
 import view.View;
 import view.frames.driveframe.panel.drivepanel.toppanel.treecombobox.TreeComboBox;
+import view.frames.loadingframe.LoadingFrame;
 import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
@@ -31,7 +32,11 @@ public class OnClick implements ActionListener {
 			if(canCreateSafeVault(file) == false)
 				return;
 			
+			View.loadingFrame = new LoadingFrame();
+			
 			Vault.createSafeVault(file);
+			
+			View.loadingFrame.dispose();
 			
 			String message = "Vault criado com sucesso.";
 			message = new String(message.getBytes(), StandardCharsets.UTF_8);
@@ -40,6 +45,8 @@ public class OnClick implements ActionListener {
 			View.update.updateListeners(UpdateOptions.DRIVE_UPDATED);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			View.loadingFrame.dispose();
 		}
 	}
 	

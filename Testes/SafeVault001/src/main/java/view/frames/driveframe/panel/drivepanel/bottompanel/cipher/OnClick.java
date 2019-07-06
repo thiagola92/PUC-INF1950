@@ -11,6 +11,7 @@ import engine.file.File;
 import engine.file.vault.Vault;
 import view.View;
 import view.frames.driveframe.panel.drivepanel.treescrollpane.tree.Tree;
+import view.frames.loadingframe.LoadingFrame;
 import view.stringformat.StringFormat;
 import view.update.UpdateOptions;
 
@@ -41,6 +42,8 @@ public class OnClick implements ActionListener {
 		if(answer == JOptionPane.NO_OPTION)
 			return;
 		
+		View.loadingFrame = new LoadingFrame();
+		
 		try {
 			Engine.cipher(file);
 			
@@ -49,6 +52,8 @@ public class OnClick implements ActionListener {
             View.update.updateListeners(UpdateOptions.FILE_UPDATED);
 		} catch (Exception e1) {
 			e1.printStackTrace();
+		} finally {
+			View.loadingFrame.dispose();
 		}
 	}
 	
