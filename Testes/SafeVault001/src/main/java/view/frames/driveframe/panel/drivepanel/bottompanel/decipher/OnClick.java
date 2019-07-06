@@ -33,6 +33,8 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.decipher(file);
 			
+			View.loadingFrame.dispose();
+			
             JOptionPane.showMessageDialog(View.driveFrame, "Decifrado com sucesso.");
 			
             View.update.updateListeners(UpdateOptions.FILE_UPDATED);

@@ -19,9 +19,9 @@ public class OnClick implements ActionListener {
 		if(driveName == null)
 			return;
 
-		String secretPhrase = JOptionPane.showInputDialog("Frase secreta:");
-		if(secretPhrase == null)
-			return;
+//		String secretPhrase = JOptionPane.showInputDialog("Frase secreta:");
+//		if(secretPhrase == null)
+//			return;
 		
 		JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -33,7 +33,7 @@ public class OnClick implements ActionListener {
 		try {
 			Drive drive = new Drive(driveName, "Default");
 			drive.setStartPath(startPath);
-			drive.setSecretPhrase(secretPhrase);
+//			drive.setSecretPhrase(secretPhrase);
 			
 			View.driverList.addDrive(drive);
 		} catch (NameAlreadyUsedException e1) {

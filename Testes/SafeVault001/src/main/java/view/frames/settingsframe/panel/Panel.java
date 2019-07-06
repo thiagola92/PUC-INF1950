@@ -35,6 +35,7 @@ public class Panel extends JPanel {
 	public ImportCertificateButton importCertificateButton;
 
 	public JPasswordField secretPhrase;
+	public JPasswordField confirmSecretPhrase;
 	
 	public PrivateKey privateKey;
 	public X509Certificate certificate;
@@ -52,7 +53,8 @@ public class Panel extends JPanel {
 		this.importPrivateKeyButton = new ImportPrivateKeyButton(this);
 		this.importCertificateButton = new ImportCertificateButton(this);
 		
-		this.secretPhrase = new JPasswordField(drive.getSecretPhrase());
+		this.secretPhrase = new JPasswordField("");
+		this.confirmSecretPhrase = new JPasswordField("");
 		
 		this.privateKey = drive.getPrivateKey();
 		this.certificate = drive.getCertificate();
@@ -165,8 +167,24 @@ public class Panel extends JPanel {
 		this.add(secretPhrase, constraints);
 
 		constraints = new GridBagConstraints();
-		constraints.gridx = 2;
+		constraints.gridx = 0;
 		constraints.gridy = 6;
+		constraints.insets = new Insets(10, 10, 0, 0);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(new JLabel("Confirme frase:"), constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 1;
+		constraints.gridy = 6;
+		constraints.weightx = 1;
+		constraints.gridwidth = 3;
+		constraints.insets = new Insets(10, 10, 0, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(confirmSecretPhrase, constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 2;
+		constraints.gridy = 7;
 		constraints.weighty = 1;
 		constraints.insets = new Insets(10, 10, 10, 0);
 		constraints.anchor = GridBagConstraints.LAST_LINE_END;
@@ -174,7 +192,7 @@ public class Panel extends JPanel {
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 3;
-		constraints.gridy = 6;
+		constraints.gridy = 7;
 		constraints.weighty = 1;
 		constraints.insets = new Insets(10, 10, 10, 10);
 		constraints.anchor = GridBagConstraints.LAST_LINE_END;

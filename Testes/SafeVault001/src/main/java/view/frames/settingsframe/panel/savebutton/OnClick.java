@@ -38,12 +38,23 @@ public class OnClick implements ActionListener {
 			if(isValidKeys(certificate, privateKey) == false)
 				return;
 		}
+		
+		String secretPhrase = new String(panel.secretPhrase.getPassword());
+		String confirmSecretPhrase = new String(panel.confirmSecretPhrase.getPassword());
+		
+		if(secretPhrase.isEmpty() && confirmSecretPhrase.isEmpty()) {
+			secretPhrase = panel.drive.getSecretPhrase();
+			confirmSecretPhrase = panel.drive.getSecretPhrase();
+		}
+		
+		if(isEqual(secretPhrase, confirmSecretPhrase) == false)
+			return;
 
 		panel.drive.setName(panel.name.getText());
 		panel.drive.setStartPath(newStartPath);
 		panel.drive.setPrivateKey(privateKey);
 		panel.drive.setCertificate(certificate);
-		panel.drive.setSecretPhrase(new String(panel.secretPhrase.getPassword()));
+		panel.drive.setSecretPhrase(secretPhrase);
 
 		panel.settingsFrame.dispose();
 		
@@ -103,5 +114,15 @@ public class OnClick implements ActionListener {
             return true;
 
         return false;
+    }
+    
+    public boolean isEqual(String phrase1, String phrase2) {
+    	if(phrase1.equals(phrase2))
+    		return true;
+    	
+		StringFormat message = new StringFormat("As frases secretas não são iguais.");
+		JOptionPane.showMessageDialog(panel, message);
+    	
+    	return false;
     }
 }

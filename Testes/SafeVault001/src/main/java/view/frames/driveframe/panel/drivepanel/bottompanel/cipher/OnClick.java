@@ -47,6 +47,8 @@ public class OnClick implements ActionListener {
 		try {
 			Engine.cipher(file);
 			
+			View.loadingFrame.dispose();
+			
             JOptionPane.showMessageDialog(View.driveFrame, "Cifrado com sucesso.");
 			
             View.update.updateListeners(UpdateOptions.FILE_UPDATED);

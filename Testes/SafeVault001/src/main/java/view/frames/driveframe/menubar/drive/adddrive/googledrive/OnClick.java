@@ -17,13 +17,13 @@ public class OnClick implements ActionListener {
 		if(driveName == null)
 			return;
 		
-		String secretPhrase = JOptionPane.showInputDialog("Frase secreta:");
-		if(secretPhrase == null)
-			return;
+//		String secretPhrase = JOptionPane.showInputDialog("Frase secreta:");
+//		if(secretPhrase == null)
+//			return;
 		
 		try {
 			Drive drive = new Drive(driveName, "GoogleDrive");
-			drive.setSecretPhrase(secretPhrase);
+//			drive.setSecretPhrase(secretPhrase);
 			
 			View.driverList.addDrive(drive);
 		} catch (Exception e1) {
