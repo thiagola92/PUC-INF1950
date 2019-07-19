@@ -9,11 +9,11 @@ import view.frames.driveframe.panel.drivepanel.bottompanel.BottomPanel;
 import view.frames.driveframe.panel.drivepanel.bottompanel.delete.OnClick;
 
 @SuppressWarnings("serial")
-public class Delete extends JButton {
+public class DeleteButton extends JButton {
 	
 	public BottomPanel bottomPanel;
 	
-	public Delete(BottomPanel bottomPanel) {
+	public DeleteButton(BottomPanel bottomPanel) {
 		this.bottomPanel = bottomPanel;
 		
 		createIcon();

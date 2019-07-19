@@ -16,15 +16,15 @@ import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	private Decipher decipher;
+	private DecipherButton decipherButton;
 	
-	public OnClick(Decipher decipher) {
-		this.decipher = decipher;
+	public OnClick(DecipherButton decipherButton) {
+		this.decipherButton = decipherButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Tree tree = decipher.bottomPanel.drivePanel.treeScrollPane.tree;
+		Tree tree = decipherButton.bottomPanel.drivePanel.treeScrollPane.tree;
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 		

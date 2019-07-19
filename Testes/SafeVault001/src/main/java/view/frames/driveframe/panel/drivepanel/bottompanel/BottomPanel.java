@@ -6,18 +6,18 @@ import java.awt.GridBagLayout;
 import javax.swing.JPanel;
 
 import view.frames.driveframe.panel.drivepanel.DrivePanel;
-import view.frames.driveframe.panel.drivepanel.bottompanel.cipher.Cipher;
-import view.frames.driveframe.panel.drivepanel.bottompanel.decipher.Decipher;
-import view.frames.driveframe.panel.drivepanel.bottompanel.delete.Delete;
-import view.frames.driveframe.panel.drivepanel.bottompanel.newFolder.NewFolder;
+import view.frames.driveframe.panel.drivepanel.bottompanel.cipher.CipherButton;
+import view.frames.driveframe.panel.drivepanel.bottompanel.decipher.DecipherButton;
+import view.frames.driveframe.panel.drivepanel.bottompanel.delete.DeleteButton;
+import view.frames.driveframe.panel.drivepanel.bottompanel.newFolder.NewFolderButton;
 
 @SuppressWarnings("serial")
 public class BottomPanel extends JPanel {
 	
-	public Cipher cipher = new Cipher(this);
-	public Decipher decipher = new Decipher(this);
-	public Delete delete = new Delete(this);
-	public NewFolder newFolder = new NewFolder(this);
+	public CipherButton cipherButton = new CipherButton(this);
+	public DecipherButton decipherButton = new DecipherButton(this);
+	public DeleteButton deleteButton = new DeleteButton(this);
+	public NewFolderButton newFolderButton = new NewFolderButton(this);
 	
 	public DrivePanel drivePanel;
 	
@@ -32,27 +32,27 @@ public class BottomPanel extends JPanel {
 		constraints.gridx = 0;
 		constraints.gridy = 0;
 		constraints.anchor = GridBagConstraints.LINE_START;
-		this.add(cipher, constraints);
+		this.add(cipherButton, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
 		constraints.gridy = 0;
 		constraints.weightx = 1;
 		constraints.anchor = GridBagConstraints.LINE_START;
-		this.add(decipher, constraints);
+		this.add(decipherButton, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = 2;
 		constraints.gridy = 0;
 		constraints.weightx = 0.1;
 		constraints.anchor = GridBagConstraints.LINE_END;
-		this.add(newFolder, constraints);
+		this.add(newFolderButton, constraints);
 		
 		constraints = new GridBagConstraints();
 		constraints.gridx = 3;
 		constraints.gridy = 0;
 		constraints.anchor = GridBagConstraints.LINE_END;
-		this.add(delete, constraints);
+		this.add(deleteButton, constraints);
 	}
 
 }

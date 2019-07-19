@@ -16,15 +16,15 @@ import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	private Delete delete;
+	private DeleteButton deleteButton;
 	
-	public OnClick(Delete delete) {
-		this.delete = delete;
+	public OnClick(DeleteButton deleteButton) {
+		this.deleteButton = deleteButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Tree tree = delete.bottomPanel.drivePanel.treeScrollPane.tree;
+		Tree tree = deleteButton.bottomPanel.drivePanel.treeScrollPane.tree;
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 

@@ -8,11 +8,11 @@ import javax.swing.JButton;
 import view.frames.driveframe.panel.drivepanel.bottompanel.BottomPanel;
 
 @SuppressWarnings("serial")
-public class Decipher extends JButton {
+public class DecipherButton extends JButton {
 	
 	public BottomPanel bottomPanel;
 	
-	public Decipher(BottomPanel bottomPanel) {
+	public DecipherButton(BottomPanel bottomPanel) {
 		this.bottomPanel = bottomPanel;
 		
 		createIcon();

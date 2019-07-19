@@ -17,15 +17,15 @@ import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	public Cipher cipher;
+	public CipherButton cipherButton;
 	
-	public OnClick(Cipher cipher) {
-		this.cipher = cipher;
+	public OnClick(CipherButton cipherButton) {
+		this.cipherButton = cipherButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Tree tree = cipher.bottomPanel.drivePanel.treeScrollPane.tree;
+		Tree tree = cipherButton.bottomPanel.drivePanel.treeScrollPane.tree;
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File file = (File) node.getUserObject();
 		

@@ -15,15 +15,15 @@ import view.update.UpdateOptions;
 
 public class OnClick implements ActionListener {
 	
-	private NewFolder newFolder;
+	private NewFolderButton newFolderButton;
 	
-	public OnClick(NewFolder newFolder) {
-		this.newFolder = newFolder;
+	public OnClick(NewFolderButton newFolderButton) {
+		this.newFolderButton = newFolderButton;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Tree tree = newFolder.bottomPanel.drivePanel.treeScrollPane.tree;
+		Tree tree = newFolderButton.bottomPanel.drivePanel.treeScrollPane.tree;
 		DefaultMutableTreeNode node = (DefaultMutableTreeNode)tree.getSelectionPath().getLastPathComponent();
 		File folder = (File) node.getUserObject();
 		
