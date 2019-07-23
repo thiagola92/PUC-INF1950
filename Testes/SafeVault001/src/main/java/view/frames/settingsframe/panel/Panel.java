@@ -70,14 +70,23 @@ public class Panel extends JPanel {
 		constraints.gridwidth = 4;
 		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Drive name: " + drive.getName()), constraints);
+		this.add(new JLabel("Plugin name: "), constraints);
+
+		constraints = new GridBagConstraints();
+		constraints.gridx = 1;
+		constraints.gridy = 0;
+		constraints.weightx = 1;
+		constraints.gridwidth = 3;
+		constraints.insets = new Insets(10, 10, 0, 10);
+		constraints.fill = GridBagConstraints.HORIZONTAL;
+		this.add(new JLabel(drive.getPluginName()), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 0;
 		constraints.gridy = 1;
 		constraints.insets = new Insets(10, 10, 0, 0);
 		constraints.fill = GridBagConstraints.HORIZONTAL;
-		this.add(new JLabel("Plugin name:"), constraints);
+		this.add(new JLabel("Drive name:"), constraints);
 
 		constraints = new GridBagConstraints();
 		constraints.gridx = 1;
