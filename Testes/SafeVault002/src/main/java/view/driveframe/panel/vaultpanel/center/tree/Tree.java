@@ -61,7 +61,9 @@ public class Tree extends JTree {
 	
 	public void update() throws Exception {
 		File file = (File)root.getUserObject();
-		set_root(file);
+		
+		if(file != null)
+			set_root(file);
 	}
 	
 	private void open(File folder) throws Exception {

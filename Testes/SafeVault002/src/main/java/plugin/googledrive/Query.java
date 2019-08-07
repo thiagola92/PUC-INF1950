@@ -117,7 +117,6 @@ public class Query {
 		
 		Path path = Paths.get(folderPath).normalize();
 		Path parent = path.getParent();
-		String folderName = path.getFileName().toString();
 		String parentID = null;
 		
 		if(parent == null)
@@ -125,6 +124,10 @@ public class Query {
 		else
 			parentID = folderID(parent.toString());
 		
+		if(path.getFileName() == null)
+			return root();
+
+		String folderName = path.getFileName().toString();
 		String folderID = foldersNamed(parentID, folderName).get(0).getId();
 		
 		pathsIDs.put(folderPath, folderID);
